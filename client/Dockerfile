@@ -6,7 +6,7 @@ ln -s /usr/share/zoneinfo/US/Pacific localtime
 
 WORKDIR /app
 
-COPY ["./package.json", "./yarn.lock", "webpack.config.js", "/app/"]
+COPY ["./package.json", "./yarn.lock", "/app/"]
 COPY ["./src", "/app/src"]
 
 ARG NODE_ENV="production"
