@@ -1,0 +1,45 @@
+{
+  "name": "nerds-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "start": "NODE_ENV=production node ./src/app.js",
+    "development": "NODE_ENV=development nodemon --watch ./src ./src/app.js",
+    "eslint": "eslint ./src"
+  },
+  "dependencies": {
+    "app-module-path": "2.2.0",
+    "base64-url": "^2.3.3",
+    "base64url": "^3.0.1",
+    "isomorphic-fetch": "3.0.0",
+    "jsonschema": "1.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "kcors": "2.2.2",
+    "koa": "2.13.1",
+    "koa-bodyparser": "4.3.0",
+    "koa-helmet": "6.0.0",
+    "koa-jwt": "4.0.0",
+    "koa-mount": "4.0.0",
+    "koa-router": "10.0.0",
+    "koa-session": "^6.1.0",
+    "koa-validate": "1.0.7",
+    "lodash": "4.17.20",
+    "moment": "2.29.1",
+    "monk": "^7.3.3",
+    "simple-oauth2": "^4.2.0",
+    "winston": "^3.3.3",
+    "wordpress-hash-node": "1.0.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.3",
+    "eslint": "^7.19.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.22.0",
+    "nodemon": "^2.0.7"
+  }
+}

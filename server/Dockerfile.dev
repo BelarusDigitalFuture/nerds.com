@@ -1,0 +1,12 @@
+FROM node:14.15
+
+RUN cd /etc && \
+rm localtime && \
+ln -s /usr/share/zoneinfo/US/Pacific localtime
+
+COPY ["./package.json", "./nodemon.json", "./yarn.lock", "/app/"]
+RUN cd /app && yarn install
+
+WORKDIR /app
+
+EXPOSE 8081

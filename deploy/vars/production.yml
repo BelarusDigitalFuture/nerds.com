@@ -1,0 +1,8 @@
+env: production
+app_dir: /home/ubuntu/nerds.com
+
+nodejs_version: 14.x
+docker_compose_version: 1.6.0
+
+nginx_remove_default_vhost: true
+nginx_ppa_version: development

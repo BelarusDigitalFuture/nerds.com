@@ -1,0 +1,36 @@
+version: '2'
+services:
+  server:
+    command: yarn development
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    volumes:
+      - "./server/src:/app/src"
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mongo
+  client:
+    command: yarn start
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    volumes:
+      - "./client/src:/app/src"
+    ports:
+      - "8080:8080"
+    links:
+      - server
+  mongo:
+    command: mongod
+    image: mongo:4.4
+    ports:
+      - "27017:27017"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - mongo-data:/data/db:rw
+
+volumes:
+  mongo-data:
+    driver: local

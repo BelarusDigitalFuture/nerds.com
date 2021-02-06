@@ -1,0 +1,14 @@
+- hosts: all
+  gather_facts: yes
+  vars_files:
+    - ["../vars/{{server_env}}.yml"]
+  sudo: yes
+
+- hosts: all
+  vars_files:
+    - ["../vars/{{server_env}}.yml"]
+  sudo: yes
+  roles:
+    - weareinteractive.docker
+  tasks:
+    - include: ../tasks/setup-app.yml

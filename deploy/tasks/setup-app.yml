@@ -1,0 +1,78 @@
+- name: Build nginx
+  docker_image:
+    name: nginx
+    path: "{{ app_dir }}/deploy/dockerfiles/nginx"
+    state: present
+    force: yes
+
+- name: Build server
+  docker_image:
+    name: nerds_server
+    path: "{{ app_dir }}/server"
+    state: present
+    force: yes
+
+- name: Build client
+  docker_image:
+    name: nerds_client
+    path: "{{ app_dir }}/client"
+    state: present
+    force: yes
+
+- name: Start MongoDB container
+  docker_container:
+    name: mongo
+    command: --auth
+    image: mongo:4.4
+    state: started
+    restart_policy: always
+    volumes:
+      - /data/mongo:/data/db:rw
+    ports:
+      - '127.0.0.1:27017:27017'
+
+- name: Start client
+  docker_container:
+    name: client
+    image: nerds_client
+    volumes:
+      - /app/dist
+
+- name: Start server
+  docker_container:
+    name: server
+    image: nerds_server
+    command: yarn start
+    state: started
+    recreate: yes
+    restart_policy: always
+    ports:
+      - '3000:3000'
+    volumes:
+      - /data
+    env:
+        MONGO_CONNECTION: mongodb://admin:Leodaig0wo@mongo:27017/nerds?authSource=admin
+        BASE_PORT: "3000"
+    links:
+      - mongo
+
+- name: Start Nginx container
+  docker_container:
+    name: nginx
+    image: nginx
+    state: started
+    recreate: yes
+    restart_policy: always
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - /var/log/nginx:/var/log/nginx:rw
+    volumes_from:
+      - client
+    links:
+      - server
+
+- name: Remove unused docker images
+  shell: docker rmi -f $(docker images -q -a)
+  ignore_errors: True
