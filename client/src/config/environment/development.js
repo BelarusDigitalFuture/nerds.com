@@ -1,4 +1,0 @@
-module.exports = {
-  apiUrl: 'http://localhost:8081',
-  url: 'http://localhost:8080',
-};
