@@ -72,8 +72,10 @@ service.authenticateUser = async ({
     roles: user.roles,
   });
 
-  await userService.update({ _id: user._id }, (doc) => {
-    doc.lastLoginAt = new Date();
+  await userService.atomic.update({ _id: user._id }, {
+    $set: {
+      lastLoginAt: new Date(),
+    }
   });
 
   service.setAuthCookie(ctx, token);

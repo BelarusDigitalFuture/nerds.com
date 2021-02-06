@@ -7,7 +7,6 @@ const config = require('../../../config');
 module.exports.login = async function signin(ctx) {
   const data = await loginValidator(ctx);
 
-  console.log(data);
   if (!data.isValid) {
     return;
   }
