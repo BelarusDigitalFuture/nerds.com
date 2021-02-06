@@ -12,12 +12,12 @@
     state: present
     force: yes
 
-#- name: Build client
-#  docker_image:
-#    name: nerds_client
-#    path: "{{ app_dir }}/client"
-#    state: present
-#    force: yes
+- name: Build client
+  docker_image:
+    name: nerds_client
+    path: "{{ app_dir }}/client"
+    state: present
+    force: yes
 
 - name: Start MongoDB container
   docker_container:
@@ -34,12 +34,12 @@
     ports:
       - '127.0.0.1:27017:27017'
 
-#- name: Start client
-#  docker_container:
-#    name: client
-#    image: nerds_client
-#    volumes:
-#      - /app/dist
+- name: Start client
+  docker_container:
+    name: client
+    image: nerds_client
+    volumes:
+      - /app/dist
 
 - name: Start server
   docker_container:
@@ -72,8 +72,8 @@
       - '8081:8081'
     volumes:
       - /var/log/nginx:/var/log/nginx:rw
-#    volumes_from:
-#      - client
+    volumes_from:
+      - client
     links:
       - server
 
