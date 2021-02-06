@@ -1,20 +1,29 @@
 const _ = require('lodash');
 const taskHelper = require('./task.helper');
 const taskService = require('./task.service');
-const taskConstants = require('./task.constants');
-const {getTask} = require('./task.acl');
-const {getTaskSet} = require('./../task-set/task-set.acl');
+const taskValidator = require('./validators/task.validator');
 
 module.exports.create = async (ctx) => {
-  const {taskSetId, type, maxLength, maxWords, text, evaluationInformation, correctAnswerPoints} = ctx.request.body;
+  const data = await taskValidator(ctx);
 
-  await getTaskSet(taskSetId, ctx.state.user);
-
-  if(Object.values(taskConstants.taskType).indexOf(type) === -1){
-    throw new Error('bad type');
+  if (!data.isValid) {
+    return;
   }
+  const {
+    taskSetId, type, maxLength,
+    maxWords, text, evaluationInformation,
+    correctAnswerPoints,
+  } = data;
 
-  const task = await taskService.create({taskSetId, type, maxLength, maxWords, text, evaluationInformation, correctAnswerPoints});
+  const task = await taskService.create({
+    taskSetId,
+    type,
+    maxLength,
+    maxWords,
+    text,
+    evaluationInformation,
+    correctAnswerPoints,
+  });
 
   ctx.body = {
     ...taskHelper.format(task),
@@ -22,42 +31,47 @@ module.exports.create = async (ctx) => {
 };
 
 module.exports.get = async (ctx) => {
-  const {taskSetId} = ctx.request.query;
+  const { taskSetId } = ctx.request.query;
 
-  await getTaskSet(taskSetId, ctx.state.user);
-
-  const tasks = await taskService.find({taskSetId});
-
-  ctx.body = {
-    ...taskHelper.formatArray(tasks),
-  };
-};
-
-module.exports.update = async (ctx) => {
-  const {taskSetId, type, maxLength, maxWords, text, evaluationInformation, correctAnswerPoints} = ctx.request.body;
-  const {id} = ctx.params;
-  
-  const task = await getTask(id, ctx.state.user);
-
-  if(typeof taskSetId !== 'undefined') {
-    await getTaskSet(taskSetId);
-  }
-
-  if(Object.values(taskConstants.taskType).indexOf(type) === -1){
-    throw new Error('bad type');
-  }
-
-  await task.update({taskSetId, type, maxLength, maxWords, text, evaluationInformation, correctAnswerPoints});
+  const task = await taskService.findOne({ taskSetId });
 
   ctx.body = {
     ...taskHelper.format(task),
   };
 };
 
+module.exports.update = async (ctx) => {
+  const data = await taskValidator(ctx);
+
+  if (!data.isValid) {
+    return;
+  }
+  const {
+    taskSetId, type, maxLength,
+    maxWords, text, evaluationInformation,
+    correctAnswerPoints,
+  } = data;
+
+  const updatedTask = await taskService.findOneAndUpdate({
+    _id: ctx.params.id,
+  }, {
+    $set: {
+      taskSetId,
+      type,
+      maxLength,
+      maxWords,
+      text,
+      evaluationInformation,
+      correctAnswerPoints,
+    },
+  }, { returnOriginal: false });
+
+  ctx.body = {
+    ...taskHelper.format(updatedTask),
+  };
+};
+
 module.exports.delete = async (ctx) => {
-  const task = await getTask(ctx.params.id, ctx.state.user);
-
-  await task.delete();
-
+  await taskService.remove({ _id: ctx.params.id });
   ctx.body = {success: true};
 };

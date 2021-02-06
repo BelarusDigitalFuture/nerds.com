@@ -11,7 +11,7 @@ const service = db.createService('user', schema);
 service.createIndex({ email: 1 });
 service.createIndex({ createdAt: -1 });
 
-service.createUserAccount = async ({ userData, ctx }) => {
+service.createUserAccount = async ({ userData }) => {
   const signupToken = await generateSecureToken();
 
   const data = _.extend({}, userData, {

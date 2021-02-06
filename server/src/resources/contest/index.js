@@ -4,6 +4,10 @@ const controller = require('./contest.controller');
 
 router.use(isAuthenticated);
 
-// router.get('/', controller.getCurrent);
+router.post('/', controller.create);
+router.get('/', controller.get);
+router.put('/:id', controller.update);
+router.delete('/:id', controller.delete);
+
 
 module.exports = router.routes();

@@ -18,7 +18,7 @@ module.exports = ctx => baseValidator(ctx, async () => {
 
   const user = await userService.findOne({ email });
   if (_.get(user, 'deletedAt')) {
-    ctx.errors.push({ email: 'You can\'t register with this email at Surveytime', errorKey: 'validatorErrors.deletedUserRegister' });
+    ctx.errors.push({ email: 'You can\'t register with this email', errorKey: 'validatorErrors.deletedUserRegister' });
     return false;
   }
 

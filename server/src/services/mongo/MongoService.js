@@ -78,48 +78,16 @@ class MongoService extends MongoQueryService {
     return entities.length > 1 ? entities : entities[0];
   }
 
-  async update(query, updateFn, options) {
-    if (!_.isFunction(updateFn)) {
-      throw new Error('updateFn must be a function');
-    }
-
-    const doc = await this.findOne(query, options);
-    if (!doc) {
-      throw new MongoServiceError(
-        MongoServiceError.NOT_FOUND,
-        `Document not found while updating. Query: ${JSON.stringify(query)}`,
-      );
-    }
-    const prevDoc = _.cloneDeep(doc);
-    doc.updatedAt = new Date();
-    updateFn(doc);
-
-    try {
-      this._validateSchema(doc);
-    } catch (err) {
-      logger.error('================');
-      logger.error(JSON.stringify(doc));
-      logger.error(err);
-      logger.error('================');
-      throw err;
-    }
-
-    await this._collection.update({ _id: doc._id }, doc);
-
-    this._bus.emit('updated', {
-      doc,
-      prevDoc,
-    });
-
-    return doc;
-  }
-
   async updateUpsert(query, update) {
     await this._collection.update(query, update, { upsert: true });
   }
 
   async updateAll(query, update) {
     await this._collection.update(query, update, { multi: true });
+  }
+
+  async update(query, update) {
+    const updatedDoc = await this._collection.update(query, update);
   }
 
   async remove(query) {
@@ -140,18 +108,6 @@ class MongoService extends MongoQueryService {
     return this._collection.createIndex(index, combinedOptions)
       .catch((err) => {
         this.logger.warn(err);
-      });
-  }
-
-  createOrUpdate(query, updateFn) {
-    return this.exists(query)
-      .then((exists) => {
-        if (exists) {
-          return this.update(query, updateFn);
-        }
-        const doc = query;
-        updateFn(doc);
-        return this.create(doc);
       });
   }
 

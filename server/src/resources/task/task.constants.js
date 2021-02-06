@@ -5,5 +5,5 @@ module.exports = {
     multipleAnswers: 'multipleAnswers',
     essay: 'essay',
     fillIn: 'fillIn',
-  }
-}
+  },
+};
