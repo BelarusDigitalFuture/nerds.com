@@ -1,5 +1,5 @@
 Deployment:
-- `ansible-galaxy install -p /root/.ansible/roles weareinteractive.docker`
+- `ansible-galaxy install -p /home/gitlab-runner/.ansible/roles weareinteractive.docker`
 
 Database:
 
