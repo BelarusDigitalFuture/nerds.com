@@ -6,7 +6,7 @@ import {
   Route,
 } from 'react-router-dom';
 
-import store from 'redux/store';
+import store from '../../redux/store';
 
 import 'antd/dist/antd.css';
 
