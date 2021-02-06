@@ -68,8 +68,8 @@
       - '443:443'
     volumes:
       - /var/log/nginx:/var/log/nginx:rw
-    volumes_from:
-      - client
+#    volumes_from:
+#      - client
     links:
       - server
 
