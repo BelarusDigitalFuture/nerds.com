@@ -8,6 +8,7 @@ WORKDIR /app
 
 COPY ["./package.json", "./yarn.lock", "/app/"]
 COPY ["./src", "/app/src"]
+COPY ["./public", "/app/public"]
 
 ARG NODE_ENV="production"
 
