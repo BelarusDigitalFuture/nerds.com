@@ -1,3 +1,6 @@
+Deployment:
+- `ansible-galaxy install -p /root/.ansible/roles weareinteractive.docker`
+
 Database:
 
 - User (email, password, name, school, dateOfBirth, description)

@@ -11,8 +11,4 @@ build_to_server_master:
   script:
     - cd /home/ubuntu/nerds.com
     - sudo git pull origin master
-#    - sudo npm install
-#    - sudo npm run build
-#    - sudo npm run sequelize db:migrate
-#    - sudo npm run sequelize db:migrate -- --options-path .sequelizerc-gds
-#    - sudo env HOME=/var/www/pm2 pm2 restart medvidi-api
+    - sudo deploy/scripts/production-deploy.sh

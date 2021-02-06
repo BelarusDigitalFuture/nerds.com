@@ -2,12 +2,12 @@
   gather_facts: yes
   vars_files:
     - ["../vars/{{server_env}}.yml"]
-  sudo: yes
+  become: yes
 
 - hosts: all
   vars_files:
     - ["../vars/{{server_env}}.yml"]
-  sudo: yes
+  become: yes
   roles:
     - weareinteractive.docker
   tasks:
