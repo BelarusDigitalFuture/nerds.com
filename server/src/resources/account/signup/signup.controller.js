@@ -1,5 +1,4 @@
 const _ = require('lodash');
-const { generatePlainPassword } = require('../../../helpers/security.utils');
 const signupValidator = require('./validators/signup.validator');
 const { createUserAccount } = require('../../user/user.service');
 const authService = require('../../../services/auth.service');
