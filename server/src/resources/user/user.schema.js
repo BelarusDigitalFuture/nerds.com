@@ -8,10 +8,15 @@ const userSchema = {
   properties: {
     _id: { type: 'string' },
     createdAt: { type: 'Date' },
-    email: { type: ['string', 'null'] },
+    updatedAt: { type: 'Date' },
+    deletedAt: { type: 'Date' },
+    email: { type: ['string'] },
+    school: { type: ['string'] },
+    description: { type: ['string', 'null'] },
+    birthDate: { type: ['Date', 'null'] },
     roles: { type: 'array', default: [] },
   },
-  required: ['_id', 'createdAt'],
+  required: ['_id', 'email'],
 };
 
 module.exports = obj => validator.validate(obj, userSchema);
