@@ -39,7 +39,7 @@
     name: client
     image: nerds_client
     volumes:
-      - /app/dist
+      - /app/build
 
 - name: Start server
   docker_container:
