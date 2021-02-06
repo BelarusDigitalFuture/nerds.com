@@ -26,6 +26,9 @@
     image: mongo:4.4
     state: started
     restart_policy: always
+    env:
+        MONGO_INITDB_ROOT_USERNAME: admin
+        MONGO_INITDB_ROOT_PASSWORD: Leodaig0wo
     volumes:
       - /data/mongo:/data/db:rw
     ports:
