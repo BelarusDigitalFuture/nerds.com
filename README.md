@@ -34,22 +34,23 @@ TaskSet
 - DELETE /api/task-set/:id - delete task set (only accessible for the author or admin)
   
 Task
-- POST /api/task?taskSet - create task 
+- POST /api/task - create task 
 - GET /api/task?taskSet - get tasks in the task set
 - PUT /api/task/:id - update task
 - DELETE /api/task/:id - delete task
   
 TaskOption
-- POST /api/task/:id/option - create option for the task
-- GET /api/task/:id/option - get task options for the task
-- PUT /api/task/:id/option/:optionId - update option for the task
-- DELETE /api/task/:id/option/:optionId - delete option for the task
+- POST /api/task-option/ - create option for the task
+- GET /api/task-option/?taskId - get task options for the task
+- PUT /api/task-option/:id - update option for the task
+- DELETE /api/task-option/:id - delete option for the task
   
 Contest
 - POST /api/contest - create contest
 - GET /api/contest - get all contests ({active: Contest[], soonToStart: Contest[], training: Contest[]})
 - GET /api/contest/my - get my contests 
 - PUT /api/contest/:id - update contest
+- POST /api/contest/:id/register - sign up for the contest
 - DELETE /api/contest/:id - delete contest
   
 Answer
