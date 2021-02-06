@@ -6,11 +6,15 @@ module.exports = ctx => baseValidator(ctx, async () => {
   ctx.checkBody('email').isEmail('Please enter a valid email address')
     .trim()
     .toLow();
+
+  ctx.checkBody('password')
+    .notEmpty()
+    .trim();
   if (ctx.errors.length > 0) {
     return false;
   }
 
-  const { email } = ctx.request.body;
+  const { email, password } = ctx.request.body;
 
   const user = await userService.findOne({ email });
   if (_.get(user, 'deletedAt')) {
@@ -25,6 +29,7 @@ module.exports = ctx => baseValidator(ctx, async () => {
 
   const userData = {
     email,
+    password,
   };
 
   return { userData };

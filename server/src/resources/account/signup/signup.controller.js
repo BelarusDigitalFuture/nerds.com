@@ -12,9 +12,6 @@ module.exports.signup = async function signup(ctx) {
   }
 
   const { userData } = data;
-
-  const password = generatePlainPassword();
-  userData.password = password;
   const user = await createUserAccount({ userData, ctx });
 
   try {
@@ -22,7 +19,7 @@ module.exports.signup = async function signup(ctx) {
       ctx,
       user,
     });
-    ctx.body = { token, password };
+    ctx.body = { token };
   } catch (error) {
     console.error(error);
     ctx.status = 400;
