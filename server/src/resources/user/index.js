@@ -4,6 +4,7 @@ const controller = require('./user.controller');
 
 router.use(isAuthenticated);
 
-router.get('/current', controller.getCurrent);
+router.get('/', controller.getCurrent);
+router.put('/', controller.update);
 
 module.exports = router.routes();

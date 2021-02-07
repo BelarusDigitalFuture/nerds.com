@@ -11,6 +11,7 @@ const userSchema = {
     updatedAt: { type: 'Date' },
     deletedAt: { type: 'Date' },
     email: { type: ['string'] },
+    name: { type: ['string', 'null'] },
     school: { type: ['string'] },
     description: { type: ['string', 'null'] },
     birthDate: { type: ['Date', 'null'] },

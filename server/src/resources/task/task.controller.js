@@ -64,7 +64,7 @@ module.exports.update = async (ctx) => {
       evaluationInformation,
       correctAnswerPoints,
     },
-  }, { returnOriginal: false });
+  });
 
   ctx.body = {
     ...taskHelper.format(updatedTask),

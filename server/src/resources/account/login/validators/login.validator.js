@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const userService = require('../../../../resources/user/user.service');
+const userService = require('../../../user/user.service');
 const baseValidator = require('../../../../resources/base.validator');
 const { CheckPassword } = require('wordpress-hash-node');
 
@@ -20,7 +20,7 @@ module.exports = ctx => baseValidator(ctx, async () => {
   const user = await userService.findOne({ email });
 
   if (!user || !user.passwordHash || !CheckPassword(ctx.request.body.password, user.passwordHash)) {
-    ctx.errors.push({ user: 'Wrong credentials', errorKey: 'validatorErrors.credentials' });
+    ctx.errors.push({ user: 'Wrong credentials' });
     return false;
   }
 

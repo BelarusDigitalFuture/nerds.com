@@ -10,7 +10,7 @@ const taskOptionResource = require('../resources/task-option');
 module.exports = (app) => {
   app.use(mount('/account', accountResource));
   app.use(mount('/admin', adminResource));
-  app.use(mount('/users', userResource));
+  app.use(mount('/user', userResource));
   app.use(mount('/task', taskResource));
   app.use(mount('/task-set', taskSetResource));
   app.use(mount('/task-option', taskOptionResource));

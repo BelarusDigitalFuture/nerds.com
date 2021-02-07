@@ -7,29 +7,48 @@ module.exports = ctx => baseValidator(ctx, async () => {
     .trim()
     .toLow();
 
+  ctx.checkBody('birthDate')
+    .isDate('Please, enter actual birth date')
+    .trim();
+
   ctx.checkBody('password')
     .notEmpty()
     .trim();
+
+  ctx.checkBody('name')
+    .notEmpty()
+    .trim();
+
+  ctx.checkBody('school')
+    .notEmpty()
+    .trim();
+
   if (ctx.errors.length > 0) {
     return false;
   }
 
-  const { email, password } = ctx.request.body;
+  const {
+    email, password, name,
+    school, birthDate,
+  } = ctx.request.body;
 
-  const user = await userService.findOne({ email });
+  const user = await userService.exists({ email });
   if (_.get(user, 'deletedAt')) {
-    ctx.errors.push({ email: 'You can\'t register with this email', errorKey: 'validatorErrors.deletedUserRegister' });
+    ctx.errors.push({ email: 'You can\'t register with this email' });
     return false;
   }
 
   if (user) {
-    ctx.errors.push({ email: 'User already exists, please try to login.', errorKey: 'validatorErrors.userExists' });
+    ctx.errors.push({ email: 'User already exists, please try to login.' });
     return false;
   }
 
   const userData = {
     email,
     password,
+    name,
+    school,
+    birthDate: new Date(birthDate),
   };
 
   return { userData };

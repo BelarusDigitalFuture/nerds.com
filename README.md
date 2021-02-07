@@ -19,10 +19,14 @@ API:
 
 All entities are soft deletable
 
+Account
+- POST /account/signup - signup
+- POST /account/login - login
+- GET /account/logout - logout
+
 User
-- POST /api/user - sign up
-- POST /api/user/login - log in
-- PUT /api/user - update user 
+- GET /user - get current user
+- PUT /user - update user 
   
 Subject
 - GET /api/subject - get all subjects

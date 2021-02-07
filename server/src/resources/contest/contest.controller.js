@@ -57,7 +57,7 @@ module.exports.update = async (ctx) => {
       startDate, endDate, description,
       ratingEnabled, taskSetId,
     },
-  }, { returnOriginal: false });
+  });
 
   ctx.body = {
     ...contestHelper.format(updatedContest),

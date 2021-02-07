@@ -120,17 +120,6 @@ class MongoService extends MongoQueryService {
         return this._collection.findOneAndUpdate(query, update, options);
       })
       .then((doc) => {
-        if (originalDoc) {
-          this.emit('updated', {
-            doc,
-            prevDoc: originalDoc,
-          });
-        } else {
-          this.emit('created', {
-            doc,
-          });
-        }
-
         return doc;
       });
   }
