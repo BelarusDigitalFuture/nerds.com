@@ -4,6 +4,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Redirect,
 } from 'react-router-dom';
 import { Layout } from 'antd';
 
@@ -16,6 +17,7 @@ import Header from 'components/Header';
 import 'antd/dist/antd.css';
 
 import './styles.scss';
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 function App() {
   return (
@@ -26,9 +28,11 @@ function App() {
             <Route path="/login" component={Login} />
             <>
               <Header />
+
               <Switch>
-                <Route path="/home" component={Home} />
-                <Route component={() => <div>root</div>} />
+                <Redirect exact from="/" to="/home" />
+                <PrivateRoute path="/home" component={Home} />
+                <Route exact path="*" component={() => <div>root</div>} />
               </Switch>
             </>
           </Switch>
