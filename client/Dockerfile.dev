@@ -6,7 +6,7 @@ ln -s /usr/share/zoneinfo/US/Pacific localtime
 
 WORKDIR /app
 
-COPY ["./package.json", "./yarn.lock", "/app/"]
+COPY ["./package.json", "./yarn.lock", "./jsconfig.json", "/app/"]
 
 RUN yarn install
 
