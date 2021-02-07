@@ -1,10 +1,10 @@
 const _ = require('lodash');
 const taskHelper = require('./task.helper');
 const taskService = require('./task.service');
-const taskValidator = require('./validators/task.validator');
+const {validate, populate} = require('./validators/task.validator');
 
 module.exports.create = async (ctx) => {
-  const data = await taskValidator(ctx);
+  const data = await validate(ctx, true);
 
   if (!data.isValid) {
     return;
@@ -41,7 +41,7 @@ module.exports.get = async (ctx) => {
 };
 
 module.exports.update = async (ctx) => {
-  const data = await taskValidator(ctx);
+  const data = await validate(ctx, false);
 
   if (!data.isValid) {
     return;
@@ -72,6 +72,8 @@ module.exports.update = async (ctx) => {
 };
 
 module.exports.delete = async (ctx) => {
-  await taskService.remove({ _id: ctx.params.id });
+  if(await populate(ctx, true)){
+    await taskService.remove({ _id: ctx.params.id });
+  }
   ctx.body = {success: true};
 };

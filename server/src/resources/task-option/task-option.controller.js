@@ -1,12 +1,14 @@
 const taskOptionService = require('./task-option.service');
 const taskOptionHelper = require('./task-option.helper');
-const {getTaskOption} = require('./task-option.acl');
-const {getTask} = require('./../task/task.acl');
+const {validate, populate} = require('./validators/task-option.validator');
 
 module.exports.create = async (ctx) => {
-  const {taskId, label, isCorrect} = ctx.request.body;
+  const data = await validate(ctx, true);
 
-  await getTask(taskId);
+  if (!data.isValid) {
+    return;
+  }
+  const {taskId, label, isCorrect} = data;
 
   const taskOption = await taskOptionService.create({taskId, label, isCorrect});
 
@@ -18,6 +20,11 @@ module.exports.create = async (ctx) => {
 module.exports.get = async (ctx) => {
   const {taskId} = ctx.request.query;
 
+  if(!taskId){
+    ctx.errors.push({taskId: 'TaskId is not set'});
+    return false;
+  }
+
   const taskOptions = await taskOptionService.find({taskId});
 
   ctx.body = {
@@ -26,25 +33,32 @@ module.exports.get = async (ctx) => {
 };
 
 module.exports.update = async (ctx) => {
-  const {taskId, label, isCorrect} = ctx.request.body;
+  const data = await validate(ctx, false);
 
-  const taskOption = await getTaskOption(ctx.params.id, ctx.state.user);
-
-  if(typeof taskId !== "undefined") {
-    await getTask(subjectId);
+  if (!data.isValid) {
+    return;
   }
 
-  await taskOption.update({taskId, label, isCorrect});
+  const {
+    taskId, label, isCorrect,
+  } = data;
+
+  const updatedTaskOption = await taskService.findOneAndUpdate({
+    _id: ctx.params.id,
+  }, {
+    $set: {
+      taskId, label, isCorrect,
+    },
+  }, { returnOriginal: false });
 
   ctx.body = {
-    ...taskOptionHelper.format(taskOption),
+    ...taskOptionHelper.format(updatedTaskOption),
   };
 };
 
 module.exports.delete = async (ctx) => {
-  const taskOption = await getTaskOption(ctx.params.id, ctx.state.user);
-
-  await taskOption.delete();
-
+  if(await populate(ctx, true)){
+    await taskOptionService.remove({ _id: ctx.params.id });
+  }
   ctx.body = {success: true};
 };
