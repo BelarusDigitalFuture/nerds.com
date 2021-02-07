@@ -33,10 +33,15 @@ module.exports.create = async (ctx) => {
 module.exports.get = async (ctx) => {
   const { taskSetId } = ctx.request.query;
 
-  const task = await taskService.findOne({ taskSetId });
+  if(!taskSetId){
+    ctx.errors.push({taskId: 'taskSetId is not set'});
+    return false;
+  }
+
+  const tasks = await taskService.find({ taskSetId });
 
   ctx.body = {
-    ...taskHelper.format(task),
+    ...taskHelper.formatArray(tasks),
   };
 };
 
@@ -52,18 +57,10 @@ module.exports.update = async (ctx) => {
     correctAnswerPoints,
   } = data;
 
-  const updatedTask = await taskService.findOneAndUpdate({
-    _id: ctx.params.id,
-  }, {
-    $set: {
-      taskSetId,
-      type,
-      maxLength,
-      maxWords,
-      text,
-      evaluationInformation,
-      correctAnswerPoints,
-    },
+  const updatedTask = await taskService.updateEntity(ctx.state.task, {
+    taskSetId, type, maxLength,
+    maxWords, text, evaluationInformation,
+    correctAnswerPoints,
   });
 
   ctx.body = {

@@ -39,17 +39,9 @@ module.exports.update = async (ctx) => {
     return;
   }
 
-  const {
-    taskId, label, isCorrect,
-  } = data;
+  const {taskId, label, isCorrect,} = data;
 
-  const updatedTaskOption = await taskService.findOneAndUpdate({
-    _id: ctx.params.id,
-  }, {
-    $set: {
-      taskId, label, isCorrect,
-    },
-  }, { returnOriginal: false });
+  const updatedTaskOption = await taskOptionService.updateEntity(ctx.state.taskOption, {taskId, label, isCorrect});
 
   ctx.body = {
     ...taskOptionHelper.format(updatedTaskOption),

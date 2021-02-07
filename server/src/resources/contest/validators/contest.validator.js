@@ -2,22 +2,35 @@ const _ = require('lodash');
 const contestService = require('../contest.service');
 const baseValidator = require('../../base.validator');
 
-module.exports = ctx => baseValidator(ctx, async () => {
-  ctx.checkBody('startDate')
-    .isDate('Please, enter actual start date')
-    .trim();
-  ctx.checkBody('endDate')
-    .isDate('Please, enter actual end date')
-    .trim();
-  ctx.checkBody('description')
-    .optional()
-    .trim();
-  ctx.checkBody('ratingEnabled')
-    .toBoolean()
-    .trim();
-  ctx.checkBody('taskSetId')
-    .notEmpty()
-    .trim();
+module.exports = (ctx, isNew) => baseValidator(ctx, async () => {
+  check = ctx.checkBody('startDate');
+  if (isNew) {
+    check.isDate('Please, enter actual start date')
+  } else {
+    check.optional();
+  }
+
+  check = ctx.checkBody('endDate');
+  if (isNew) {
+    check.isDate('Please, enter actual end date')
+  } else {
+    check.optional();
+  }
+
+  check = ctx.checkBody('ratingEnabled');
+  if (isNew) {
+    check.toBoolean();
+  } else {
+    check.optional();
+  }
+
+  check = ctx.checkBody('taskSetId');
+  if (isNew) {
+    check.notEmpty();
+  } else {
+    check.optional();
+  }
+  check.trim();
 
   if (ctx.errors.length > 0) {
     return false;

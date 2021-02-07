@@ -27,31 +27,33 @@ module.exports.populate = populate;
 module.exports.validate = (ctx, isNew) => baseValidator(ctx, async () => {
   let check;
 
-  check = ctx.checkBody('taskSetId').trim();
+  check = ctx.checkBody('taskSetId');
   if (isNew) {
     check.notEmpty();
   } else {
     check.optional();
   }
+  check.trim();
 
-  check = ctx.checkBody('type').trim();
+  check = ctx.checkBody('type');
   if (isNew) {
     check.notEmpty();
   } else {
     check.optional();
   }
+  check.trim();
 
-  check = ctx.checkBody('text')
+  check = ctx.checkBody('text');
+  if (isNew) {
+    check.notEmpty();
+  } else {
+    check.optional();
+  }
+  check
     .isLength(2, null, 'Text must be at least 2 characters')
     .trim();
-  if (isNew) {
-    check.notEmpty();
-  } else {
-    check.optional();
-  }
 
-  check = ctx.checkBody('correctAnswerPoints')
-    .notEmpty();
+  check = ctx.checkBody('correctAnswerPoints');
   if (isNew) {
     check.notEmpty();
   } else {
@@ -79,7 +81,7 @@ module.exports.validate = (ctx, isNew) => baseValidator(ctx, async () => {
     correctAnswerPoints,
   } = ctx.request.body;
 
-  if (!Object.values(taskType).includes(type)) {
+  if (typeof type !== 'undefined' && !Object.values(taskType).includes(type)) {
     ctx.errors.push({type: 'Incorrect type of task'});
     return false;
   }

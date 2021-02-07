@@ -31,18 +31,21 @@ module.exports.validate = (ctx, isNew) => baseValidator(ctx, async () => {
   } else {
     check.optional().trim();
   }
-  check = ctx.checkBody('description').trim();
+  check.trim();
+  check = ctx.checkBody('description');
   if (isNew) {
     check.notEmpty();
   } else {
     check.optional();
   }
-  check = ctx.checkBody('subjectId').trim();
+  check.trim();
+  check = ctx.checkBody('subjectId');
   if (isNew) {
     check.notEmpty();
   } else {
     check.optional();
   }
+  check.trim();
 
   await populate(ctx, !isNew);
 

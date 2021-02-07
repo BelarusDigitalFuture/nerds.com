@@ -31,8 +31,8 @@ module.exports.create = async (ctx) => {
   };
 };
 
-module.exports.get = async (ctx) => {
-  const contest = await contestService.findOne({
+module.exports.getOne = async (ctx) => {
+  const contest = await contestService.find({
     _id: ctx.params.id,
   });
 

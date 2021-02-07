@@ -43,15 +43,7 @@ module.exports.update = async (ctx) => {
 
   const { name, description, subjectId } = data;
 
-  const updatedTaskSet = await taskSetService.findOneAndUpdate({
-    _id: ctx.params.id,
-  }, {
-    $set: {
-      name,
-      description,
-      subjectId,
-    },
-  });
+  const updatedTaskSet = await taskSetService.updateEntity(ctx.state.taskSet, {name, description, subjectId});
 
   ctx.body = {
     ...taskSetHelper.format(updatedTaskSet),

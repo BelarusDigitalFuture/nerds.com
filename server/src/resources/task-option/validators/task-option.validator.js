@@ -28,24 +28,27 @@ module.exports.populate = populate;
 module.exports.validate = (ctx, isNew) => baseValidator(ctx, async () => {
   let check;
 
-  check = ctx.checkBody('taskId').trim();
+  check = ctx.checkBody('taskId');
   if (isNew) {
     check.notEmpty();
   } else {
     check.optional();
   }
-  check = ctx.checkBody('label').trim();
+  check.trim();
+  check = ctx.checkBody('label');
   if (isNew) {
     check.notEmpty();
   } else {
     check.optional();
   }
-  check = ctx.checkBody('isCorrect').trim();
+  check.trim();
+  check = ctx.checkBody('isCorrect');
   if (isNew) {
     check.notEmpty();
   } else {
     check.optional();
   }
+  check.toBoolean();
 
   await populate(ctx, !isNew);
 
@@ -59,6 +62,10 @@ module.exports.validate = (ctx, isNew) => baseValidator(ctx, async () => {
     isCorrect,
   } = ctx.request.body;
 
+  if(typeof isCorrect === "undefined" && isNew){
+    ctx.errors.push({isCorrect: 'must be defined'});
+  }
+
   if(taskId) {
     const task = await taskService.findOne({_id: taskId});
 
@@ -71,6 +78,6 @@ module.exports.validate = (ctx, isNew) => baseValidator(ctx, async () => {
   return {
     taskId,
     label,
-    isCorrect,
+    isCorrect: !!isCorrect,
   };
 });
