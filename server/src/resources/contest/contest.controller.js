@@ -41,6 +41,17 @@ module.exports.getOne = async (ctx) => {
   };
 };
 
+module.exports.get = async (ctx) => {
+  const contest = await contestService.find({
+    ratingEnabled: true,
+    endDate: { $gt: new Date()}
+  });
+
+  ctx.body = {
+    ...contestHelper.format(contest),
+  };
+};
+
 module.exports.update = async (ctx) => {
   const data = await contestValidator(ctx);
 

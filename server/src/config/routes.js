@@ -8,6 +8,7 @@ const taskSetResource = require('../resources/task-set');
 const taskOptionResource = require('../resources/task-option');
 const subjectResource = require('../resources/subject');
 const contestResource = require('../resources/contest');
+const answerResource = require('../resources/answer');
 
 module.exports = (app) => {
   app.use(mount('/account', accountResource));
@@ -18,4 +19,5 @@ module.exports = (app) => {
   app.use(mount('/task', taskResource));
   app.use(mount('/task-option', taskOptionResource));
   app.use(mount('/contest', contestResource));
+  app.use(mount('/answer', answerResource));
 };

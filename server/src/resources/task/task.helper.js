@@ -1,5 +1,11 @@
+const _ = require('lodash');
+
 const format = (task) => {
-  return task;
+  const omittedFields = [
+    'evaluationInformation',
+  ];
+
+  return _.omit(task, omittedFields);
 };
 
 module.exports.format = format;

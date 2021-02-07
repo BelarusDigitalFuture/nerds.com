@@ -415,24 +415,26 @@ const contestGetOne = async (token, contestId) => {
   );
 }
 
-// const contestGet = async (token, contestId) => {
-//   return new Promise((resolve, reject) =>
-//     axios.get(`http://${host}/contest/`, {
-//       headers: {'Authorization': `Bearer ${token}`},
-//     }).then(res => {
-//       if(!res.data.results){
-//         reject('contest results unset');
-//       }
-//       if(!res.data.results.find(x => x._id === contestId)){
-//         reject('contest not found invalid length');
-//       }
-//       resolve(res.data);
-//     }).catch(error => {
-//       console.error(error.response.data);
-//       reject();
-//     })
-//   );
-// }
+const contestGet = async (token, contestId) => {
+  return new Promise((resolve, reject) =>
+    axios.get(`http://${host}/contest/`, {
+      headers: {'Authorization': `Bearer ${token}`},
+    }).then(res => {
+      if(!res.data.results){
+        console.log(res.data);
+        reject('contest results unset');
+      }
+      if(!res.data.results.find(x => x._id === contestId)){
+        console.log(res.data);
+        reject('contest not found invalid length');
+      }
+      resolve(res.data);
+    }).catch(error => {
+      console.error(error.response.data);
+      reject();
+    })
+  );
+}
 
 const contestUpdate = async (token, contest) => {
   const data = {
@@ -473,6 +475,73 @@ const contestDelete = async (token, contestId) => {
   );
 }
 
+const answerCreate = async (token, taskId, contestId) => {
+  const data = {
+    taskId,
+    contestId,
+    value: 'test',
+  };
+  return new Promise((resolve, reject) =>
+    axios.post(`http://${host}/answer/`, data, {
+      headers: {'Authorization': `Bearer ${token}`},
+    }).then(res => {
+      Object.entries(data).forEach(([k, v]) => {
+        if (v !== data[k]) {
+          console.log(data, res.data);
+          reject('answer create data mismatch');
+        }
+      });
+      resolve(res.data);
+    }).catch(error => {
+      console.error(error.response.data);
+      reject();
+    })
+  );
+}
+
+const answerUpdate = async (token, answer) => {
+  const data = {
+    taskId: answer.taskId,
+    contestId: answer.contestId,
+    value: 'test2',
+  };
+  return new Promise((resolve, reject) =>
+    axios.post(`http://${host}/answer/`, data, {
+      headers: {'Authorization': `Bearer ${token}`},
+    }).then(res => {
+      data._id = answer._id;
+      Object.entries(data).forEach(([k, v]) => {
+        if (v !== data[k]) {
+          console.log(data, res.data);
+          reject('answer update data mismatch');
+        }
+      });
+      resolve(res.data);
+    }).catch(error => {
+      console.error(error.response.data);
+      reject();
+    })
+  );
+}
+
+const answerDelete = async (token, answer) => {
+  const data = {
+    taskId: answer.taskId,
+    contestId: answer.contestId,
+  };
+  return new Promise((resolve, reject) =>
+    axios.delete(`http://${host}/answer/`, {
+      data,
+      headers: {'Authorization': `Bearer ${token}`},
+    }).then(res => {
+      resolve(res.data);
+    }).catch(error => {
+      console.error('answerDelete', error.response.data);
+      reject();
+    })
+  );
+}
+
 const run = async () => {
   await signup();
   const token = await login();
@@ -491,8 +560,13 @@ const run = async () => {
   await taskOptionUpdate(token, taskOptions[0]);
   
   const contest = await contestCreate(token, taskSet._id);
+  await contestGet(token, contest._id);
   await contestGetOne(token, contest._id);
   await contestUpdate(token, contest);
+
+  const answer = await answerCreate(token, tasks[0]._id, contest._id);
+  await answerUpdate(token, answer);
+  await answerDelete(token, answer);
 
   await taskOptionDelete(token, taskOptions[0]._id);
   await taskDelete(token, tasks[0]._id);

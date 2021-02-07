@@ -11,7 +11,7 @@ Database:
 - TaskSet (name, description, subject, author, createdAt, updatedAt, deletedAt)
 - Task (taskSet, type (one answer, multiple answers, essay, fill-in), maxLength, maxWords, text, evaluationInformation, correctAnswerPoints, createdAt, updatedAt, deletedAt)
 - TaskOption (task, label, isCorrect, createdAt, updatedAt, deletedAt)
-- Answer (contest, user, task, taskOptions, value, manuallyVerified, verifiedBy, points, createdAt, updatedAt, deletedAt)
+- Answer (contest, user, task, value, manuallyVerified, verifiedBy, points, createdAt, updatedAt, deletedAt)
 
 
 API:
@@ -60,7 +60,7 @@ Contest
 Answer
 - POST /api/answer?contest&task - create answer for the task and contest. Answers are immutable (creating one should remove previous)
 - GET /api/answer?contest&task - get answers for the specified contest and task
-- DELETE /api/answer/:id - delete answer
+- DELETE /api/answer?contest&task - delete answer
   
 Scoreboard
 - GET /api/scoreBoard/contest/:id - get scoreboard for contest 

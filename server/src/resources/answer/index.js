@@ -1,14 +1,11 @@
 const router = require('koa-router')();
 const isAuthenticated = require('../../middleware/isAuthenticated.middleware');
-const controller = require('./contest.controller');
+const controller = require('./answer.controller');
 
 router.use(isAuthenticated);
 
-router.post('/', controller.create);
+router.post('/', controller.createOrUpdate);
 router.get('/', controller.get);
-router.get('/:id', controller.getOne);
-router.put('/:id', controller.update);
-router.delete('/:id', controller.delete);
-
+router.delete('/', controller.delete);
 
 module.exports = router.routes();

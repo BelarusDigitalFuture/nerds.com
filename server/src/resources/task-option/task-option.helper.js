@@ -1,5 +1,11 @@
+const _ = require('lodash');
+
 const format = (taskOption) => {
-  return taskOption;
+  const omittedFields = [
+    'isCorrect',
+  ];
+
+  return _.omit(taskOption, omittedFields);
 };
 
 module.exports.format = format
