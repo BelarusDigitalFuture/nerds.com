@@ -211,7 +211,7 @@ const tasksCreate = async (token, taskSetId) => {
     },
     {
       taskSetId,
-      type: taskConstants.taskType.oneAnswer,
+      type: taskConstants.taskType.essay,
       maxLength: 1000,
       maxWords: 100,
       text: 'Do you love Belarus? Explain your answer',
@@ -323,13 +323,14 @@ const taskDelete = async (token, taskId) => {
   );
 }
 
-const taskOptionsGet = async (token, taskId) => {
+const taskOptionsGet = async (token, taskId, skipCheck) => {
   return new Promise((resolve, reject) =>
     axios.get(`http://${host}/task-option/?taskId=${taskId}`, {
       headers: {'Authorization': `Bearer ${token}`},
     }).then(res => {
-      if(res.data.results.length !== 4){
-        reject('task otions get invalid length');
+      if(skipCheck !== true && res.data.results.length !== 4){
+        console.log(res.data.results);
+        reject('task options get invalid length');
       }
       resolve(res.data.results);
     }).catch(error => {
@@ -475,28 +476,45 @@ const contestDelete = async (token, contestId) => {
   );
 }
 
-const answerCreate = async (token, taskId, contestId) => {
-  const data = {
-    taskId,
-    contestId,
-    value: 'test',
-  };
-  return new Promise((resolve, reject) =>
-    axios.post(`http://${host}/answer/`, data, {
-      headers: {'Authorization': `Bearer ${token}`},
-    }).then(res => {
-      Object.entries(data).forEach(([k, v]) => {
-        if (v !== data[k]) {
-          console.log(data, res.data);
-          reject('answer create data mismatch');
-        }
-      });
-      resolve(res.data);
-    }).catch(error => {
-      console.error(error.response.data);
-      reject();
-    })
-  );
+const answersCreate = async (token, tasks, contestId) => {
+  return Promise.all(tasks.map(async task => {
+    let value, taskOptions;
+    switch(task.type){
+      case taskConstants.taskType.oneAnswer:
+        taskOptions = await taskOptionsGet(token, task._id, true);
+        value = taskOptions[0]._id;
+        break;
+      case taskConstants.taskType.multipleAnswers:
+        taskOptions = await taskOptionsGet(token, task._id, true);
+        value = taskOptions.slice(0, 2).map(x => x._id);
+        break;
+      case taskConstants.taskType.fillIn:
+      case taskConstants.taskType.essay:
+        value = 'test';
+        break;
+    }
+    const data = {
+      taskId: task._id,
+      contestId,
+      value,
+    };
+    return new Promise((resolve, reject) =>
+      axios.post(`http://${host}/answer/`, data, {
+        headers: {'Authorization': `Bearer ${token}`},
+      }).then(res => {
+        Object.entries(data).forEach(([k, v]) => {
+          if (v !== data[k]) {
+            console.log(data, res.data);
+            reject('answer create data mismatch');
+          }
+        });
+        resolve(res.data);
+      }).catch(error => {
+        console.error(error.response.data);
+        reject();
+      })
+    );
+  }));
 }
 
 const answerUpdate = async (token, answer) => {
@@ -564,9 +582,9 @@ const run = async () => {
   await contestGetOne(token, contest._id);
   await contestUpdate(token, contest);
 
-  const answer = await answerCreate(token, tasks[0]._id, contest._id);
-  await answerUpdate(token, answer);
-  await answerDelete(token, answer);
+  const answers = await answersCreate(token, tasks, contest._id);
+  await answerUpdate(token, answers[2]);
+  await answerDelete(token, answers[2]);
 
   await taskOptionDelete(token, taskOptions[0]._id);
   await taskDelete(token, tasks[0]._id);
