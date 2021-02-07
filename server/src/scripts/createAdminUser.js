@@ -1,7 +1,7 @@
 const userService = require('../resources/user/user.service');
 
 const userData = {
-  email: 'admin@geekcon.online.com',
+  email: 'admin@geekcon.online',
   password: 'Ohchah4i',
   name: 'admin',
 };
