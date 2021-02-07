@@ -2,48 +2,47 @@ import React, {useEffect, useState} from 'react';
 import * as taskOptionsApi from '../../../../redux/api/task-options.api';
 import { useFormik } from 'formik';
 
-import {
-    Radio, Input, List, Checkbox
-} from 'antd';
+import { Radio, Input, Checkbox, Button } from 'antd';
 
 import './styles.scss';
 
 const ContestTask = (props) => {
     const {task} = props;
     const [taskOptions, setTaskOptions] = useState([]);
-    // const [answer, setAnswer] = useState();
-
-    useEffect(async () => {
-        const taskOptions = await taskOptionsApi.getByTask(task._id);
-
-        setTaskOptions(taskOptions);
-    }, []);
+    const [answerCache, setAnswerCache] = useState({});
 
     const answerForm = useFormik({
         initialValues: {
-            selectedOption: null,
-            selectedOptions: [],
-            answer: '',
+            answer: null
         },
-        onSubmit: async (values) => {
-            console.log(values);
-            // try {
-            //     await props.loginUser(values);
-            //     history.push('/home');
-            // } catch (e) {
-            //     console.log(e);
-            // }
+        onSubmit: async (v) => {
+            delete answerCache[task._id];
+            setAnswerCache({...answerCache});
+            console.log(v);
             return false;
         },
     });
 
+    // reset form when task changes
+    useEffect(async () => {
+        const taskOptions = await taskOptionsApi.getByTask(task._id);
+
+        setTaskOptions(taskOptions);
+        await answerForm.resetForm({values: {answer: answerCache[task._id]}});
+
+    }, [task]);
+
+    // update answerCache when answer changes
+    useEffect(() => {
+        setAnswerCache({
+            ...answerCache,
+            [task._id]: answerForm.values.answer
+        })
+    }, [answerForm.values.answer]);
 
     if(!task){
         return '';
     }
-    console.log(task);
-    console.log(taskOptions);
-    console.log(answerForm.values);
 
     let answerSection;
     switch(task.type){
@@ -51,18 +50,10 @@ const ContestTask = (props) => {
             if(!taskOptions){
                 answerSection = '';
             } else {
+                const options = taskOptions.map(x => {return {label: x.label, value: x._id}});
+
                 answerSection = (
-                <Radio.Group onChange={(e) => answerForm.setFieldValue('selectedOption', e.target.value)} value={answerForm.values.selectedOption}>
-                    <List
-                        className="options-list-radio"
-                        header={<div>Варианты</div>}
-                        bordered
-                        dataSource={taskOptions}
-                        renderItem={taskOption => (
-                            <Radio value={taskOption._id}>{taskOption.label}</Radio>
-                        )}
-                    />
-                </Radio.Group>
+                    <Radio.Group name={"answer"} options={options} onChange={answerForm.handleChange} value={answerForm.values.answer} />
                 );
             }
             break;
@@ -70,53 +61,36 @@ const ContestTask = (props) => {
             if(!taskOptions){
                 answerSection = '';
             } else {
-                // const select = (taskOptionId) => {
-                //     if(!answer){
-                //         setAnswer([taskOptionId]);
-                //     } else {
-                //         const ind = answer.indexOf(taskOptionId);
-                //         if(ind === -1){
-                //             setAnswer([...answer, taskOptionId]);
-                //         } else {
-                //             const newAnswer = [...answer];
-                //             newAnswer.splice(ind, 1);
-                //             setAnswer(newAnswer);
-                //         }
-                //     }
-                // }
+                const options = taskOptions.map(x => {return {label: x.label, value: x._id}});
 
                 answerSection = (
-                    <List
-                        className="options-list-checkbox"
-                        header={<div>Варианты</div>}
-                        bordered
-                        dataSource={taskOptions}
-                        renderItem={taskOption => (
-                            <Checkbox name="selectedOptions" onChange={answerForm.handleChange} /*checked={answer && answer.indexOf(taskOption._id) !== -1}*/>{taskOption.label}</Checkbox>
-                        )}
-                    />
+                    <Checkbox.Group options={options} onChange={value => answerForm.setFieldValue('answer', value)} value={answerForm.values.answer} />
                 );
             }
             break;
-        // case "fillIn":
-        //     answerSection = (
-        //         <Input value={answer} onChange={(e) => setAnswer(e.target.value)} />
-        //     );
-        //     break;
-        // case "essay":
-        //     answerSection = (
-        //         <Input.TextArea rows={4} value={answer} onChange={(e) => setAnswer(e.target.value)} />
-        //     );
-        //     break;
-        //
-        // default:
-        //     answerSection = '';
+        case "fillIn":
+            answerSection = (
+                <Input name={"answer"} onChange={answerForm.handleChange} value={answerForm.values.answer} />
+            );
+            break;
+        case "essay":
+            answerSection = (
+                <Input.TextArea rows={4} name={"answer"} onChange={answerForm.handleChange} value={answerForm.values.answer} />
+            );
+            break;
+        default:
+            answerSection = '';
     }
 
     return (
         <div>
             <p>{task.text}</p>
-            {answerSection}
+            <form onSubmit={answerForm.handleSubmit}>
+                {answerSection}
+                <div className="">
+                    <Button type="primary" size="large" htmlType="submit" block>Отправить</Button>
+                </div>
+            </form>
         </div>
     );
 };
