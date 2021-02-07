@@ -9,7 +9,8 @@ const run = async () => {
     return;
   }
 
-  await subjectService.create({ name });
+  const subject = await subjectService.create({ name });
+  console.info(subject._id);
 };
 
 run()

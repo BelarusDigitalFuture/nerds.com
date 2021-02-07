@@ -71,3 +71,10 @@ Fixtures:
 
 - Users (admin)
 - Subjects (belarusian language)
+
+
+Scripts:
+-
+
+- `docker exec -it nerdscom_server_1 node src/scripts/createAdminUser.js`
+- `docker exec -it nerdscom_server_1 node src/scripts/createSubject.js`

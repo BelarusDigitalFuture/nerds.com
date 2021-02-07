@@ -5,5 +5,5 @@ const format = (task) => {
 module.exports.format = format;
 
 module.exports.formatArray = (tasks) => {
-  return tasks.map(format);
+  return {results: tasks.results.map(format)};
 };

@@ -5,7 +5,7 @@ const controller = require('./contest.controller');
 router.use(isAuthenticated);
 
 router.post('/', controller.create);
-router.get('/', controller.get);
+router.get('/:id', controller.getOne);
 router.put('/:id', controller.update);
 router.delete('/:id', controller.delete);
 
