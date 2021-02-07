@@ -1,13 +1,16 @@
 const _ = require('lodash');
 const taskSetService = require('./task-set.service');
 const taskSetHelper = require('./task-set.helper');
-const {getTaskSet} = require('./task-set.acl');
-const {getSubject} = require('./../subject/subject.acl');
+const {validate, populate} = require('./validators/task-set.validator');
 
 module.exports.create = async (ctx) => {
-  const {name, description, subjectId} = ctx.request.body;
+  const data = await validate(ctx, true);
 
-  await getSubject(subjectId);
+  if (!data.isValid) {
+    return;
+  }
+
+  const {name, description, subjectId} = data;
 
   const taskSet = await taskSetService.create({
     name,
@@ -32,25 +35,28 @@ module.exports.get = async (ctx) => {
 };
 
 module.exports.update = async (ctx) => {
-  const {name, description, subjectId} = ctx.request.body;
+  const data = await validate(ctx, false);
 
-  const taskSet = await getTaskSet(ctx.params.id, ctx.state.user);
-
-  if(typeof subjectId !== "undefined") {
-    await getSubject(subjectId);
+  if (!data.isValid) {
+    return;
   }
 
-  await taskSet.update({name, description, subjectId});
+  const {name, description, subjectId} = data;
+
+  const updatedTaskSet = await taskSetService.findOneAndUpdate({
+    _id: ctx.params.id,
+  }, {
+    $set: {name, description, subjectId},
+  }, { returnOriginal: false });
 
   ctx.body = {
-    ...taskSetHelper.format(taskSet),
+    ...taskSetHelper.format(updatedTaskSet),
   };
 };
 
 module.exports.delete = async (ctx) => {
-  const taskSet = await getTaskSet(ctx.params.id, ctx.state.user);
-
-  await taskSet.delete();
-
+  if(await populate(ctx, true)){
+    await taskSetService.remove({ _id: ctx.params.id });
+  }
   ctx.body = {success: true};
 };

@@ -1,42 +1,76 @@
 const _ = require('lodash');
-const { taskType } = require('../task.constants');
+const {taskType} = require('../task.constants');
 const taskService = require('../task.service');
 const taskSetService = require('../../task-set/task-set.service');
 const baseValidator = require('../../base.validator');
 
-module.exports = ctx => baseValidator(ctx, async () => {
-  ctx.checkBody('taskSetId')
-    .notEmpty()
+const populate = async (ctx, required) => {
+  if (ctx.params.id) {
+    const task = await taskService.findOne({_id: ctx.params.id});
+    const taskSet = await taskSetService.findOne({_id: task.taskSetId});
+
+    if (!task || taskSet.authorId !== ctx.state.user._id) {
+      ctx.errors.push({task: 'Task not found'});
+      return false;
+    }
+
+    ctx.state.task = task;
+    return true;
+  } else if (required) {
+    ctx.errors.push({task: 'Task not found'});
+  }
+  return false;
+}
+
+module.exports.populate = populate;
+
+module.exports.validate = (ctx, isNew) => baseValidator(ctx, async () => {
+  let check;
+
+  check = ctx.checkBody('taskSetId').trim();
+  if (isNew) {
+    check.notEmpty();
+  } else {
+    check.optional();
+  }
+
+  check = ctx.checkBody('type').trim();
+  if (isNew) {
+    check.notEmpty();
+  } else {
+    check.optional();
+  }
+
+  check = ctx.checkBody('text')
+    .isLength(2, null, 'Text must be at least 2 characters')
     .trim();
-  ctx.checkBody('type')
-    .notEmpty()
-    .trim();
+  if (isNew) {
+    check.notEmpty();
+  } else {
+    check.optional();
+  }
+
+  check = ctx.checkBody('correctAnswerPoints')
+    .notEmpty();
+  if (isNew) {
+    check.notEmpty();
+  } else {
+    check.optional();
+  }
+
   ctx.checkBody('evaluationInformation')
     .optional()
     .isLength(2, null, 'Evaluation information must be at least 2 characters')
-    .trim();
-  ctx.checkBody('text')
-    .optional()
-    .isLength(2, null, 'Text must be at least 2 characters')
     .trim();
   ctx.checkBody('maxLength')
     .optional();
   ctx.checkBody('maxWords')
     .optional();
-  ctx.checkBody('correctAnswerPoints')
-    .notEmpty();
+
+  await populate(ctx, !isNew);
 
   if (ctx.errors.length > 0) {
     return false;
-  }
-
-  if (ctx.params.id) {
-    const task = await taskService.findOne({ _id: ctx.params.id });
-
-    if (!task) {
-      ctx.errors.push({ task: 'Task not found' });
-      return false;
-    }
   }
 
   const {
@@ -45,16 +79,18 @@ module.exports = ctx => baseValidator(ctx, async () => {
     correctAnswerPoints,
   } = ctx.request.body;
 
-  if(!Object.values(taskType).includes(type)){
-    ctx.errors.push({ type: 'Incorrect type of task' });
+  if (!Object.values(taskType).includes(type)) {
+    ctx.errors.push({type: 'Incorrect type of task'});
     return false;
   }
 
-  const taskSet = await taskSetService.findOne({ _id: taskSetId });
+  if (taskSetId) {
+    const taskSet = await taskSetService.findOne({_id: taskSetId});
 
-  if (!taskSet) {
-    ctx.errors.push({ taskSetId: 'Task set with the following id was not found' });
-    return false;
+    if (!taskSet || taskSet.authorId !== ctx.state.user._id) {
+      ctx.errors.push({taskSetId: 'Task set with the following id was not found'});
+      return false;
+    }
   }
 
   return {
