@@ -1,28 +1,22 @@
-const initialState = {
-  auth: false,
-  authError: false,
-  authFetching: false,
-  token: null,
-};
+const initialState = {};
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case 'SET_AUTH': {
+    case 'SIGNUP_USER': {
       return {
         ...state,
-        auth: action.auth,
+        ...action.payload,
       };
     }
-    case 'SET_AUTH_ERROR': {
+    case 'LOGIN_USER': {
       return {
         ...state,
-        authError: action.authError,
+        ...action.payload,
       };
     }
-    case 'AUTH_FETCHING': {
+    case 'LOGOUT_USER': {
       return {
-        ...state,
-        authFetching: action.authFetching,
+        ...initialState,
       };
     }
     default: return state;
