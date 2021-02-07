@@ -41,13 +41,17 @@ module.exports.update = async (ctx) => {
     return;
   }
 
-  const {name, description, subjectId} = data;
+  const { name, description, subjectId } = data;
 
   const updatedTaskSet = await taskSetService.findOneAndUpdate({
     _id: ctx.params.id,
   }, {
-    $set: {name, description, subjectId},
-  }, { returnOriginal: false });
+    $set: {
+      name,
+      description,
+      subjectId,
+    },
+  });
 
   ctx.body = {
     ...taskSetHelper.format(updatedTaskSet),
@@ -58,5 +62,7 @@ module.exports.delete = async (ctx) => {
   if(await populate(ctx, true)){
     await taskSetService.remove({ _id: ctx.params.id });
   }
-  ctx.body = {success: true};
+  ctx.body = {
+    success: true,
+  };
 };

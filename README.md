@@ -32,7 +32,7 @@ Subject
 - GET /api/subject - get all subjects
   
 TaskSet
-- POST /api/task-set - create task set
+- POST task-set - create task set
 - GET /api/task-set - get my task sets
 - PUT /api/task-set/:id - update task set (only accessible for the author or admin)
 - DELETE /api/task-set/:id - delete task set (only accessible for the author or admin)

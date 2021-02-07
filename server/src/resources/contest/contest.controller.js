@@ -67,5 +67,7 @@ module.exports.update = async (ctx) => {
 module.exports.delete = async (ctx) => {
   await contestService.remove({ _id: ctx.params.id });
 
-  ctx.body = {};
+  ctx.body = {
+    success: true,
+  };
 };

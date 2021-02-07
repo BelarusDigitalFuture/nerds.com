@@ -5,10 +5,10 @@ const baseValidator = require('../../base.validator');
 
 const populate = async (ctx, required) => {
   if (ctx.params.id) {
-    const taskSet = await taskSetService.findOne({ _id: task.taskSetId });
+    const taskSet = await taskSetService.findOne({ _id: ctx.params.id });
 
     if (!taskSet || taskSet.authorId !== ctx.state.user._id) {
-      ctx.errors.push({ task: 'Task not found' });
+      ctx.errors.push({ task: 'Task Set not found' });
       return false;
     }
 
@@ -25,11 +25,11 @@ module.exports.populate = populate;
 module.exports.validate = (ctx, isNew) => baseValidator(ctx, async () => {
   let check;
 
-  check = ctx.checkBody('name').trim();
+  check = ctx.checkBody('name');
   if (isNew) {
-    check.notEmpty();
+    check.notEmpty().trim();
   } else {
-    check.optional();
+    check.optional().trim();
   }
   check = ctx.checkBody('description').trim();
   if (isNew) {
@@ -52,8 +52,8 @@ module.exports.validate = (ctx, isNew) => baseValidator(ctx, async () => {
 
   const { name, description, subjectId } = ctx.request.body;
 
-  if(subjectId) {
-    const subject = await subjectService.findOne({_id: subjectId});
+  if (subjectId) {
+    const subject = await subjectService.findOne({ _id: subjectId });
 
     if (!subject) {
       ctx.errors.push({taskSetId: 'Subject with the following id was not found'});
