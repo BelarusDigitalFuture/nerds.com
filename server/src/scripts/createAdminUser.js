@@ -4,7 +4,7 @@ const userData = {
   email: 'admin@geekcon.online.com',
   password: 'Ohchah4i',
   name: 'admin',
-}
+};
 
 const run = async () => {
   const existingUser = await userService.findOne({ email: userData.email });
@@ -14,7 +14,6 @@ const run = async () => {
   }
 
   let user = await userService.createUserAccount({ userData });
-  await userService.update(user);
   console.info(user._id);
 };
 
