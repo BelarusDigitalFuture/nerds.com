@@ -1,8 +1,8 @@
 const _ = require('lodash');
 const subjectService = require('./subject.service');
 
-module.exports.getCurrent = async (ctx) => {
-  const subject = await subjectService.findOne({});
+module.exports.getAll = async (ctx) => {
+  const subjects = await subjectService.find({});
 
-  ctx.body = subject;
+  ctx.body = subjects;
 };

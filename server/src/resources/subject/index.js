@@ -4,6 +4,6 @@ const controller = require('./subject.controller');
 
 router.use(isAuthenticated);
 
-// router.get('/', controller.getCurrent);
+router.get('/', controller.getAll);
 
 module.exports = router.routes();

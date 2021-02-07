@@ -1,6 +1,5 @@
 const _ = require('lodash');
 const hasher = require('wordpress-hash-node');
-const moment = require('moment');
 const userService = require('./user.service');
 const userValidator = require('./validators/user.validator');
 const userHelper = require('./user.helper');
