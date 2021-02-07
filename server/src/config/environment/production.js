@@ -4,7 +4,7 @@ module.exports = {
   },
   apiUrl: 'https://geekcon.online:8443',
   landingUrl: 'https://geekcon.online',
-  cookieDomain: 'https://geekcon.online',
+  cookieDomain: 'geekcon.online',
   isProduction: true,
   winston: {
     level: 'info',
