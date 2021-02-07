@@ -72,6 +72,7 @@
       - '8081:8081'
     volumes:
       - /var/log/nginx:/var/log/nginx:rw
+      - /data/letsencrypt:/data/letsencrypt-challenges
     volumes_from:
       - client
     links:
