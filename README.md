@@ -57,6 +57,10 @@ Answer
 - POST /api/answer?contest&task - create answer for the task and contest. Answers are immutable (creating one should remove previous)
 - GET /api/answer?contest&task - get answers for the specified contest and task
 - DELETE /api/answer/:id - delete answer
+  
+Scoreboard
+- GET /api/scoreBoard/contest/:id - get scoreboard for contest 
+- GET /api/scoreBoard/subject/:id?ratingEnabled - get scoreboard for contest 
 
 Fixtures:
 -
