@@ -78,7 +78,9 @@
     }],
     "jsx-a11y/media-has-caption": 0,
     "flowtype/no-types-missing-file-annotation": 0,
-    "import/prefer-default-export": 0
+    "import/prefer-default-export": 0,
+    "react/jsx-props-no-spreading": 0,
+    "arrow-body-style": 0
   },
   "globals": {
     "NODE_ENV": true
