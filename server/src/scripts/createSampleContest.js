@@ -63,7 +63,7 @@ const createTasks = async (taskSetId) => {
     },
     {
       taskSetId,
-      type: taskConstants.taskType.oneAnswer,
+      type: taskConstants.taskType.essay,
       maxLength: 1000,
       maxWords: 100,
       text: 'Do you love Belarus? Explain your answer',

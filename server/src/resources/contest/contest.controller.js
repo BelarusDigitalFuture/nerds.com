@@ -32,7 +32,7 @@ module.exports.create = async (ctx) => {
 };
 
 module.exports.getOne = async (ctx) => {
-  const contest = await contestService.find({
+  const contest = await contestService.findOne({
     _id: ctx.params.id,
   });
 
