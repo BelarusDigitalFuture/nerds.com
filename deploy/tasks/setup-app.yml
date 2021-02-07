@@ -70,6 +70,7 @@
       - '80:80'
       - '443:443'
       - '8081:8081'
+      - '8443:8443'
     volumes:
       - /var/log/nginx:/var/log/nginx:rw
       - /data/letsencrypt:/data/letsencrypt-challenges
