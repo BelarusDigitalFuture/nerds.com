@@ -73,6 +73,7 @@
     volumes:
       - /var/log/nginx:/var/log/nginx:rw
       - /data/letsencrypt:/data/letsencrypt-challenges
+      - /data/ssl:/data/ssl
     volumes_from:
       - client
     links:
