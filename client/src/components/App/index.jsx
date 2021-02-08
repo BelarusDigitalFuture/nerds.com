@@ -15,6 +15,7 @@ import Home from 'components/Home';
 import Contest from 'components/Contest';
 import Header from 'components/Header';
 import Subjects from 'components/Subjects';
+import NotFound from 'components/NotFound';
 
 import 'antd/dist/antd.css';
 
@@ -25,7 +26,7 @@ function App() {
   return (
     <Router>
       <Provider store={store}>
-        <Layout style={{ height: '100%' }}>
+        <Layout style={{ minHeight: '100%' }}>
           <Switch>
             <Route path="/login" component={Login} />
             <>
@@ -37,7 +38,7 @@ function App() {
                 <PrivateRoute path="/subject/:name" component={Subjects} />
                 <PrivateRoute path="/contest/:id/task/:taskId" component={Contest} />
                 <PrivateRoute path="/contest/:id" component={Contest} />
-                <Route exact path="*" component={() => <div>root</div>} />
+                <Route exact path="*" component={NotFound} />
               </Switch>
             </>
           </Switch>

@@ -34,9 +34,9 @@ const News = props => {
         pageSize: 3,
       }}
       dataSource={listData}
-      renderItem={item => (
+      renderItem={(item, index) => (
         <List.Item
-          key={item.title}
+          key={index}
           actions={[
             <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
             <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,

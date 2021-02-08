@@ -1,5 +1,9 @@
 import * as api from '../api/contest.api';
 
-export const getContestsBySubject = ({ subjectId, page }) => dispatch =>
-  api.getContestBySubject({ subjectId, page })
-    .then(payload => dispatch({ type: 'GET_CONTESTS', payload }));
+export const getContestList = () => (dispatch) => {
+  return api.getContestList()
+    .then(response => dispatch({
+      type: 'SET_CONTEST_LIST',
+      payload: (response || {}).results,
+    }));
+};
