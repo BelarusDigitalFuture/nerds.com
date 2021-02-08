@@ -1,13 +1,13 @@
 const initialState = {
-  contests: [],
+  list: [],
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case 'GET_CONTESTS': {
+    case 'SET_CONTEST_LIST': {
       return {
         ...state,
-        contests: action.payload.results,
+        list: action.payload,
       };
     }
     default: return state;

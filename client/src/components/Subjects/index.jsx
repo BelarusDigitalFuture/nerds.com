@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 
 import MainLayout from 'components/common/MainLayout';
-import Physic from 'components/Subjects/Physic';
+import BelLang from 'components/Subjects/BelLang';
 
 const Subjects = (props) => {
   const { name } = useParams();
 
   function renderSubject() {
     switch (name) {
-      case 'belmova': return <Physic />;
+      case 'belmova': return <BelLang />;
       default: return <></>;
     }
   }

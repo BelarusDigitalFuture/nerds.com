@@ -14,6 +14,7 @@ const Header = (props) => {
 
   return (
     <PageHeader
+      style={{ position: 'fixed', zIndex: 1, width: '100%' }}
       ghost={false}
       title="GEEKCON"
       extra={[
