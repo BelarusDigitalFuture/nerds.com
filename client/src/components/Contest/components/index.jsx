@@ -18,7 +18,7 @@ const Contest = (props) => {
 
     useEffect(async () => {
         const contest = await contestApi.getContest(id);
-        const tasks = await taskApi.getByTaskSet(contest.taskSetId);
+        const tasks = await taskApi.getByTaskSet(contest && contest.taskSetId);
 
         setContest(contest);
         setTasks(tasks);
