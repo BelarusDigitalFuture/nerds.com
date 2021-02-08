@@ -8,7 +8,7 @@ import TrainingList from 'components/Subjects/TrainingList'
 
 import { BEL_LANG_TASKS } from 'consts/tasks'
 
-const BelLang = ({
+const Subject = ({
   getContestList,
   contestList,
 }) => {
@@ -39,9 +39,9 @@ const BelLang = ({
   )
 };
 
-BelLang.propTypes = {
+Subject.propTypes = {
   getContestList: PropTypes.func.isRequired,
   contestList: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
 
-export default BelLang;
+export default Subject;
