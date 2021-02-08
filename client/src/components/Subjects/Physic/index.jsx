@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { PageHeader, Button, Divider } from 'antd';
 
-import Competitions from 'components/Competitions';
+import Contests from 'components/Contests';
 
 const Physic = props => {
   return (
@@ -22,7 +22,7 @@ const Physic = props => {
       />
       <Divider />
       <h2>Соревнования</h2>
-      <Competitions />
+      <Contests />
       <h2>Тренировки</h2>
     </div>
   )

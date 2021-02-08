@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "app-module-path": "2.2.0",
+    "axios": "^0.21.1",
     "base64-url": "^2.3.3",
     "base64url": "^3.0.1",
     "bluebird": "^3.7.2",

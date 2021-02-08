@@ -42,13 +42,16 @@ module.exports.getOne = async (ctx) => {
 };
 
 module.exports.get = async (ctx) => {
-  const contest = await contestService.find({
+  const { subjectId } = ctx.request.query;
+
+  const contests = await contestService.find({
     ratingEnabled: true,
-    endDate: { $gt: new Date()}
+    endDate: { $gt: new Date()},
+    ...(subjectId && { subjectId }),
   });
 
   ctx.body = {
-    ...contestHelper.format(contest),
+    results: contestHelper.formatArray(contests.results)
   };
 };
 

@@ -12,14 +12,8 @@ export function getContest(id) {
     .then((contest) => contest);
 }
 
-// export function loginUser(userData) {
-//   return baseApi
-//     .post('account/login', null, userData)
-//     .then(user => user);
-// }
-//
-// export function logoutUser() {
-//   return baseApi
-//     .get('account/logout', null)
-//     .then(success => success);
-// }
+export function getContestBySubject({ subjectId, page }) {
+  return baseApi
+    .get('contest', { subjectId, page })
+    .then((contests) => contests);
+}

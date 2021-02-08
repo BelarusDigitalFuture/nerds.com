@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 
 import { Link } from 'react-router-dom';
@@ -11,17 +11,20 @@ import {
 import MainLayout from 'components/common/MainLayout';
 import News from 'components/News';
 
-import SUBJECTS from 'consts/subjects';
-
 import './styles.scss';
 
-const Home = (props) => {
+const Home = ({ getSubjects, subjects }) => {
+
+  useEffect(() => {
+    getSubjects();
+  }, []);
+
   return (
     <MainLayout>
       <Row align="center" gutter={[16, 16]}>
-        {SUBJECTS.map((item, index) => (
+        {subjects.map((item, index) => (
           <Col key={index}>
-            <Link to={item.path}>
+            <Link to={`subject/${item.shortName}`}>
               <Button type="primary" shape="round" size="large" disabled={item.disabled}>
                 {item.name}
               </Button>
@@ -36,7 +39,8 @@ const Home = (props) => {
 };
 
 Home.propTypes = {
-
+  getSubjects: PropTypes.func.isRequired,
+  subjects: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
 
 export default Home;

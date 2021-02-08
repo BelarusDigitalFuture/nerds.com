@@ -1,9 +1,10 @@
 const subjectService = require('../resources/subject/subject.service');
 
-const name = process.argv[2] || 'Test subject';
+const name = process.argv[2] || 'Беларуская мова';
+const shortName = process.argv[3] || 'belmova';
 
 const run = async () => {
-  const existingSubject = await subjectService.findOne({ name });
+  const existingSubject = await subjectService.findOne({ name, disabled: false });
   if (existingSubject) {
     console.info(`Subject with name ${name} already exists, id - ${existingSubject._id}`);
     return;

@@ -11,7 +11,7 @@ const Subjects = (props) => {
 
   function renderSubject() {
     switch (name) {
-      case 'physic': return <Physic />;
+      case 'belmova': return <Physic />;
       default: return <></>;
     }
   }

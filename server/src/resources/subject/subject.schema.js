@@ -10,9 +10,11 @@ const subjectSchema = {
     createdAt: { type: 'Date' },
     updatedAt: { type: 'Date' },
     deletedAt: { type: 'Date' },
+    disabled: { type: 'boolean' },
     name: { type: ['string'] },
+    shortName: { type: ['string'] },
   },
-  required: ['_id', 'name'],
+  required: ['_id', 'name', 'shortName'],
 };
 
 module.exports = obj => validator.validate(obj, subjectSchema);
