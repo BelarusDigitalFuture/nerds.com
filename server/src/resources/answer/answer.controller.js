@@ -1,6 +1,8 @@
 const _ = require('lodash');
 const answerHelper = require('./answer.helper');
 const answerService = require('./answer.service');
+const taskService = require('./../task/task.service');
+const taskConstants = require('./../task/task.constants');
 const {validate, populate} = require('./validators/answer.validator');
 
 // Answer
@@ -14,13 +16,13 @@ module.exports.createOrUpdate = async (ctx) => {
   if (!data.isValid) {
     return;
   }
-  const { taskId, contestId, value } = data;
+  const { taskId, contestId, value, points } = data;
 
   let answer = ctx.state.answer;
   if(answer){
-    await answerService.updateEntity(answer, { value });
+    await answerService.updateEntity(answer, { value, points });
   } else {
-    answer = await answerService.create({ taskId, contestId, userId: ctx.state.user._id, value });
+    answer = await answerService.create({ taskId, contestId, userId: ctx.state.user._id, value, points });
   }
 
   ctx.body = {

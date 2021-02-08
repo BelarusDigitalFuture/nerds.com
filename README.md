@@ -63,8 +63,8 @@ Answer
 - DELETE /api/answer?contest&task - delete answer
   
 Scoreboard
-- GET /api/scoreBoard/contest/:id - get scoreboard for contest 
-- GET /api/scoreBoard/subject/:id?ratingEnabled - get scoreboard for contest 
+- GET /api/scoreboard/contest/:id - get scoreboard for contest 
+- GET /api/scoreboard/subject/:id?ratingEnabled - get scoreboard for contest 
 
 Fixtures:
 -

@@ -437,6 +437,34 @@ const contestGet = async (token, contestId) => {
   );
 }
 
+const scoreboardGetByContest = async (token, contestId) => {
+  return new Promise((resolve, reject) =>
+    axios.get(`http://${host}/scoreboard/contest/${contestId}`, {
+      headers: {'Authorization': `Bearer ${token}`},
+    }).then(res => {
+      console.log(res.data);
+      resolve(res.data);
+    }).catch(error => {
+      console.error(error.response.data);
+      reject();
+    })
+  );
+}
+
+const scoreboardGetBySubject = async (token, subjectId) => {
+  return new Promise((resolve, reject) =>
+    axios.get(`http://${host}/scoreboard/subject/${subjectId}`, {
+      headers: {'Authorization': `Bearer ${token}`},
+    }).then(res => {
+      console.log(res.data);
+      resolve(res.data);
+    }).catch(error => {
+      console.error(error.response.data);
+      reject();
+    })
+  );
+}
+
 const contestUpdate = async (token, contest) => {
   const data = {
     startDate: moment().add(2, 'week').toISOString(),
@@ -585,6 +613,9 @@ const run = async () => {
   const answers = await answersCreate(token, tasks, contest._id);
   await answerUpdate(token, answers[2]);
   await answerDelete(token, answers[2]);
+
+  await scoreboardGetByContest(token, contest._id);
+  await scoreboardGetBySubject(token, subjects[0]._id);
 
   await taskOptionDelete(token, taskOptions[0]._id);
   await taskDelete(token, tasks[0]._id);

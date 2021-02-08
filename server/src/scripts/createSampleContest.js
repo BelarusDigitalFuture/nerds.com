@@ -4,8 +4,7 @@ const userService = require('../resources/user/user.service');
 const taskSetService = require('../resources/task-set/task-set.service');
 const taskService = require('../resources/task/task.service');
 const taskOptionService = require('../resources/task-option/task-option.service');
-const taskConstants = require('../resources/task/task.constants');
-const moment = require('moment');
+const contestData = require('./data/contest');
 
 const subjectId = process.argv[2];
 
@@ -24,53 +23,12 @@ const createTaskSet = async (authorId) => {
 }
 
 const createTasks = async (taskSetId) => {
-  const correctAnswerPoints = 10;
-
-  const tasksData = [
-    {
+  const tasksData = contestData.tasks.map(x => {
+    return {
+      ...x,
       taskSetId,
-      type: taskConstants.taskType.oneAnswer,
-      text: 'Choose your most favourite color',
-      correctAnswerPoints,
-      options: [
-        {label: 'Red', isCorrect: false},
-        {label: 'Green', isCorrect: false},
-        {label: 'Blue', isCorrect: false},
-        {label: 'White', isCorrect: true},
-      ]
-    },
-    {
-      taskSetId,
-      type: taskConstants.taskType.multipleAnswers,
-      text: 'Choose only belarusian cities',
-      correctAnswerPoints,
-      options: [
-        {label: 'Minsk', isCorrect: true},
-        {label: 'Gomel', isCorrect: true},
-        {label: 'Mozyr', isCorrect: true},
-        {label: 'Warsaw', isCorrect: false},
-        {label: 'Moscow', isCorrect: false},
-      ]
-    },
-    {
-      taskSetId,
-      type: taskConstants.taskType.fillIn,
-      maxLength: 30,
-      maxWords: 3,
-      text: 'Name the most popular song of E.Zheludok',
-      evaluationInformation: 'Schuchynschzyna or something like that',
-      correctAnswerPoints,
-    },
-    {
-      taskSetId,
-      type: taskConstants.taskType.essay,
-      maxLength: 1000,
-      maxWords: 100,
-      text: 'Do you love Belarus? Explain your answer',
-      evaluationInformation: 'Evaluate as you wish',
-      correctAnswerPoints,
-    },
-  ];
+    }
+  });
 
   return Promise.all(tasksData.map(async taskData => {
     const options = taskData.options;
@@ -95,14 +53,13 @@ const createTasks = async (taskSetId) => {
 }
 
 const createContest = async (taskSetId) => {
-  const contestData = {
-    startDate: moment().add(1, 'week').toDate(),
-    endDate: moment().add(1, 'week').add(2, 'hours').toDate(),
-    description: 'test description',
+  const contest = await contestService.create({
+    startDate: contestData.startDate,
+    endDate: contestData.endDate,
+    description: contestData.description,
     ratingEnabled: true,
     taskSetId,
-  }
-  const contest = await contestService.create(contestData);
+  });
 
   console.info(`Created new contest ${JSON.stringify(contest)}`);
 }

@@ -63,11 +63,9 @@ module.exports.update = async (ctx) => {
     ratingEnabled, taskSetId,
   } = data;
 
-  const updatedContest = await contestService.findOneAndUpdate({ _id: ctx.params.id }, {
-    $set: {
-      startDate, endDate, description,
-      ratingEnabled, taskSetId,
-    },
+  const updatedContest = await contestService.updateEntity(ctx.state.contest,  {
+    startDate, endDate, description,
+    ratingEnabled, taskSetId,
   });
 
   ctx.body = {

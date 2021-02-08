@@ -41,6 +41,7 @@ module.exports.validate = (ctx) => baseValidator(ctx, async () => {
     .notEmpty();
 
   const { taskId, contestId, value } = ctx.request.body;
+  let points;
 
   const task = await taskService.findOne({_id: taskId});
   if (!task) {
@@ -52,15 +53,25 @@ module.exports.validate = (ctx) => baseValidator(ctx, async () => {
     case taskConstants.taskType.oneAnswer:
       if (taskOptions.results.map(x => x._id).indexOf(value) === -1) {
         ctx.errors.push({value: `${value} task option does not exist`});
+      } else {
+        points = taskOptions.results.find(x => x._id === value).isCorrect * task.correctAnswerPoints;
       }
       break;
     case taskConstants.taskType.multipleAnswers:
       if(Array.isArray(value)) {
+        let optionsValid = true;
         value.forEach(v => {
           if (taskOptions.results.map(x => x._id).indexOf(v) === -1) {
             ctx.errors.push({value: `${v} task option does not exist`});
+            optionsValid = false;
           }
         });
+
+        if(optionsValid){
+          const correctAnswers = taskOptions.results.map(x => (value.indexOf(x._id) === -1) ^ x.isCorrect).reduce((acc, cur) => acc + cur);
+          points = correctAnswers / taskOptions.results.length * task.correctAnswerPoints;
+          console.log(taskOptions, value, points);
+        }
       } else {
         ctx.errors.push({value: `value should be an array`});
       }
@@ -77,6 +88,7 @@ module.exports.validate = (ctx) => baseValidator(ctx, async () => {
   }
 
   await populate(ctx);
+  ctx.state.task = task;
 
-  return { taskId, contestId, value };
+  return { taskId, contestId, value, points };
 });

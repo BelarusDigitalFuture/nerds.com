@@ -3,6 +3,7 @@ const contestService = require('../contest.service');
 const baseValidator = require('../../base.validator');
 
 module.exports = (ctx, isNew) => baseValidator(ctx, async () => {
+  let check;
   check = ctx.checkBody('startDate');
   if (isNew) {
     check.isDate('Please, enter actual start date')
@@ -43,6 +44,8 @@ module.exports = (ctx, isNew) => baseValidator(ctx, async () => {
       ctx.errors.push({ contest: 'Contest not found' });
       return false;
     }
+
+    ctx.state.contest = contest;
   }
 
   const {
