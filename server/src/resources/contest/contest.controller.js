@@ -14,7 +14,7 @@ module.exports.create = async (ctx) => {
 
   const {
     startDate, endDate, ratingEnabled,
-    taskSetId, description
+    taskSetId, description, subjectId,
   } = data;
 
   const contest = await contestService.create({
@@ -22,6 +22,7 @@ module.exports.create = async (ctx) => {
     endDate: new Date(endDate),
     ratingEnabled,
     taskSetId,
+    subjectId,
     authorId,
     description,
   });
@@ -66,7 +67,8 @@ module.exports.update = async (ctx) => {
     ratingEnabled, taskSetId,
   } = data;
 
-  const updatedContest = await contestService.updateEntity(ctx.state.contest,  {
+
+  const updatedContest = await contestService.updateEntity(ctx.params.id,  {
     startDate, endDate, description,
     ratingEnabled, taskSetId,
   });

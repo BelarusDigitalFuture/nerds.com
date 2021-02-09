@@ -18,7 +18,12 @@ module.exports.createOrUpdate = async (ctx) => {
   }
   const { taskId, contestId, value, points } = data;
 
-  let answer = ctx.state.answer;
+  let answer = await answerService.findOne({
+    taskId,
+    contestId,
+    userId: ctx.state.user._id,
+  });
+
   if(answer){
     await answerService.updateEntity(answer, { value, points });
   } else {
@@ -33,15 +38,11 @@ module.exports.createOrUpdate = async (ctx) => {
 module.exports.get = async (ctx) => {
   const { taskId, contestId } = ctx.request.query;
 
-  if(!taskId){
-    ctx.errors.push({taskId: 'taskId is not set'});
-    return false;
-  }
-
-  if(!contestId){
-    ctx.errors.push({contestId: 'contestId is not set'});
-    return false;
-  }
+  const answer = await answerService.findOne({
+    taskId,
+    contestId,
+    userId: ctx.state.user._id,
+  });
 
   await populate(ctx);
 
@@ -50,13 +51,12 @@ module.exports.get = async (ctx) => {
   }
 
   ctx.body = {
-    ...answerHelper.array(answer),
+    ...answerHelper.formatArray(answer),
   };
 };
 
 module.exports.delete = async (ctx) => {
-  if(await populate(ctx)){
-    await answerService.remove({ _id: ctx.params.answer._id });
-  }
+  const { taskId, contestId } = ctx.request.query;
+  await answerService.remove({ taskId, contestId, userId: ctx.state.user._id });
   ctx.body = {success: true};
 };

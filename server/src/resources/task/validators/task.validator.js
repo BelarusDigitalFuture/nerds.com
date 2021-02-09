@@ -14,13 +14,12 @@ const populate = async (ctx, required) => {
       return false;
     }
 
-    ctx.state.task = task;
     return true;
   } else if (required) {
     ctx.errors.push({task: 'Task not found'});
   }
   return false;
-}
+};
 
 module.exports.populate = populate;
 

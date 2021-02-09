@@ -14,7 +14,7 @@ const IconText = ({ icon, text }) => (
 
 const Contests = ({ getContestsBySubject, contests, history }) => {
   useEffect(() => {
-    getContestsBySubject({ subjectId: '', page: 1 });
+    getContestsBySubject({ subjectId: '' });
   }, []);
 
   const onOpenContest = (contestId) => {
@@ -27,7 +27,6 @@ const Contests = ({ getContestsBySubject, contests, history }) => {
       size="large"
       pagination={{
         onChange: page => {
-          getContestsBySubject({ subjectId: '', page });
         },
         pageSize: 3,
       }}

@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const contestService = require('../contest.service');
+const taskSetService = require('../../task-set/task-set.service');
 const baseValidator = require('../../base.validator');
 
 module.exports = (ctx, isNew) => baseValidator(ctx, async () => {
@@ -44,8 +45,6 @@ module.exports = (ctx, isNew) => baseValidator(ctx, async () => {
       ctx.errors.push({ contest: 'Contest not found' });
       return false;
     }
-
-    ctx.state.contest = contest;
   }
 
   const {
@@ -53,8 +52,18 @@ module.exports = (ctx, isNew) => baseValidator(ctx, async () => {
     ratingEnabled, taskSetId,
   } = ctx.request.body;
 
+  let subjectId;
+  if (taskSetId) {
+    const taskSet = await taskSetService.findOne({ _id: taskSetId });
+    subjectId = _.get(taskSet, 'subjectId', '');
+    if (!taskSet || !subjectId) {
+      ctx.errors.push({ taskSetId: 'Task set with the following Id was not found' });
+      return false;
+    }
+  }
+
   return {
     startDate, endDate, description,
-    ratingEnabled, taskSetId,
+    ratingEnabled, taskSetId, subjectId,
   };
 });

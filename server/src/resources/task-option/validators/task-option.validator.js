@@ -15,13 +15,12 @@ const populate = async (ctx, required) => {
       return false;
     }
 
-    ctx.state.taskOption = taskOption;
     return true;
   } else if(required){
     ctx.errors.push({ task: 'Task Option not found' });
   }
   return false;
-}
+};
 
 module.exports.populate = populate;
 

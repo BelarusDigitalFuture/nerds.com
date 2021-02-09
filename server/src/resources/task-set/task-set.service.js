@@ -1,17 +1,15 @@
+const _ = require('lodash');
 const db = require('../../services/db.service');
 const schema = require('./task-set.schema');
 
 const service = db.createService('taskSet', schema);
 
-service.updateEntity = async (taskSet, $set) => {
-  const {name, description, subjectId} = $set;
-  $set = Object.fromEntries(Object.entries({name, description, subjectId}).filter(x => typeof x[1] !== 'undefined'));
-
+service.updateEntity = async (taskSetId, updateObject) => {
   return service.findOneAndUpdate({
-    _id: taskSet._id,
+    _id: taskSetId,
   }, {
-    $set,
-  }, { returnOriginal: false });
-}
+    $set: _.pickBy(updateObject, _.identity),
+  });
+};
 
 module.exports = service;

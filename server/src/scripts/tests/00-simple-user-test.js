@@ -590,37 +590,65 @@ const answerDelete = async (token, answer) => {
 
 const run = async () => {
   await signup();
+  console.info('1. Signup passed');
   const token = await login();
+  console.info('2. Login passed');
   await userGetMe(token);
+  console.info('3. Get User passed');
   await userUpdateMe(token);
+  console.info('4. Update User passed');
   const subjects = await subjectGet(token);
+  console.info('5. Get Subject passed');
+
 
   const taskSet = await taskSetCreate(token, subjects[0]._id);
+  console.info('6. Create task set passed');
+
   await taskSetGet(token);
+  console.info('7. Get task set passed');
   await taskSetUpdate(token, taskSet);
+  console.info('8. Update task set passed');
 
   const tasks = await tasksCreate(token, taskSet._id);
+  console.info('9. Create task passed');
   await tasksGet(token, taskSet._id);
+  console.info('10. Get task passed');
   await taskUpdate(token, tasks[0]);
+  console.info('11. Update task passed');
   const taskOptions = await taskOptionsGet(token, tasks[0]._id);
+  console.info('12. Get task options passed');
   await taskOptionUpdate(token, taskOptions[0]);
+  console.info('13. Update task options passed');
   
-  const contest = await contestCreate(token, taskSet._id);
+  const contest = await contestCreate(token, taskSet._id, taskSet.subjectId);
+  console.info('14. Contest create passed');
   await contestGet(token, contest._id);
+  console.info('15. Contest get all passed');
   await contestGetOne(token, contest._id);
+  console.info('16. Contest get one passed');
   await contestUpdate(token, contest);
+  console.info('17. Contest update passed');
 
   const answers = await answersCreate(token, tasks, contest._id);
+  console.info('18. Answers create passed');
   await answerUpdate(token, answers[2]);
+  console.info('19. Answers update passed');
   await answerDelete(token, answers[2]);
+  console.info('20. Answers delete passed');
 
   await scoreboardGetByContest(token, contest._id);
+  console.info('21. Scoreboard get by contest passed');
   await scoreboardGetBySubject(token, subjects[0]._id);
+  console.info('22. Scoreboard get by subject passed');
 
   await taskOptionDelete(token, taskOptions[0]._id);
+  console.info('23. Task option delete passed');
   await taskDelete(token, tasks[0]._id);
+  console.info('23. Task delete passed');
   await taskSetDelete(token, taskSet._id);
+  console.info('23. Task set delete passed');
   await contestDelete(token, contest._id);
+  console.info('23. Contest delete passed');
 
 }
 

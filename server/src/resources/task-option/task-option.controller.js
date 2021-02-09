@@ -20,11 +20,6 @@ module.exports.create = async (ctx) => {
 module.exports.get = async (ctx) => {
   const {taskId} = ctx.request.query;
 
-  if(!taskId){
-    ctx.errors.push({taskId: 'TaskId is not set'});
-    return false;
-  }
-
   const taskOptions = await taskOptionService.find({taskId});
 
   ctx.body = {
@@ -41,7 +36,11 @@ module.exports.update = async (ctx) => {
 
   const {taskId, label, isCorrect,} = data;
 
-  const updatedTaskOption = await taskOptionService.updateEntity(ctx.state.taskOption, {taskId, label, isCorrect});
+  const updatedTaskOption = await taskOptionService.updateEntity(ctx.params.id, {
+    taskId,
+    label,
+    isCorrect,
+  });
 
   ctx.body = {
     ...taskOptionHelper.format(updatedTaskOption),

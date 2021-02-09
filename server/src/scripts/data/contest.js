@@ -3,7 +3,7 @@ const moment = require('moment');
 module.exports = {
   startDate: moment().add(1, 'week').toDate(),
   endDate: moment().add(1, 'week').add(2, 'hours').toDate(),
-  description: 'test description',
+  description: 'Тестовая олимпиада по белорусскому языку',
   tasks: [
     {
       type: 'multipleAnswers',
@@ -182,7 +182,6 @@ module.exports = {
       evaluationInformation: 'санітарка',
       correctAnswerPoints: 1,
     },
-
     {
       type: 'fillIn',
       maxLength: 30,

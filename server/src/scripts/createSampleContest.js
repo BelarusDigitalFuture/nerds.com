@@ -10,8 +10,8 @@ const subjectId = process.argv[2];
 
 const createTaskSet = async (authorId) => {
   const taskSetData = {
-    name: 'test taskset',
-    description: 'test taskset description',
+    name: 'Belmova test',
+    description: 'Тестовый сет задач для олимпиады по белорусскому языку',
     subjectId,
     authorId,
   }
@@ -59,6 +59,7 @@ const createContest = async (taskSetId) => {
     description: contestData.description,
     ratingEnabled: true,
     taskSetId,
+    subjectId,
   });
 
   console.info(`Created new contest ${JSON.stringify(contest)}`);
@@ -66,6 +67,9 @@ const createContest = async (taskSetId) => {
 
 const run = async () => {
   if(!subjectId){
+    const subjects = await subjectService.find({});
+    console.log('SUBJECTS TO USE');
+    console.log(JSON.stringify(subjects, null, 2));
     throw new Error('usage: createSampleContest.js subjectId');
   }
   const subject = await subjectService.findOne({ _id: subjectId });

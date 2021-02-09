@@ -15,6 +15,7 @@ const contestSchema = {
     endDate: { type: 'Date' },
     description: { type: ['string'] },
     taskSetId: { type: 'string' },
+    subjectId: { type: 'string' },
     authorId: { type: 'string' },
     ratingEnabled: { type: 'boolean' },
     duration: { type: 'number' },

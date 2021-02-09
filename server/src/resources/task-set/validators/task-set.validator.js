@@ -12,7 +12,6 @@ const populate = async (ctx, required) => {
       return false;
     }
 
-    ctx.state.taskSet = taskSet;
     return true;
   } else if(required){
     ctx.errors.push({ task: 'Task Set not found' });

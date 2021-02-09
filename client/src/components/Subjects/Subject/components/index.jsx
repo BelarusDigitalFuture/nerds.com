@@ -14,7 +14,7 @@ const Subject = ({
 }) => {
   useEffect(() => {
     getContestList()
-  }, [])
+  }, []);
 
   return (
     <div>
