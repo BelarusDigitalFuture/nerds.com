@@ -7,10 +7,12 @@ import Competitions from 'components/Competitions'
 import TrainingList from 'components/Subjects/TrainingList'
 
 import { BEL_LANG_TASKS } from 'consts/tasks'
+import Contests from "../../../Contests/components";
 
 const Subject = ({
   getContestList,
   contestList,
+  title
 }) => {
   useEffect(() => {
     getContestList()
@@ -21,8 +23,7 @@ const Subject = ({
       <PageHeader
         ghost={false}
         onBack={() => window.history.back()}
-        title="Белорусский язык"
-        subTitle="описание"
+        title={title}
         extra={[
           <Button key="1" type="primary">
             Добавить
@@ -41,6 +42,7 @@ const Subject = ({
 
 Subject.propTypes = {
   getContestList: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
   contestList: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
 

@@ -1,21 +1,35 @@
+import _get from 'lodash/get';
 import React, {useEffect, useState} from 'react';
 import * as taskOptionsApi from '../../../../redux/api/task-options.api';
+import * as answerApi from '../../../../redux/api/answer.api';
 import { useFormik } from 'formik';
 
 import { Radio, Input, Checkbox, Button } from 'antd';
 
 import './styles.scss';
+import {useParams} from "react-router-dom";
 
 const ContestTask = (props) => {
+    const {contestId, taskId} = useParams();
     const {task} = props;
     const [taskOptions, setTaskOptions] = useState([]);
     const [answerCache, setAnswerCache] = useState({});
+    const [lastAnswer, setLastAnswer] = useState('');
 
     const answerForm = useFormik({
         initialValues: {
             answer: null
         },
         onSubmit: async (v) => {
+            try {
+              await answerApi.submitAnswer({
+                taskId,
+                contestId,
+                value: answerCache[task._id],
+              });
+            } catch (e) {
+              console.error(e);
+            }
             delete answerCache[task._id];
             setAnswerCache({...answerCache});
             console.log(v);
@@ -26,7 +40,17 @@ const ContestTask = (props) => {
     // reset form when task changes
     useEffect(async () => {
         const taskOptions = await taskOptionsApi.getByTask(task._id);
-
+        const lastAnswerFromApi = await answerApi.getAnswer({ taskId, contestId });
+        if (['oneAnswer', 'multipleAnswers'].includes(task.type)) {
+          const lastAnswerValue = taskOptions
+            .filter(o => lastAnswerFromApi.value.includes(o._id))
+            .map(o => o.label)
+            .join(', ');
+          console.log('lastAnswerValue', lastAnswerValue);
+          setLastAnswer(lastAnswerValue)
+        } else {
+          setLastAnswer(lastAnswerFromApi.value)
+        }
         setTaskOptions(taskOptions);
         await answerForm.resetForm({values: {answer: answerCache[task._id]}});
 
@@ -86,6 +110,7 @@ const ContestTask = (props) => {
         <div>
             <p>{task.text}</p>
             <form onSubmit={answerForm.handleSubmit}>
+                {lastAnswer && <p>Последний отправленный ответ: {lastAnswer}</p>}
                 {answerSection}
                 <div className="">
                     <Button type="primary" size="large" htmlType="submit" block>Отправить</Button>

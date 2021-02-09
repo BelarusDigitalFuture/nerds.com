@@ -11,7 +11,7 @@ const Subjects = (props) => {
 
   return (
     <MainLayout>
-      <Subject name={name} />
+      <Subject title={name} />
     </MainLayout>
   );
 };

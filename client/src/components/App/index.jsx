@@ -36,8 +36,8 @@ function App() {
                 <Redirect exact from="/" to="/home" />
                 <PrivateRoute path="/home" component={Home} />
                 <PrivateRoute path="/subject/:name" component={Subjects} />
-                <PrivateRoute path="/contest/:id/task/:taskId" component={Contest} />
-                <PrivateRoute path="/contest/:id" component={Contest} />
+                <PrivateRoute path="/contest/:contestId/task/:taskId" component={Contest} />
+                <PrivateRoute path="/contest/:contestId" component={Contest} />
                 <Route exact path="*" component={NotFound} />
               </Switch>
             </>

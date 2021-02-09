@@ -3,13 +3,11 @@ const schema = require('./answer.schema');
 
 const service = db.createService('answer', schema);
 
-service.updateEntity = async (answerId, value) => {
+service.updateEntity = async (answerId, updateObject) => {
   return service.findOneAndUpdate({
     _id: answerId,
   }, {
-    $set: {
-      value,
-    },
+    $set: updateObject,
   });
 };
 

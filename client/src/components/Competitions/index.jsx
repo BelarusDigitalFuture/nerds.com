@@ -3,16 +3,8 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 
 import { List, Space } from 'antd';
+import {withRouter} from "react-router-dom";
 import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
-
-const listData = [];
-for (let i = 0; i < 23; i++) {
-  listData.push({
-    href: '#',
-    title: 'Городская олимпиада по белорусскому языку',
-    description: 'актуальна до 06.05.2021',
-  });
-}
 
 const IconText = ({ icon, text }) => (
   <Space>
@@ -21,12 +13,10 @@ const IconText = ({ icon, text }) => (
   </Space>
 );
 
-const Competitions = ({ data }) => {
-  const status = (item) => {
-    if (moment().isBefore(item.endDate)) {
-      return 'ПОДГОТОВКА'
-    } else return 'ЗАВЕРШЕНА'
-  }
+const Competitions = ({ data, history }) => {
+  const onOpenContest = (contestId) => {
+    history.push(`/contest/${contestId}`);
+  };
 
   return (
     <List
@@ -43,11 +33,11 @@ const Competitions = ({ data }) => {
         <List.Item
           key={index}
           actions={[
-            <>{status(item)}</>,
+            <>{item.status}</>,
           ]}
         >
           <List.Item.Meta
-            title={<a href={item.href}>{item.description || 'Без названия'}</a>}
+            title={<a onClick={() => onOpenContest(item._id)}>{item.description}</a>}
             description={moment(item.endDate).format('YYYY-MM-DD')}
           />
           {item.content}
@@ -61,4 +51,4 @@ Competitions.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
-export default Competitions;
+export default withRouter(Competitions);

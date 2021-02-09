@@ -25,7 +25,7 @@ module.exports.createOrUpdate = async (ctx) => {
   });
 
   if(answer){
-    await answerService.updateEntity(answer, { value, points });
+    await answerService.updateEntity(answer._id, { value, points });
   } else {
     answer = await answerService.create({ taskId, contestId, userId: ctx.state.user._id, value, points });
   }
@@ -44,14 +44,8 @@ module.exports.get = async (ctx) => {
     userId: ctx.state.user._id,
   });
 
-  await populate(ctx);
-
-  if(!ctx.state.answer){
-    ctx.errors.push({answer: 'answer not found'});
-  }
-
   ctx.body = {
-    ...answerHelper.formatArray(answer),
+    ...answerHelper.format(answer),
   };
 };
 

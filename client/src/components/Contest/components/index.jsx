@@ -12,12 +12,12 @@ import {
 import './styles.scss';
 
 const Contest = (props) => {
-    const {id, taskId} = useParams();
+    const {contestId, taskId} = useParams();
     const [contest, setContest] = useState();
     const [tasks, setTasks] = useState([]);
 
     useEffect(async () => {
-        const contest = await contestApi.getContest(id);
+        const contest = await contestApi.getContest(contestId);
         const tasks = await taskApi.getByTaskSet(contest && contest.taskSetId);
 
         setContest(contest);
@@ -41,7 +41,7 @@ const Contest = (props) => {
                     renderItem={task => (
                         <List.Item>
                             <Link
-                                to={{pathname: `/contest/${id}/task/${task._id}`}}
+                                to={{pathname: `/contest/${contestId}/task/${task._id}`}}
                                 className={task._id === taskId ? 'selected' : ''}
                             >
                                 {task.text}

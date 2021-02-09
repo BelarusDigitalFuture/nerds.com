@@ -442,6 +442,7 @@ const scoreboardGetByContest = async (token, contestId) => {
     axios.get(`http://${host}/scoreboard/contest/${contestId}`, {
       headers: {'Authorization': `Bearer ${token}`},
     }).then(res => {
+      console.log('Scoreboard by contest');
       console.log(res.data);
       resolve(res.data);
     }).catch(error => {
@@ -456,6 +457,7 @@ const scoreboardGetBySubject = async (token, subjectId) => {
     axios.get(`http://${host}/scoreboard/subject/${subjectId}`, {
       headers: {'Authorization': `Bearer ${token}`},
     }).then(res => {
+      console.log('Scoreboard by subject');
       console.log(res.data);
       resolve(res.data);
     }).catch(error => {

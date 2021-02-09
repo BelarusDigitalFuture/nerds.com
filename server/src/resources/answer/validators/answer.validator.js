@@ -11,7 +11,7 @@ const populate = async (ctx) => {
   const {taskId, contestId} = ctx.request.body || ctx.request.query;
 
   if (!taskId || !contestId || !userId) {
-    ctx.errors.push({ answer: 'Answer not found' });
+    // ctx.errors.push({ answer: 'Answer not found' });
     return false;
   }
 
@@ -34,20 +34,29 @@ module.exports.validate = (ctx) => baseValidator(ctx, async () => {
   ctx.checkBody('value')
     .notEmpty();
 
+  if (ctx.errors.length > 0) {
+    return false;
+  }
+
   const { taskId, contestId, value } = ctx.request.body;
   let points;
 
   const task = await taskService.findOne({_id: taskId});
   if (!task) {
     ctx.errors.push({taskId: 'Task with the following id was not found'});
+    return false;
   }
 
   const { results: taskOptions } = await taskOptionService.find({ taskId: task._id });
   switch(task.type){
+    case taskConstants.taskType.fillIn:
+      points = (value.toLowerCase() === _.get(task, 'evaluationInformation', '').toLowerCase()) * task.correctAnswerPoints;
+      break;
     case taskConstants.taskType.oneAnswer:
       const appropriateTaskOption = taskOptions.find(x => x._id === value);
       if (!appropriateTaskOption) {
         ctx.errors.push({value: `${value} task option does not exist`});
+        return false;
       } else {
         points = appropriateTaskOption.isCorrect * task.correctAnswerPoints;
       }
@@ -65,10 +74,10 @@ module.exports.validate = (ctx) => baseValidator(ctx, async () => {
         if(optionsValid){
           const correctAnswers = taskOptions.map(x => (value.indexOf(x._id) === -1) ^ x.isCorrect).reduce((acc, cur) => acc + cur);
           points = taskOptions.length === 0  ? 0 : correctAnswers / taskOptions.length * task.correctAnswerPoints;
-          console.log(taskOptions, value, points);
         }
       } else {
         ctx.errors.push({value: `value should be an array`});
+        return false;
       }
       break;
   }
@@ -76,6 +85,7 @@ module.exports.validate = (ctx) => baseValidator(ctx, async () => {
   const contest = await contestService.findOne({_id: contestId});
   if (!contest) {
     ctx.errors.push({contestId: 'Contest with the following id was not found'});
+    return false;
   }
 
   if (ctx.errors.length > 0) {
