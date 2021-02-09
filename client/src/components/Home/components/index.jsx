@@ -24,7 +24,7 @@ const Home = ({ getSubjects, subjects }) => {
       <Row align="center" gutter={[16, 16]}>
         {subjects.map((item, index) => (
           <Col key={index}>
-            <Link to={`subject/${item.shortName}`}>
+            <Link to={`subject/${item._id}`}>
               <Button type="primary" shape="round" size="large" disabled={item.disabled}>
                 {item.name}
               </Button>

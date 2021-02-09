@@ -12,8 +12,7 @@ export function getContest(id) {
     .then((contest) => contest);
 }
 
-export function getContestBySubject({ subjectId, page }) {
+export function getContestList(subjectId, page) {
   return baseApi
-    .get('contest', { subjectId, page })
-    .then((contests) => contests);
+    .get(`contest`, { subjectId, page })
 }
