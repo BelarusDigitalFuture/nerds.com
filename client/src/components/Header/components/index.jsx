@@ -12,10 +12,14 @@ const Header = (props) => {
     history.push('/login');
   };
 
+  const onClickIcon = () => {
+    history.push('/');
+  };
+
   return (
     <PageHeader
       ghost={false}
-      title="GEEKCON"
+      title={<a onClick={onClickIcon}>GEEKCON</a>}
       extra={[
         <Button key="3" type="primary" shape="circle" icon={<BellOutlined />} size="large" />,
         <Button key="2" type="secondary" shape="circle" icon={<MessageTwoTone />} size="large" />,

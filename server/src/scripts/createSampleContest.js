@@ -73,7 +73,7 @@ const run = async () => {
     throw new Error('subject not found');
   }
 
-  const admin = await userService.findOne({ email: 'admin@geekcon.online.com' });
+  const admin = await userService.findOne({ email: 'admin@geekcon.online' });
   if(!admin){
     throw new Error('admin user does not exist');
   }
