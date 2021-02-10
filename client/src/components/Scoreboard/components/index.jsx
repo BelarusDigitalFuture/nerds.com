@@ -17,7 +17,16 @@ const Scoreboard = ({ getScoreboardByContest, scoreboard }) => {
 
   const taskIds = Object.keys(_.get(scoreboard, '[0].tasks', {}));
 
-  const columns = [
+  const formatTasks = taskIds
+    .map((item, index) => ({
+      id: item,
+      taskName: `Задание ${index + 1}`,
+      value: scoreboard[0].tasks[item]
+    }))
+
+  console.log('scoreboard', scoreboard)
+
+  const mainColumns = [
     {
       title: 'Участник',
       dataIndex: 'user',
@@ -30,21 +39,38 @@ const Scoreboard = ({ getScoreboardByContest, scoreboard }) => {
       key: 'school',
       render: user => user.school,
     },
-    ...taskIds.map((taskId, index) => ({
-      title: <Link to={`/contest/${contestId}/task/${taskId}`}>Задание {index}</Link>,
-      dataIndex: 'tasks',
-      render: tasks => tasks[taskId],
-    })),
     {
       title: 'Итог',
       dataIndex: 'total',
       key: 'total',
     },
+  ]
+
+  const columns = [
+    {
+      title: 'Задача',
+      key: 'taskName',
+      render: item => (
+        <Link to={`/contest/${contestId}/task/${item.id}`}>{item.taskName}</Link>
+      ),
+    },
+    {
+      title: 'Баллы',
+      dataIndex: 'value',
+      key: 'value',
+    },
+    // ...taskIds.map((taskId, index) => ({
+    //   title: <Link to={`/contest/${contestId}/task/${taskId}`}>Задание {index}</Link>,
+    //   dataIndex: 'tasks',
+    //   render: tasks => tasks[taskId],
+    // })),
   ];
 
   return (
     <MainLayout>
-      <Table dataSource={scoreboard} columns={columns} />
+      <Table dataSource={scoreboard} columns={mainColumns} pagination={false} />
+      <br />
+      <Table dataSource={formatTasks} columns={columns} />
     </MainLayout>
   );
 };
