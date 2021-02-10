@@ -38,6 +38,7 @@ module.exports.getForContest = async (ctx) => {
       ...scoreboard[userId],
     })
   });
+
   ctx.body = scoreBoardTable.sort((a, b) => b.total - a.total);
 };
 

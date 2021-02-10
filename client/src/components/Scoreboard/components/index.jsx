@@ -1,8 +1,9 @@
+import _ from 'lodash';
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 
 import { Button, PageHeader, Table } from 'antd';
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { BellOutlined, MessageTwoTone } from '@ant-design/icons';
 
 import MainLayout from 'components/common/MainLayout';
@@ -13,6 +14,8 @@ const Scoreboard = ({ getScoreboardByContest, scoreboard }) => {
   useEffect(() => {
     getScoreboardByContest({ contestId });
   }, []);
+
+  const taskIds = Object.keys(_.get(scoreboard, '[0].tasks', {}));
 
   const columns = [
     {
@@ -27,6 +30,11 @@ const Scoreboard = ({ getScoreboardByContest, scoreboard }) => {
       key: 'school',
       render: user => user.school,
     },
+    ...taskIds.map((taskId, index) => ({
+      title: <Link to={`/contest/${contestId}/task/${taskId}`}>Задание {index}</Link>,
+      dataIndex: 'tasks',
+      render: tasks => tasks[taskId],
+    })),
     {
       title: 'Итог',
       dataIndex: 'total',
