@@ -7,17 +7,34 @@ import { useFormik } from 'formik';
 import {
   Radio, Input, Checkbox, Button,
   Divider, Row, Col,
+  notification, Space,
 } from 'antd';
 
 import './styles.scss';
 import {useParams} from "react-router-dom";
 
 const ContestTask = (props) => {
-    const {contestId, taskId} = useParams();
+    const {contestId} = useParams();
     const {task} = props;
     const [taskOptions, setTaskOptions] = useState([]);
     const [answerCache, setAnswerCache] = useState({});
     const [lastAnswer, setLastAnswer] = useState('');
+
+    console.log('answerCache', answerCache);
+
+    const saveNotification = () => {
+      notification.success({
+        message: 'Сохранено',
+        placement: 'topRight',
+      });
+    };
+
+    const errorNotification = () => {
+      notification.error({
+        message: 'Ошибка',
+        placement: 'topRight',
+      });
+    };
 
     const answerForm = useFormik({
         initialValues: {
@@ -30,11 +47,11 @@ const ContestTask = (props) => {
                 contestId,
                 value: answerCache[task._id],
               });
+              saveNotification();
             } catch (e) {
               console.error(e);
+              errorNotification();
             }
-            delete answerCache[task._id];
-            setAnswerCache({...answerCache});
             console.log(v);
             return false;
         },
@@ -126,7 +143,7 @@ const ContestTask = (props) => {
         <form onSubmit={answerForm.handleSubmit}>
           {lastAnswer && <p>Последний отправленный ответ: {lastAnswer}</p>}
           <Row>
-            <Col span={24} style={{ paddingBottom: '16px' }}>
+            <Col span={24} xxl={16} style={{ paddingBottom: '16px' }}>
               {answerSection}
             </Col>
           </Row>
