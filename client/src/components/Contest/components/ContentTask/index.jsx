@@ -108,7 +108,16 @@ const ContestTask = (props) => {
                 const options = taskOptions.map(x => {return {label: x.label, value: x._id}});
 
                 answerSection = (
-                    <Checkbox.Group options={options} onChange={value => answerForm.setFieldValue('answer', value)} value={answerForm.values.answer} />
+                  <Row>
+                    <Col span={24} style={{ paddingBottom: '16px' }}>
+                      <Checkbox.Group
+                        options={options}
+                        onChange={value => answerForm.setFieldValue('answer', value)}
+                        value={answerForm.values.answer}
+                        size="large"
+                      />
+                    </Col>
+                  </Row>
                 );
             }
             break;
