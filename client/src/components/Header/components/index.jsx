@@ -21,6 +21,7 @@ const Header = (props) => {
       style={{ zIndex: 1, width: '100%' }}
       ghost={false}
       title={<a onClick={onClickIcon}>GEEKCON</a>}
+      subTitle={props.username}
       extra={[
         <Button key="3" type="primary" shape="circle" icon={<BellOutlined />} size="large" />,
         <Button key="2" type="secondary" shape="circle" icon={<MessageTwoTone />} size="large" />,
@@ -35,7 +36,12 @@ const Header = (props) => {
 
 Header.propTypes = {
   history: PropTypes.objectOf(PropTypes.any).isRequired,
+  username: PropTypes.string,
   logoutUser: PropTypes.func.isRequired,
+};
+
+Header.defaultProps = {
+  username: '',
 };
 
 export default Header;

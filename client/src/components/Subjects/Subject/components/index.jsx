@@ -34,8 +34,8 @@ const Subject = ({
       <Divider />
       <h2>Соревнования</h2>
       <Competitions data={contestList} />
-      <h2>Тренировки</h2>
-      <TrainingList listData={BEL_LANG_TASKS} />
+      {/*<h2>Тренировки</h2>*/}
+      {/*<TrainingList listData={BEL_LANG_TASKS} />*/}
     </div>
   )
 };

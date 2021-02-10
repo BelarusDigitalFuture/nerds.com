@@ -1,5 +1,6 @@
-import React from 'react';
-import { Provider } from 'react-redux';
+import _get from 'lodash/get';
+import React, {useEffect} from 'react';
+import {connect, Provider} from 'react-redux';
 import {
   BrowserRouter as Router,
   Switch,
@@ -8,44 +9,64 @@ import {
 } from 'react-router-dom';
 import { Layout } from 'antd';
 
-import store from 'redux/store';
-
 import Login from 'components/Login';
 import Home from 'components/Home';
 import Contest from 'components/Contest';
 import Header from 'components/Header';
 import Subjects from 'components/Subjects';
+import Scoreboard from 'components/Scoreboard';
 import NotFound from 'components/NotFound';
 
 import 'antd/dist/antd.css';
 
 import './styles.scss';
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import PropTypes from "prop-types";
+import {bindActionCreators} from "redux";
+import {getCurrentUser} from "../../redux/actions/user.actions";
 
-function App() {
+function App({ getCurrentUser, user }) {
+
+  useEffect(() => {
+    getCurrentUser({});
+  }, []);
+
   return (
     <Router>
-      <Provider store={store}>
-        <Layout style={{ minHeight: '100%' }}>
-          <Switch>
-            <Route path="/login" component={Login} />
-            <>
-              <Header />
+      <Layout style={{ minHeight: '100%' }}>
+        <Switch>
+          <Route path="/login" component={Login} />
+          <>
+            <Header username={user.name} />
 
-              <Switch>
-                <Redirect exact from="/" to="/home" />
-                <PrivateRoute path="/home" component={Home} />
-                <PrivateRoute path="/subject/:name" component={Subjects} />
-                <PrivateRoute path="/contest/:contestId/task/:taskId" component={Contest} />
-                <PrivateRoute path="/contest/:contestId" component={Contest} />
-                <Route exact path="*" component={NotFound} />
-              </Switch>
-            </>
-          </Switch>
-        </Layout>
-      </Provider>
+            <Switch>
+              <Redirect exact from="/" to="/home" />
+              <PrivateRoute path="/home" component={Home} />
+              <PrivateRoute path="/subject/:name" component={Subjects} />
+              <PrivateRoute exact path="/contest/:contestId/task/:taskId" component={Contest} />
+              <PrivateRoute exact path="/contest/:contestId/scoreboard" component={Scoreboard} />
+              <PrivateRoute path="/contest/:contestId" component={Contest} />
+              <Route exact path="*" component={NotFound} />
+            </Switch>
+          </>
+        </Switch>
+      </Layout>
     </Router>
   );
 }
 
-export default App;
+App.propTypes = {
+  getCurrentUser: PropTypes.func.isRequired,
+  user: PropTypes.shape({}).isRequired,
+};
+
+const mapStateToProps = state => ({
+  user: _get(state, 'user', {}),
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  getCurrentUser,
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+
