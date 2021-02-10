@@ -8,7 +8,7 @@ module.exports = {
     {
       type: 'multipleAnswers',
       text: 'Выберыце словы, у якіх націск падае на першую галосную',
-      correctAnswerPoints: 10,
+      correctAnswerPoints: 5,
       options: [
         {label: 'генезіс', isCorrect: true},
         {label: 'запыт', isCorrect: true},
@@ -28,7 +28,7 @@ module.exports = {
       maxWords: 2,
       text: 'Прывядзіце беларускі адпаведнік да наступнай рускай назвы маладой істоты у форме меснага склону: гусёнок.',
       evaluationInformation: 'аб гусяняці',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -36,7 +36,7 @@ module.exports = {
       maxWords: 2,
       text: 'Прывядзіце беларускі адпаведнік да наступнай рускай назвы маладой істоты у форме меснага склону: орлёнок.',
       evaluationInformation: 'аб арляняці',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -44,7 +44,7 @@ module.exports = {
       maxWords: 2,
       text: 'Прывядзіце беларускі адпаведнік да наступнай рускай назвы маладой істоты у форме меснага склону: утёнок.',
       evaluationInformation: 'аб качаняці',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -52,7 +52,7 @@ module.exports = {
       maxWords: 2,
       text: 'Прывядзіце беларускі адпаведнік да наступнай рускай назвы маладой істоты у форме меснага склону: аистёнок.',
       evaluationInformation: 'аб бусляняці',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -60,7 +60,7 @@ module.exports = {
       maxWords: 2,
       text: 'Прывядзіце беларускі адпаведнік да наступнай рускай назвы маладой істоты у форме меснага склону: цыплёнок.',
       evaluationInformation: 'аб кураняці',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -68,7 +68,7 @@ module.exports = {
       maxWords: 2,
       text: 'Прывядзіце беларускі адпаведнік да наступнай рускай назвы маладой істоты у форме меснага склону: телёнок.',
       evaluationInformation: 'аб цяляці',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -76,7 +76,7 @@ module.exports = {
       maxWords: 2,
       text: 'Прывядзіце беларускі адпаведнік да наступнай рускай назвы маладой істоты у форме меснага склону: жеребёнок.',
       evaluationInformation: 'аб жарабяці',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -84,7 +84,7 @@ module.exports = {
       maxWords: 2,
       text: 'Прывядзіце беларускі адпаведнік да наступнай рускай назвы маладой істоты у форме меснага склону: тигрёнок.',
       evaluationInformation: 'аб тыграняці',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -92,7 +92,7 @@ module.exports = {
       maxWords: 2,
       text: 'Прывядзіце беларускі адпаведнік да наступнай рускай назвы маладой істоты у форме меснага склону: волчонок.',
       evaluationInformation: 'аб ваўчаняці',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -100,7 +100,7 @@ module.exports = {
       maxWords: 2,
       text: 'Прывядзіце беларускі адпаведнік да наступнай рускай назвы маладой істоты у форме меснага склону: котёнок.',
       evaluationInformation: 'аб кацяняці',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -108,7 +108,7 @@ module.exports = {
       maxWords: 1,
       text: 'Як назваць жанчыну, якая танцуе ў балеце?',
       evaluationInformation: 'балерына',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -116,7 +116,7 @@ module.exports = {
       maxWords: 1,
       text: 'Як назваць жанчыну, якая даглядае цялят?',
       evaluationInformation: 'цялятніца',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -124,7 +124,7 @@ module.exports = {
       maxWords: 1,
       text: 'Як назваць жанчыну, якая піша вершы?',
       evaluationInformation: 'паэтка',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -132,7 +132,7 @@ module.exports = {
       maxWords: 1,
       text: 'Як назваць жанчыну, якая доіць кароў?',
       evaluationInformation: 'даярка',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -140,7 +140,7 @@ module.exports = {
       maxWords: 1,
       text: 'Як назваць жанчыну, якая друкуе на машынцы?',
       evaluationInformation: 'машыністка',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -148,7 +148,7 @@ module.exports = {
       maxWords: 1,
       text: 'Як назваць жанчыну, якая ездзіць на аўтамабілі?',
       evaluationInformation: 'вадзіцелька',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -156,7 +156,7 @@ module.exports = {
       maxWords: 1,
       text: 'Як назваць жанчыну, якая вучыць дзяцей?',
       evaluationInformation: 'настаўніца',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -164,7 +164,7 @@ module.exports = {
       maxWords: 1,
       text: 'Як назваць жанчыну, якая выхоўвае дзяцей?',
       evaluationInformation: 'выхавацелька',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -172,7 +172,7 @@ module.exports = {
       maxWords: 1,
       text: 'Як назваць жанчыну, якая камандуе караблём?',
       evaluationInformation: 'капітан',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -180,7 +180,7 @@ module.exports = {
       maxWords: 1,
       text: 'Як назваць жанчыну, якая абслугоўвае хворых у бальніцы?',
       evaluationInformation: 'санітарка',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -188,7 +188,7 @@ module.exports = {
       maxWords: 2,
       text: 'Растлумачце сэнс перыфразы "атаман мужыцкай праўды" праз іншае слова або выраз',
       evaluationInformation: 'Кастусь Каліноўскі',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -196,7 +196,7 @@ module.exports = {
       maxWords: 1,
       text: 'Растлумачце сэнс перыфразы "сейбіты разумнага, добрага, вечнага" праз іншае слова або выраз',
       evaluationInformation: 'настаўнікі',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -204,7 +204,7 @@ module.exports = {
       maxWords: 1,
       text: 'Растлумачце сэнс перыфразы "Зямля пад белымі крыламі" праз іншае слова або выраз',
       evaluationInformation: 'Беларусь',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -212,7 +212,7 @@ module.exports = {
       maxWords: 1,
       text: 'Растлумачце сэнс перыфразы "баравая варажбітка" праз іншае слова або выраз',
       evaluationInformation: 'зязюля',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -220,7 +220,7 @@ module.exports = {
       maxWords: 1,
       text: 'Растлумачце сэнс перыфразы "сардэчны пажар" праз іншае слова або выраз',
       evaluationInformation: 'каханне',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -228,7 +228,7 @@ module.exports = {
       maxWords: 1,
       text: 'Растлумачце сэнс перыфразы "людзі ў белых халатах" праз іншае слова або выраз',
       evaluationInformation: 'медыкі',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -236,7 +236,7 @@ module.exports = {
       maxWords: 1,
       text: 'Растлумачце сэнс перыфразы "нябесныя вочы" праз іншае слова або выраз',
       evaluationInformation: 'зоркі',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -244,7 +244,7 @@ module.exports = {
       maxWords: 1,
       text: 'Растлумачце сэнс перыфразы "тыграў сваяк" праз іншае слова або выраз',
       evaluationInformation: 'кот',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -252,7 +252,7 @@ module.exports = {
       maxWords: 1,
       text: 'Растлумачце сэнс перыфразы "сынаў сын" праз іншае слова або выраз',
       evaluationInformation: 'унук',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -260,7 +260,7 @@ module.exports = {
       maxWords: 1,
       text: 'Растлумачце сэнс перыфразы "жыццёвы ранак" праз іншае слова або выраз',
       evaluationInformation: 'юнацтва',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -268,7 +268,7 @@ module.exports = {
       maxWords: 1,
       text: 'Растлумачце адным словам – дзеясловам наступны фразеалагізм: паказаць, дзе ракі зімуюць',
       evaluationInformation: 'правучыць',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -276,7 +276,7 @@ module.exports = {
       maxWords: 1,
       text: 'Растлумачце адным словам – дзеясловам наступны фразеалагізм: трымаць вуха востра',
       evaluationInformation: 'асцярожнічаць',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -284,7 +284,7 @@ module.exports = {
       maxWords: 1,
       text: 'Растлумачце адным словам – дзеясловам наступны фразеалагізм: не чуць пад сабою ног',
       evaluationInformation: 'узрадавацца',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -292,7 +292,7 @@ module.exports = {
       maxWords: 1,
       text: 'Растлумачце адным словам – дзеясловам наступны фразеалагізм: крукам носа не дастаць',
       evaluationInformation: 'заганарыцца',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -300,7 +300,7 @@ module.exports = {
       maxWords: 1,
       text: 'Растлумачце адным словам – дзеясловам наступны фразеалагізм: на галавах хадзіць',
       evaluationInformation: 'сваволіць',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -308,7 +308,7 @@ module.exports = {
       maxWords: 1,
       text: 'Растлумачце адным словам – дзеясловам наступны фразеалагізм: як у ваду глядзець',
       evaluationInformation: 'прадбачыць',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -316,7 +316,7 @@ module.exports = {
       maxWords: 1,
       text: 'Растлумачце адным словам – дзеясловам наступны фразеалагізм: вачам не верыць',
       evaluationInformation: 'здзіўляцца',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -324,7 +324,7 @@ module.exports = {
       maxWords: 1,
       text: 'Растлумачце адным словам – дзеясловам наступны фразеалагізм: віляць хвастом',
       evaluationInformation: 'падлізвацца',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -332,7 +332,7 @@ module.exports = {
       maxWords: 1,
       text: 'Растлумачце адным словам – дзеясловам наступны фразеалагізм: наламаць дроў',
       evaluationInformation: 'памыліцца',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -340,7 +340,7 @@ module.exports = {
       maxWords: 1,
       text: 'Растлумачце адным словам – дзеясловам наступны фразеалагізм: дрыжаць як асінавы ліст',
       evaluationInformation: 'палохацца',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -348,7 +348,7 @@ module.exports = {
       maxWords: 1,
       text: 'Складзіце слова (аднавіць слова з літар, якія пераблытаны): к, в, р, н, а, а, а, а, ж',
       evaluationInformation: 'жаваранак',
-      correctAnswerPoints: 2,
+      correctAnswerPoints: 1,
     },
     {
       type: 'fillIn',
@@ -356,7 +356,7 @@ module.exports = {
       maxWords: 1,
       text: 'Складзіце слова (аднавіць слова з літар, якія пераблытаны): е, е, н, н, а, а, с, л, п, ч, ш, р',
       evaluationInformation: 'расшчапленне',
-      correctAnswerPoints: 2,
+      correctAnswerPoints: 1,
     },
     {
       type: 'fillIn',
@@ -364,7 +364,7 @@ module.exports = {
       maxWords: 1,
       text: 'Складзіце слова (аднавіць слова з літар, якія пераблытаны): н, г, з, а, а, а, а, д, р, у',
       evaluationInformation: 'узнагарода',
-      correctAnswerPoints: 2,
+      correctAnswerPoints: 1,
     },
     {
       type: 'fillIn',
@@ -372,7 +372,7 @@ module.exports = {
       maxWords: 1,
       text: 'Складзіце слова (аднавіць слова з літар, якія пераблытаны): ц, ц, л, я, і, а, е, м',
       evaluationInformation: 'мяцеліца',
-      correctAnswerPoints: 2,
+      correctAnswerPoints: 1,
     },
     {
       type: 'fillIn',
@@ -380,7 +380,7 @@ module.exports = {
       maxWords: 1,
       text: 'Складзіце слова (аднавіць слова з літар, якія пераблытаны): з, а, к, о, й, д, в, ч, м, а, ю',
       evaluationInformation: 'дзюймовачка',
-      correctAnswerPoints: 2,
+      correctAnswerPoints: 1,
     },
     {
       type: 'fillIn',
@@ -388,7 +388,7 @@ module.exports = {
       maxWords: 1,
       text: 'Вызначыце, якой часцінай мовы з’яўляецца прапанаванае слова: дзясятак',
       evaluationInformation: 'назоўнік',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -396,7 +396,7 @@ module.exports = {
       maxWords: 1,
       text: 'Вызначыце, якой часцінай мовы з’яўляецца прапанаванае слова: тройчы',
       evaluationInformation: 'прыслоўе',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -404,7 +404,7 @@ module.exports = {
       maxWords: 1,
       text: 'Вызначыце, якой часцінай мовы з’яўляецца прапанаванае слова: сотня',
       evaluationInformation: 'назоўнік',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -412,7 +412,7 @@ module.exports = {
       maxWords: 1,
       text: 'Вызначыце, якой часцінай мовы з’яўляецца прапанаванае слова: шасцідзесятнікі',
       evaluationInformation: 'назоўнік',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -420,7 +420,7 @@ module.exports = {
       maxWords: 1,
       text: 'Вызначыце, якой часцінай мовы з’яўляецца прапанаванае слова: патроіць',
       evaluationInformation: 'дзеяслоў',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -428,7 +428,7 @@ module.exports = {
       maxWords: 1,
       text: 'Вызначыце, якой часцінай мовы з’яўляецца прапанаванае слова: чвэрць',
       evaluationInformation: 'назоўнік',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -436,7 +436,7 @@ module.exports = {
       maxWords: 1,
       text: 'Вызначыце, якой часцінай мовы з’яўляецца прапанаванае слова: пяцітомны',
       evaluationInformation: 'прыметнік',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -444,7 +444,7 @@ module.exports = {
       maxWords: 1,
       text: 'Вызначыце, якой часцінай мовы з’яўляецца прапанаванае слова: палавіна',
       evaluationInformation: 'назоўнік',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -452,7 +452,7 @@ module.exports = {
       maxWords: 1,
       text: 'Вызначыце, якой часцінай мовы з’яўляецца прапанаванае слова: удвух',
       evaluationInformation: 'прыслоўе',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -460,7 +460,7 @@ module.exports = {
       maxWords: 1,
       text: 'Вызначыце, якой часцінай мовы з’яўляецца прапанаванае слова: здвоены',
       evaluationInformation: 'дзеепрыметнік',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -468,7 +468,7 @@ module.exports = {
       maxWords: 1,
       text: 'Вызначыце, якім членам сказа выступае інфінітыў. Дружбакі пакрочылі да возера купацца.',
       evaluationInformation: 'акалічнасць',
-      correctAnswerPoints: 2,
+      correctAnswerPoints: 1,
     },
     {
       type: 'fillIn',
@@ -476,7 +476,7 @@ module.exports = {
       maxWords: 1,
       text: 'Вызначыце, якім членам сказа выступае інфінітыў. Жаданне вучыцца было ў ім заўсёды на першым месцы.',
       evaluationInformation: 'азначэнне',
-      correctAnswerPoints: 2,
+      correctAnswerPoints: 1,
     },
     {
       type: 'fillIn',
@@ -484,7 +484,7 @@ module.exports = {
       maxWords: 1,
       text: 'Вызначыце, якім членам сказа выступае інфінітыў. Дамовіцца з нашым суседам – справа нялёгкая.',
       evaluationInformation: 'дзейнік',
-      correctAnswerPoints: 2,
+      correctAnswerPoints: 1,
     },
     {
       type: 'fillIn',
@@ -492,7 +492,7 @@ module.exports = {
       maxWords: 1,
       text: 'Вызначыце, якім членам сказа выступае інфінітыў. Летам я буду працаваць у студатрадзе.',
       evaluationInformation: 'выказнік',
-      correctAnswerPoints: 2,
+      correctAnswerPoints: 1,
     },
     {
       type: 'fillIn',
@@ -500,7 +500,7 @@ module.exports = {
       maxWords: 1,
       text: 'Вызначыце, якім членам сказа выступае інфінітыў. Бацькі даручылі мне сустрэць бабулю з цягніка.',
       evaluationInformation: 'дапаўненне',
-      correctAnswerPoints: 2,
+      correctAnswerPoints: 1,
     },
     {
       type: 'fillIn',
@@ -508,7 +508,7 @@ module.exports = {
       maxWords: 2,
       text: 'Адкажыце, каму належыць наступны псеўданім: Мацей Бурачок. Увядзіце імя і прозвішча ў назоўным склоне.',
       evaluationInformation: 'Францішак Багушэвіч',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -516,7 +516,7 @@ module.exports = {
       maxWords: 2,
       text: 'Адкажыце, каму належыць наступны псеўданім: Цётка. Увядзіце імя і прозвішча ў назоўным склоне.',
       evaluationInformation: 'Алаіза Пашкевіч',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -524,7 +524,7 @@ module.exports = {
       maxWords: 2,
       text: 'Адкажыце, каму належыць наступны псеўданім: Змітрок Бядуля. Увядзіце імя і прозвішча ў назоўным склоне.',
       evaluationInformation: 'Самуіл Плаўнік',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -532,7 +532,7 @@ module.exports = {
       maxWords: 2,
       text: 'Адкажыце, каму належыць наступны псеўданім: Кандрат Крапіва. Увядзіце імя і прозвішча ў назоўным склоне.',
       evaluationInformation: 'Кандрат Атраховіч',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -540,7 +540,7 @@ module.exports = {
       maxWords: 2,
       text: 'Адкажыце, каму належыць наступны псеўданім: Міхась Зарэцкі. Увядзіце імя і прозвішча ў назоўным склоне.',
       evaluationInformation: 'Міхаіл Касянкоў',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -548,7 +548,7 @@ module.exports = {
       maxWords: 2,
       text: 'Адкажыце, каму належыць наступны псеўданім: Янка Купала. Увядзіце імя і прозвішча ў назоўным склоне.',
       evaluationInformation: 'Іван Луцэвіч',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -556,7 +556,7 @@ module.exports = {
       maxWords: 2,
       text: 'Адкажыце, каму належыць наступны псеўданім: Цішка Гартны. Увядзіце імя і прозвішча ў назоўным склоне.',
       evaluationInformation: 'Зміцер Жылуновіч',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -564,7 +564,7 @@ module.exports = {
       maxWords: 2,
       text: 'Адкажыце, каму належыць наступны псеўданім: Ядвігін Ш. Увядзіце імя і прозвішча ў назоўным склоне.',
       evaluationInformation: 'Антон Лявіцкі',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -572,7 +572,7 @@ module.exports = {
       maxWords: 2,
       text: 'Адкажыце, каму належыць наступны псеўданім: Якуб Колас. Увядзіце імя і прозвішча ў назоўным склоне.',
       evaluationInformation: 'Кантанцін Міцкевіч',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -580,7 +580,7 @@ module.exports = {
       maxWords: 2,
       text: 'Адкажыце, каму належыць наступны псеўданім: Навум Прыгаворка. Увядзіце імя і прозвішча ў назоўным склоне.',
       evaluationInformation: 'Вінцэнт Дунін-Марцінкевіч',
-      correctAnswerPoints: 1,
+      correctAnswerPoints: 0.5,
     },
     {
       type: 'fillIn',
@@ -588,7 +588,7 @@ module.exports = {
       maxWords: 1,
       text: 'Хто аўтар наступнага афарызму? Не пакідайце ж мовы нашай беларускай, как не ўмёрлі… Увядзіце толькі прозвішча ў назоўным склоне',
       evaluationInformation: 'Багушэвіч',
-      correctAnswerPoints: 2,
+      correctAnswerPoints: 1,
     },
     {
       type: 'fillIn',
@@ -596,7 +596,7 @@ module.exports = {
       maxWords: 1,
       text: 'Хто аўтар наступнага афарызму? Беларусь! Твой народ дачакаецца залацістага, яснага дня! Увядзіце толькі прозвішча ў назоўным склоне',
       evaluationInformation: 'Багдановіч',
-      correctAnswerPoints: 2,
+      correctAnswerPoints: 1,
     },
     {
       type: 'fillIn',
@@ -604,7 +604,7 @@ module.exports = {
       maxWords: 1,
       text: 'Хто аўтар наступнага афарызму? Зайграй, зайграй, хлопча малы, у скрыпачку і цымбалы… Увядзіце толькі прозвішча ў назоўным склоне',
       evaluationInformation: 'Багрым',
-      correctAnswerPoints: 2,
+      correctAnswerPoints: 1,
     },
     {
       type: 'fillIn',
@@ -612,7 +612,7 @@ module.exports = {
       maxWords: 1,
       text: 'Хто аўтар наступнага афарызму? І будзе ўнукаў панаванне там, дзе сягоння плача дзед. Увядзіце толькі прозвішча ў назоўным склоне',
       evaluationInformation: 'Купала',
-      correctAnswerPoints: 2,
+      correctAnswerPoints: 1,
     },
     {
       type: 'fillIn',
@@ -620,7 +620,7 @@ module.exports = {
       maxWords: 1,
       text: 'Хто аўтар наступнага афарызму? Ад зямлі да зор і сонца няма думкам забаронцы. Увядзіце толькі прозвішча ў назоўным склоне',
       evaluationInformation: 'Колас',
-      correctAnswerPoints: 2,
+      correctAnswerPoints: 1,
     },
 
     /*{
