@@ -78,7 +78,7 @@ module.exports = {
       correctAnswerPoints: 1,
       options: [
         {label: 'Настаўнікі', isCorrect: true},
-        {label: 'Вернікі', isCorrect: false},
+        {label: 'Аграномы', isCorrect: false},
         {label: 'Прапагандысты', isCorrect: false},
         {label: 'Святыя людзі', isCorrect: false},
       ]
