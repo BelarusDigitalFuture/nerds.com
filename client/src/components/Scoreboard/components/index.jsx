@@ -32,6 +32,7 @@ const Scoreboard = ({ getScoreboardByContest, scoreboard }) => {
         title: 'Школа',
         dataIndex: 'value',
         key: 'value',
+        render: value => value.toFixed(2),
       },
     ]
 
