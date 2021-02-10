@@ -21,6 +21,7 @@ const Contest = (props) => {
     const {contestId, taskId} = useParams();
     const [contest, setContest] = useState();
     const [tasks, setTasks] = useState([]);
+    const [activeTab, setActiveTab] = useState('0');
 
     useEffect(async () => {
         const contest = await contestApi.getContest(contestId);
@@ -29,6 +30,10 @@ const Contest = (props) => {
         setContest(contest);
         setTasks(tasks);
     }, []);
+
+    const handleNext = () => {
+      setActiveTab(`${Number(activeTab) + 1}`)
+    }
 
     if (!contest || !tasks) {
         return '';
@@ -49,10 +54,17 @@ const Contest = (props) => {
         />
         <Divider />
         <div>
-          <Tabs defaultActiveKey="1" tabPosition="left" style={{ height: 500 }}>
+          {console.log('activeTab', activeTab)}
+          <Tabs
+            defaultActiveKey={activeTab}
+            activeKey={activeTab}
+            tabPosition="left"
+            style={{ height: 500 }}
+            onChange={setActiveTab}
+          >
             {(tasks || []).map((item, index) => (
               <TabPane tab={`Задание ${index + 1}`} key={index}>
-                <ContestTask task={item}/>
+                <ContestTask task={item} handleNext={handleNext} />
               </TabPane>
             ))}
           </Tabs>
