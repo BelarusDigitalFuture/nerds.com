@@ -41,12 +41,11 @@ const ContestTask = (props) => {
     useEffect(async () => {
         const taskOptions = await taskOptionsApi.getByTask(task._id);
         const lastAnswerFromApi = await answerApi.getAnswer({ taskId, contestId });
-        if (['oneAnswer', 'multipleAnswers'].includes(task.type)) {
+        if (['multipleAnswers'].includes(task.type)) {
           const lastAnswerValue = taskOptions
-            .filter(o => lastAnswerFromApi.value.includes(o._id))
+            .filter(o => _get(lastAnswerFromApi, 'value', []).includes(o._id))
             .map(o => o.label)
             .join(', ');
-          console.log('lastAnswerValue', lastAnswerValue);
           setLastAnswer(lastAnswerValue)
         } else {
           setLastAnswer(lastAnswerFromApi.value)
