@@ -18,7 +18,7 @@ const Header = (props) => {
 
   return (
     <PageHeader
-      style={{ zIndex: 1, width: '100%' }}
+      style={{ position: 'fixed', zIndex: 1, width: '100%' }}
       ghost={false}
       title={<a onClick={onClickIcon}>GEEKCON</a>}
       subTitle={props.username}
