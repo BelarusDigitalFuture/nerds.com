@@ -2,29 +2,54 @@ import _ from 'lodash';
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 
-import { Button, PageHeader, Table } from 'antd';
+import { Button, PageHeader, Table, Modal } from 'antd';
 import { useParams, Link } from "react-router-dom";
 import { BellOutlined, MessageTwoTone } from '@ant-design/icons';
 
 import MainLayout from 'components/common/MainLayout';
 
+const ReachableContext = React.createContext();
+const UnreachableContext = React.createContext();
+
 const Scoreboard = ({ getScoreboardByContest, scoreboard }) => {
   const { contestId } = useParams();
+  const [modal, contextHolder] = Modal.useModal();
 
   useEffect(() => {
     getScoreboardByContest({ contestId });
   }, []);
 
-  const taskIds = Object.keys(_.get(scoreboard, '[0].tasks', {}));
+  const detailsModal = (data) => {
+    const formatData = Object.keys(data.tasks)
+      .map((item, index) => ({ name: `Задача ${index + 1}`, value: data.tasks[item] }))
+    const detailColumns = [
+      {
+        title: 'Задание',
+        dataIndex: 'name',
+        key: 'name',
+      },
+      {
+        title: 'Школа',
+        dataIndex: 'value',
+        key: 'value',
+      },
+    ]
 
-  const formatTasks = taskIds
-    .map((item, index) => ({
-      id: item,
-      taskName: `Задание ${index + 1}`,
-      value: scoreboard[0].tasks[item]
-    }))
-
-  console.log('scoreboard', scoreboard)
+    modal.info({
+      title: 'Отчёт',
+      content: (
+        <>
+          <br />
+          <Table
+            dataSource={formatData}
+            columns={detailColumns}
+            pagination={false}
+            scroll={{ y: 240 }}
+          />
+        </>
+      ),
+    })
+  }
 
   const mainColumns = [
     {
@@ -45,35 +70,21 @@ const Scoreboard = ({ getScoreboardByContest, scoreboard }) => {
       key: 'total',
       render: v => v.toFixed(2),
     },
+    {
+      title: 'Подробно',
+      render: data => <Button onClick={() => detailsModal(data)}>Подробнее</Button>,
+    },
   ]
 
-  const columns = [
-    {
-      title: 'Задача',
-      key: 'taskName',
-      render: item => (
-        <Link to={`/contest/${contestId}/task/${item.id}`}>{item.taskName}</Link>
-      ),
-    },
-    {
-      title: 'Баллы',
-      dataIndex: 'value',
-      key: 'value',
-      render: v => v.toFixed(2),
-    },
-    // ...taskIds.map((taskId, index) => ({
-    //   title: <Link to={`/contest/${contestId}/task/${taskId}`}>Задание {index}</Link>,
-    //   dataIndex: 'tasks',
-    //   render: tasks => tasks[taskId],
-    // })),
-  ];
-
   return (
-    <MainLayout>
-      <Table dataSource={scoreboard} columns={mainColumns} pagination={false} />
-      <br />
-      <Table dataSource={formatTasks} columns={columns} />
-    </MainLayout>
+    <ReachableContext.Provider value="Light">
+      <MainLayout>
+        <Table dataSource={scoreboard} columns={mainColumns} pagination={false} />
+        <br />
+      </MainLayout>
+      {contextHolder}
+      <UnreachableContext.Provider value="Bamboo" />
+    </ReachableContext.Provider>
   );
 };
 

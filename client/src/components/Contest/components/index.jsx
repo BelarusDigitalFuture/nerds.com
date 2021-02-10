@@ -71,34 +71,6 @@ const Contest = (props) => {
         </div>
       </MainLayout>
     )
-
-    return (
-        <MainLayout>
-            <Row align="center">
-                <Col xs={6}>
-                    <List
-                        className="task-list"
-                        header={<div>Вопросы</div>}
-                        bordered
-                        dataSource={tasks}
-                        renderItem={task => (
-                            <List.Item>
-                                <Link
-                                    to={{pathname: `/contest/${contestId}/task/${task._id}`}}
-                                    className={task._id === taskId ? 'selected' : ''}
-                                >
-                                    {task.text}
-                                </Link>
-                            </List.Item>
-                        )}
-                    />
-                </Col>
-                <Col xs={18}>
-                    {selectedTask ? <ContestTask task={selectedTask}/> : ''}
-                </Col>
-            </Row>
-        </MainLayout>
-    );
 };
 
 Contest.propTypes = {};
