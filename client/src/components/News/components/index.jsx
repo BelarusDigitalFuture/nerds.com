@@ -5,13 +5,16 @@ import { List, Space } from 'antd';
 import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 
 const listData = [];
-for (let i = 0; i < 23; i++) {
+for (let i = 0; i < 1; i++) {
   listData.push({
-    href: '#',
-    title: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
-    description: '06.05.2021',
+    href: 'https://geekcon.online/subject/belmova',
+    title: 'Олимпиада по белорусскому уже в эту пятницу!',
+    description: '10.02.2021',
     content:
-      `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum sapiente ullam repellendus eius, qui consequuntur cupiditate architecto enim rerum possimus perspiciatis esse sint sunt impedit expedita quisquam magnam iste tenetur!`,
+      `
+      12 февраля платформа geekcon.online проведёт свою первую олимпиаду по белорусском языку и литературе. Участвовать в ней смогут школьники 10-х классов. На решение задач даётся 45 минут. И не забудьте включить белорусскую раскладку клавиатуры.
+Поспехаў вам!
+      `,
   });
 }
 
@@ -27,26 +30,20 @@ const News = props => {
     <List
       itemLayout="vertical"
       size="large"
-      pagination={{
-        onChange: page => {
-          console.log(page);
-        },
-        pageSize: 3,
-      }}
       dataSource={listData}
       renderItem={(item, index) => (
         <List.Item
           key={index}
-          actions={[
-            <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
-            <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
-            <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
-          ]}
+          // actions={[
+          //   <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
+          //   <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
+          //   <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
+          // ]}
           extra={
             <img
               width={272}
               alt="logo"
-              src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+              src="https://don16obqbay2c.cloudfront.net/wp-content/uploads/25-Proven-Social-Media-Contest-Ideas-to-Promote-Your-Online-Business-1584098454-2048x819.png"
             />
           }
         >

@@ -29,9 +29,9 @@ const ContestTask = (props) => {
       });
     };
 
-    const errorNotification = () => {
+    const errorNotification = (message) => {
       notification.error({
-        message: 'Ошибка',
+        message,
         placement: 'topRight',
       });
     };
@@ -50,10 +50,8 @@ const ContestTask = (props) => {
               saveNotification();
               handleNext();
             } catch (e) {
-              console.error(e);
-              errorNotification();
+              errorNotification(Object.values(JSON.parse(e.message).errors[0])[0]);
             }
-            console.log(v);
             return false;
         },
     });

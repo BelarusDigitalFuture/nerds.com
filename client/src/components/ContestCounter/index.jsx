@@ -10,7 +10,7 @@ const ContestCounter = (props) => {
 
   const calcTime = () => {
     const restMs = moment.duration(moment(endDate).diff(moment.now())).asMilliseconds()
-    const formatRestTime = moment(restMs).format('HH:mm:ss')
+    const formatRestTime = moment(restMs).format('D [дней] HH [часа] mm [минут] ss [секунд]')
 
     setRestTime(formatRestTime)
   }

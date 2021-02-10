@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const moment = require('moment');
 const answerService = require('../answer.service');
 const taskService = require('../../task/task.service');
 const contestService = require('../../contest/contest.service');
@@ -47,6 +48,23 @@ module.exports.validate = (ctx) => baseValidator(ctx, async () => {
     return false;
   }
 
+  const contest = await contestService.findOne({_id: contestId});
+  if (!contest) {
+    ctx.errors.push({contestId: 'Contest with the following id was not found'});
+    return false;
+  }
+
+  const curTime = moment();
+  if (curTime.isBefore(moment(contest.startDate))) {
+    ctx.errors.push({ contestId: 'Соревнование еще не началось'});
+    return false;
+  }
+
+  if (curTime.isAfter(moment(contest.endDate))) {
+    ctx.errors.push({ contestId: 'Соревнование завершилось'});
+    return false;
+  }
+
   const { results: taskOptions } = await taskOptionService.find({ taskId: task._id });
   switch(task.type){
     case taskConstants.taskType.fillIn:
@@ -64,28 +82,30 @@ module.exports.validate = (ctx) => baseValidator(ctx, async () => {
     case taskConstants.taskType.multipleAnswers:
       if(Array.isArray(value)) {
         let optionsValid = true;
-        value.forEach(v => {
-          if (taskOptions.map(x => x._id).indexOf(v) === -1) {
-            ctx.errors.push({value: `${v} task option does not exist`});
+        value.forEach(taskOptionId => {
+          if (!taskOptions.map(x => x._id).includes(taskOptionId)) {
+            ctx.errors.push({value: `${taskOptionId} task option does not exist`});
             optionsValid = false;
           }
         });
 
         if(optionsValid){
-          const correctAnswers = taskOptions.map(x => (value.indexOf(x._id) === -1) ^ x.isCorrect).reduce((acc, cur) => acc + cur);
-          points = taskOptions.length === 0  ? 0 : correctAnswers / taskOptions.length * task.correctAnswerPoints;
+          const correctTaskOptionIds = taskOptions
+            .filter(to => to.isCorrect)
+            .map(to => to._id);
+          const [validValues, invalidValues] = _.partition(value, (v) => correctTaskOptionIds.includes(v));
+          if (invalidValues.length) {
+            points = 0;
+          } else {
+            console.log('Coorrect', correctTaskOptionIds.length, 'valid', validValues.length, 'points', task.correctAnswerPoints);
+            points = correctTaskOptionIds.length === 0  ? 0 : validValues.length / correctTaskOptionIds.length * task.correctAnswerPoints;
+          }
         }
       } else {
         ctx.errors.push({value: `value should be an array`});
         return false;
       }
       break;
-  }
-
-  const contest = await contestService.findOne({_id: contestId});
-  if (!contest) {
-    ctx.errors.push({contestId: 'Contest with the following id was not found'});
-    return false;
   }
 
   if (ctx.errors.length > 0) {
