@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 
-import { List, Space } from 'antd';
+import {List, notification, Space} from 'antd';
 import {withRouter} from "react-router-dom";
 import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 
@@ -14,8 +14,16 @@ const IconText = ({ icon, text }) => (
 );
 
 const Competitions = ({ data, history }) => {
-  const onOpenContest = (contestId) => {
-    history.push(`/contest/${contestId}`);
+  const onOpenContest = (contest) => {
+    const curDate = moment();
+    if (curDate.isBetween(moment(contest.startDate), moment(contest.endDate))) {
+      history.push(`/contest/${contest._id}`);
+    } else {
+      notification.info({
+        message: curDate.isAfter(moment(contest.endDate)) ? 'Соревнование окончено' : 'Соревнование ещё не началось',
+        placement: 'topRight',
+      });
+    }
   };
 
   return (
@@ -37,8 +45,11 @@ const Competitions = ({ data, history }) => {
           ]}
         >
           <List.Item.Meta
-            title={<a onClick={() => onOpenContest(item._id)}>{item.description}</a>}
-            description={moment(item.endDate).format('YYYY-MM-DD')}
+            title={<a onClick={() => onOpenContest(item)}>{item.description}</a>}
+            description={
+              `Дата старта: ${moment(item.startDate).format('YYYY-MM-DD hh:mm:ss')}\n
+              Дата окончания: ${moment(item.endDate).format('YYYY-MM-DD hh:mm:ss')}`
+            }
           />
           {item.content}
         </List.Item>
