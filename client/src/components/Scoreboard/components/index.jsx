@@ -29,7 +29,7 @@ const Scoreboard = ({ getScoreboardByContest, scoreboard }) => {
         key: 'name',
       },
       {
-        title: 'Школа',
+        title: 'Баллы',
         dataIndex: 'value',
         key: 'value',
         render: value => value.toFixed(2),
