@@ -2,8 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 
-import {List, notification, Space} from 'antd';
-import {withRouter} from "react-router-dom";
+import {
+  List, notification, Space,
+  Button,
+} from 'antd';
+import { withRouter, Link } from "react-router-dom";
 import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 
 const IconText = ({ icon, text }) => (
@@ -25,6 +28,8 @@ const Competitions = ({ data, history }) => {
       });
     }
   };
+
+  const displayResults = contest => moment().isAfter(moment(contest.endDate));
 
   return (
     <List
@@ -51,7 +56,14 @@ const Competitions = ({ data, history }) => {
               Дата окончания: ${moment(item.endDate).format('YYYY-MM-DD hh:mm:ss')}`
             }
           />
-          {item.content}
+          <div>
+            <span>{item.content}</span>
+            {displayResults(item) && (
+              <Link to={`/contest/${item._id}/scoreboard`}>
+                <Button>Результаты</Button>
+              </Link>
+            )}
+          </div>
         </List.Item>
       )}
     />
