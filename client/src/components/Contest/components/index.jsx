@@ -5,6 +5,7 @@ import * as taskApi from '../../../redux/api/task.api';
 import ContestTask from "./ContentTask";
 
 import MainLayout from 'components/common/MainLayout';
+import ContestCounter from 'components/ContestCounter';
 
 import {
     PageHeader, Button, Descriptions,
@@ -43,7 +44,7 @@ const Contest = (props) => {
           title="Назад"
           style={{ padding: 0 }}
           extra={[
-            <h2 key={0}>Вопросы</h2>
+            <ContestCounter key="1" endDate={contest.endDate} />
           ]}
         />
         <Divider />

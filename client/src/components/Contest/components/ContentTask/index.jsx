@@ -20,8 +20,6 @@ const ContestTask = (props) => {
     const [answerCache, setAnswerCache] = useState({});
     const [lastAnswer, setLastAnswer] = useState('');
 
-    console.log('answerCache', answerCache);
-
     const saveNotification = () => {
       notification.success({
         message: 'Сохранено',
