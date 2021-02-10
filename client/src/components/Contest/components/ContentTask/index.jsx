@@ -4,7 +4,10 @@ import * as taskOptionsApi from '../../../../redux/api/task-options.api';
 import * as answerApi from '../../../../redux/api/answer.api';
 import { useFormik } from 'formik';
 
-import { Radio, Input, Checkbox, Button } from 'antd';
+import {
+  Radio, Input, Checkbox, Button,
+  Divider, Row, Col,
+} from 'antd';
 
 import './styles.scss';
 import {useParams} from "react-router-dom";
@@ -23,7 +26,7 @@ const ContestTask = (props) => {
         onSubmit: async (v) => {
             try {
               await answerApi.submitAnswer({
-                taskId,
+                taskId: task._id,
                 contestId,
                 value: answerCache[task._id],
               });
@@ -40,7 +43,7 @@ const ContestTask = (props) => {
     // reset form when task changes
     useEffect(async () => {
         const taskOptions = await taskOptionsApi.getByTask(task._id);
-        const lastAnswerFromApi = await answerApi.getAnswer({ taskId, contestId });
+        const lastAnswerFromApi = await answerApi.getAnswer({ taskId: task._id, contestId });
         if (['multipleAnswers'].includes(task.type)) {
           const lastAnswerValue = taskOptions
             .filter(o => _get(lastAnswerFromApi, 'value', []).includes(o._id))
@@ -68,7 +71,7 @@ const ContestTask = (props) => {
     }
 
     let answerSection;
-    switch(task.type){
+    switch (task.type) {
         case "oneAnswer":
             if(!taskOptions){
                 answerSection = '';
@@ -92,10 +95,21 @@ const ContestTask = (props) => {
             }
             break;
         case "fillIn":
-            answerSection = (
-                <Input name={"answer"} onChange={answerForm.handleChange} value={answerForm.values.answer} />
-            );
-            break;
+          answerSection = (
+            <Row>
+              <Col span={24} style={{ paddingBottom: '16px' }}>
+                <Input
+                  required
+                  name={"answer"}
+                  placeholder="Введите ответ"
+                  onChange={answerForm.handleChange}
+                  value={answerForm.values.answer}
+                  size="large"
+                />
+              </Col>
+            </Row>
+          );
+          break;
         case "essay":
             answerSection = (
                 <Input.TextArea rows={4} name={"answer"} onChange={answerForm.handleChange} value={answerForm.values.answer} />
@@ -106,16 +120,28 @@ const ContestTask = (props) => {
     }
 
     return (
-        <div>
-            <p>{task.text}</p>
-            <form onSubmit={answerForm.handleSubmit}>
-                {lastAnswer && <p>Последний отправленный ответ: {lastAnswer}</p>}
-                {answerSection}
-                <div className="">
-                    <Button type="primary" size="large" htmlType="submit" block>Отправить</Button>
-                </div>
-            </form>
-        </div>
+      <div>
+        <h3>{task.text}</h3>
+        <Divider />
+        <form onSubmit={answerForm.handleSubmit}>
+          {lastAnswer && <p>Последний отправленный ответ: {lastAnswer}</p>}
+          <Row>
+            <Col span={24} style={{ paddingBottom: '16px' }}>
+              {answerSection}
+            </Col>
+          </Row>
+          <Row>
+            <Button
+              type="primary"
+              size="large"
+              htmlType="submit"
+              block
+            >
+              Отправить
+            </Button>
+          </Row>
+        </form>
+      </div>
     );
 };
 

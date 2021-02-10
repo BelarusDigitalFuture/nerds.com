@@ -4,12 +4,17 @@ import * as contestApi from '../../../redux/api/contest.api';
 import * as taskApi from '../../../redux/api/task.api';
 import ContestTask from "./ContentTask";
 
+import MainLayout from 'components/common/MainLayout';
+
 import {
     PageHeader, Button, Descriptions,
-    Layout, Row, Col, List
+    Layout, Row, Col, List,
+    Tabs, Radio, Divider,
 } from 'antd';
 
 import './styles.scss';
+
+const { TabPane } = Tabs;
 
 const Contest = (props) => {
     const {contestId, taskId} = useParams();
@@ -31,29 +36,55 @@ const Contest = (props) => {
     const selectedTask = tasks.find(task => task._id === taskId);
 
     return (
-        <Row align="center">
-            <Col xs={6}>
-                <List
-                    className="task-list"
-                    header={<div>Вопросы</div>}
-                    bordered
-                    dataSource={tasks}
-                    renderItem={task => (
-                        <List.Item>
-                            <Link
-                                to={{pathname: `/contest/${contestId}/task/${task._id}`}}
-                                className={task._id === taskId ? 'selected' : ''}
-                            >
-                                {task.text}
-                            </Link>
-                        </List.Item>
-                    )}
-                />
-            </Col>
-            <Col xs={18}>
-                {selectedTask ? <ContestTask task={selectedTask}/> : ''}
-            </Col>
-        </Row>
+      <MainLayout>
+        <PageHeader
+          ghost={false}
+          onBack={() => window.history.back()}
+          title="Назад"
+          style={{ padding: 0 }}
+          extra={[
+            <h2 key={0}>Вопросы</h2>
+          ]}
+        />
+        <Divider />
+        <div>
+          <Tabs defaultActiveKey="1" tabPosition="left" style={{ height: 500 }}>
+            {(tasks || []).map((item, index) => (
+              <TabPane tab={`Задание ${index + 1}`} key={index}>
+                <ContestTask task={item}/>
+              </TabPane>
+            ))}
+          </Tabs>
+        </div>
+      </MainLayout>
+    )
+
+    return (
+        <MainLayout>
+            <Row align="center">
+                <Col xs={6}>
+                    <List
+                        className="task-list"
+                        header={<div>Вопросы</div>}
+                        bordered
+                        dataSource={tasks}
+                        renderItem={task => (
+                            <List.Item>
+                                <Link
+                                    to={{pathname: `/contest/${contestId}/task/${task._id}`}}
+                                    className={task._id === taskId ? 'selected' : ''}
+                                >
+                                    {task.text}
+                                </Link>
+                            </List.Item>
+                        )}
+                    />
+                </Col>
+                <Col xs={18}>
+                    {selectedTask ? <ContestTask task={selectedTask}/> : ''}
+                </Col>
+            </Row>
+        </MainLayout>
     );
 };
 
