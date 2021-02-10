@@ -1,5 +1,6 @@
 import _get from 'lodash/get';
 import React, {useEffect, useState} from 'react';
+import PropTypes from 'prop-types';
 import * as taskOptionsApi from '../../../../redux/api/task-options.api';
 import * as answerApi from '../../../../redux/api/answer.api';
 import { useFormik } from 'formik';
@@ -14,8 +15,9 @@ import './styles.scss';
 import {useParams} from "react-router-dom";
 
 const ContestTask = (props) => {
+    const { task, handleNext } = props;
+
     const {contestId} = useParams();
-    const {task} = props;
     const [taskOptions, setTaskOptions] = useState([]);
     const [answerCache, setAnswerCache] = useState({});
     const [lastAnswer, setLastAnswer] = useState('');
@@ -46,6 +48,7 @@ const ContestTask = (props) => {
                 value: answerCache[task._id],
               });
               saveNotification();
+              handleNext();
             } catch (e) {
               console.error(e);
               errorNotification();
@@ -160,6 +163,8 @@ const ContestTask = (props) => {
     );
 };
 
-ContestTask.propTypes = {};
+ContestTask.propTypes = {
+  handleNext: PropTypes.func.isRequired,
+};
 
 export default ContestTask;
