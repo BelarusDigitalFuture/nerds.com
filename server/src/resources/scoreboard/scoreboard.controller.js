@@ -1,8 +1,11 @@
 const _ = require('lodash');
 const contestService = require('./../contest/contest.service');
+const userService = require('./../user/user.service');
 const answerService = require('./../answer/answer.service');
 const taskService = require('./../task/task.service');
 const taskSetService = require('./../task-set/task-set.service');
+
+const userHelper = require('../user/user.helper');
 
 module.exports.getForContest = async (ctx) => {
   const { contestId } = ctx.params;
@@ -24,7 +27,18 @@ module.exports.getForContest = async (ctx) => {
     scoreboard[answer.userId].total += answer.points;
   });
 
-  ctx.body = scoreboard;
+  const userIds = Object.keys(scoreboard);
+  const users = await userService.atomic.find({ _id: { $in: userIds }});
+
+  const scoreBoardTable = [];
+  userIds.forEach((userId) => {
+    const user = users.find(u => u._id === userId);
+    scoreBoardTable.push({
+      user: _.pick(user, ['name', '_id', 'school', 'email']),
+      ...scoreboard[userId],
+    })
+  });
+  ctx.body = scoreBoardTable.sort((a, b) => b.total - a.total);
 };
 
 module.exports.getForSubject = async (ctx) => {
