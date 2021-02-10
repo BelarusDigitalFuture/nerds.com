@@ -43,6 +43,7 @@ const Scoreboard = ({ getScoreboardByContest, scoreboard }) => {
       title: 'Итог',
       dataIndex: 'total',
       key: 'total',
+      render: v => v.toFixed(2),
     },
   ]
 
@@ -58,6 +59,7 @@ const Scoreboard = ({ getScoreboardByContest, scoreboard }) => {
       title: 'Баллы',
       dataIndex: 'value',
       key: 'value',
+      render: v => v.toFixed(2),
     },
     // ...taskIds.map((taskId, index) => ({
     //   title: <Link to={`/contest/${contestId}/task/${taskId}`}>Задание {index}</Link>,
