@@ -7,7 +7,9 @@ import {
   Button,
 } from 'antd';
 import { withRouter, Link } from "react-router-dom";
-import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
+import { RightOutlined } from '@ant-design/icons';
+
+import './styles.scss'
 
 const IconText = ({ icon, text }) => (
   <Space>
@@ -47,6 +49,7 @@ const Competitions = ({ data, history }) => {
           actions={[
              <>{item.status}</>,
           ]}
+          style={{ position: 'relative' }}
         >
           <List.Item.Meta
             title={<a onClick={() => onOpenContest(item)}>{item.description}</a>}
@@ -59,6 +62,15 @@ const Competitions = ({ data, history }) => {
           />
           <div>
             <span>{item.content}</span>
+          </div>
+          <div className="subject__link">
+            <Button
+              type="primary"
+              shape="circle"
+              icon={<RightOutlined />}
+              size="large"
+              onClick={() => onOpenContest(item)}
+            />
           </div>
         </List.Item>
       )}

@@ -26,7 +26,7 @@ const Header = (props) => {
 
   return (
     <PageHeader
-      style={{ position: 'fixed', zIndex: 1, width: '100%' }}
+      style={{ position: 'fixed', zIndex: 1, width: '100%', flexWrap: 'nowrap' }}
       ghost={false}
       title={
         <a className="header-logo" onClick={onClickIcon}>

@@ -7,3 +7,19 @@
     margin-right: 5px;
   }
 }
+
+@media screen and (max-width: 480px) {
+  .header-logo {
+    & span {
+      display: none;
+    }
+  }
+
+  .ant-page-header-heading {
+    flex-wrap: nowrap !important;
+  }
+
+  .ant-page-header-heading-title {
+    min-width: 30px;
+  }
+}
