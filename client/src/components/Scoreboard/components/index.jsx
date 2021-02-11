@@ -65,10 +65,22 @@ const Scoreboard = ({ getScoreboardByContest, scoreboard }) => {
       render: user => user.name,
     },
     {
-      title: 'Школа',
+      title: 'Город',
+      dataIndex: 'user',
+      key: 'city',
+      render: user => user.city,
+    },
+    {
+      title: 'Учреждение образования',
       dataIndex: 'user',
       key: 'school',
       render: user => user.school,
+    },
+    {
+      title: 'Класс',
+      dataIndex: 'user',
+      key: 'form',
+      render: user => user.form,
     },
     {
       title: 'Итог',

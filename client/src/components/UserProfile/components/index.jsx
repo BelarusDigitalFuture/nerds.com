@@ -12,7 +12,7 @@ import { useFormik } from 'formik';
 
 import { LockOutlined } from '@ant-design/icons';
 
-const FORM_KEYS = ['email', 'name', 'school', 'birthDate'];
+const FORM_KEYS = ['email', 'name', 'school', 'birthDate', 'city', 'form'];
 
 const UserProfile = (props) => {
   const { user } = props;
@@ -82,10 +82,31 @@ const UserProfile = (props) => {
             </div>
             <div className="login__element">
               <Input
-                placeholder="Класс"
+                placeholder="Город"
+                size="large"
+                name="city"
+                value={profileForm.values.city}
+                onChange={profileForm.handleChange}
+              />
+            </div>
+            <div className="login__element">
+              <Input
+                placeholder="Учреждение образования"
                 size="large"
                 name="school"
                 value={profileForm.values.school}
+                onChange={profileForm.handleChange}
+              />
+            </div>
+            <div className="login__element">
+              <Input
+                placeholder="Класс"
+                size="large"
+                type="number"
+                min="0"
+                max="11"
+                name="form"
+                value={profileForm.values.form}
                 onChange={profileForm.handleChange}
               />
             </div>

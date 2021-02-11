@@ -12,13 +12,19 @@ module.exports = ctx => baseValidator(ctx, async () => {
   ctx.checkBody('birthDate')
     .optional()
     .isDate('Please, enter actual birth date')
-    .trim();
 
   ctx.checkBody('password')
     .optional()
     .trim();
 
   ctx.checkBody('name')
+    .optional()
+    .trim();
+
+  ctx.checkBody('form')
+    .optional()
+
+  ctx.checkBody('city')
     .optional()
     .trim();
 
@@ -37,7 +43,8 @@ module.exports = ctx => baseValidator(ctx, async () => {
 
   const {
     email, password, name,
-    school, birthDate,
+    school, birthDate, form,
+    city,
   } = ctx.request.body;
 
   if (email) {
@@ -57,6 +64,8 @@ module.exports = ctx => baseValidator(ctx, async () => {
     ...(password && { password }),
     ...(name && { name }),
     ...(school && { school }),
+    ...(form && { form }),
+    ...(city && { city }),
     ...birthDate && { birthDate: new Date(birthDate) },
   };
 });

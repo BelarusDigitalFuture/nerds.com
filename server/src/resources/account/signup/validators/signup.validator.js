@@ -9,7 +9,6 @@ module.exports = ctx => baseValidator(ctx, async () => {
 
   ctx.checkBody('birthDate')
     .isDate('Please, enter actual birth date')
-    .trim();
 
   ctx.checkBody('password')
     .notEmpty()
@@ -23,13 +22,22 @@ module.exports = ctx => baseValidator(ctx, async () => {
     .notEmpty()
     .trim();
 
+  ctx.checkBody('form')
+    .notEmpty()
+
+  ctx.checkBody('city')
+    .notEmpty()
+    .trim();
+
+
   if (ctx.errors.length > 0) {
     return false;
   }
 
   const {
     email, password, name,
-    school, birthDate,
+    school, birthDate, form,
+    city,
   } = ctx.request.body;
 
   const user = await userService.exists({ email });
@@ -48,6 +56,8 @@ module.exports = ctx => baseValidator(ctx, async () => {
     password,
     name,
     school,
+    form,
+    city,
     birthDate: new Date(birthDate),
   };
 

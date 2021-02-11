@@ -9,7 +9,8 @@ const baseApi = fetchApi({
 export function getCurrentUser() {
   return baseApi
     .get('user')
-    .then((user) => user);
+    .then((user) => user)
+    .catch(() => {});
 }
 
 export function updateUser(userData) {

@@ -34,7 +34,7 @@ module.exports.getForContest = async (ctx) => {
   userIds.forEach((userId) => {
     const user = users.find(u => u._id === userId);
     scoreBoardTable.push({
-      user: _.pick(user, ['name', '_id', 'school', 'email']),
+      user: _.pick(user, ['name', '_id', 'school', 'email', 'form', 'city']),
       ...scoreboard[userId],
     })
   });

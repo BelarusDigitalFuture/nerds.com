@@ -46,6 +46,8 @@ const Login = (props) => {
       password: '',
       school: '',
       name: '',
+      city: '',
+      form: '',
       birthDate: moment().subtract(1, 'year'),
     },
     onSubmit: async (values) => {
@@ -136,10 +138,31 @@ const Login = (props) => {
                 </div>
                 <div className="login__element">
                   <Input
-                    placeholder="Класс"
+                    placeholder="Город"
+                    size="large"
+                    name="city"
+                    value={registerForm.values.city}
+                    onChange={registerForm.handleChange}
+                  />
+                </div>
+                <div className="login__element">
+                  <Input
+                    placeholder="Учреждение образования"
                     size="large"
                     name="school"
                     value={registerForm.values.school}
+                    onChange={registerForm.handleChange}
+                  />
+                </div>
+                <div className="login__element">
+                  <Input
+                    placeholder="Класс"
+                    size="large"
+                    type="number"
+                    min="0"
+                    max="11"
+                    name="form"
+                    value={registerForm.values.form}
                     onChange={registerForm.handleChange}
                   />
                 </div>
