@@ -1,0 +1,18 @@
+.trainings {
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .trainings {
+    &__item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-direction: column;
+    }
+  }
+}

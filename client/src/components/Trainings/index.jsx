@@ -8,6 +8,8 @@ import {
 } from 'antd';
 import { withRouter, Link } from "react-router-dom";
 
+import './styles.scss';
+
 const Trainings = ({ data, history }) => {
   const onOpenTraining = (contest) => {
     history.push(`/contest/${contest._id}?type=training`);
@@ -29,7 +31,7 @@ const Trainings = ({ data, history }) => {
         <List.Item
           key={index}
         >
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div className="trainings__item">
             <List.Item.Meta
               title={<a onClick={() => onOpenTraining(item)}>{item.description}</a>}
             />
