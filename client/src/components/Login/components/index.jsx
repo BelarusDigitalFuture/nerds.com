@@ -12,6 +12,8 @@ import { useFormik } from 'formik';
 
 import { LockOutlined } from '@ant-design/icons';
 
+import logo from 'assets/geekcon_logo.svg';
+
 import './styles.scss';
 
 const { TabPane } = Tabs;
@@ -64,7 +66,7 @@ const Login = (props) => {
     <Row justify="center">
       <Col xxl={4} xl={6} lg={8} sm={10} xs={18}>
         <div className="login">
-          <h1>geekcon.online</h1>
+          <div><img src={logo} className="login__logo" /></div>
           <Tabs defaultActiveKey="1" size="large" onChange={() => {}}>
             <TabPane tab="Логин" key="1">
               <form onSubmit={loginForm.handleSubmit}>
