@@ -70,7 +70,7 @@ const ContestTask = (props) => {
           setLastAnswer(lastAnswerFromApi.value)
         }
         setTaskOptions(taskOptions);
-        await answerForm.resetForm({values: {answer: answerCache[task._id]}});
+        await answerForm.resetForm({values: {answer: lastAnswerFromApi.value}});
 
     }, [task]);
 
