@@ -16,6 +16,7 @@ import Contest from 'components/Contest';
 import Header from 'components/Header';
 import Subjects from 'components/Subjects';
 import Scoreboard from 'components/Scoreboard';
+import Materials from 'components/Materials';
 import NotFound from 'components/NotFound';
 
 import 'antd/dist/antd.css';
@@ -48,6 +49,7 @@ function App({ getCurrentUser, user }) {
               <PrivateRoute exact path="/contest/:contestId/task/:taskId" component={Contest} />
               <PrivateRoute exact path="/contest/:contestId/scoreboard" component={Scoreboard} />
               <PrivateRoute path="/contest/:contestId" component={Contest} />
+              <PrivateRoute path="/materials/:materialId" component={Materials} />
               <Route exact path="*" component={NotFound} />
             </Switch>
           </>
