@@ -4,14 +4,34 @@ const userService = require('../resources/user/user.service');
 const taskSetService = require('../resources/task-set/task-set.service');
 const taskService = require('../resources/task/task.service');
 const taskOptionService = require('../resources/task-option/task-option.service');
-const contestData = require('./data/contest');
+const contestDataMain = require('./data/contest');
+const contestDataWords = require('./data/contest_words');
+const contestDataQuotes = require('./data/contest_quotes');
 
 const subjectId = process.argv[2];
+const set = process.argv[3];
+const taskSetDescription = process.argv[4] || 'Тестовый сет задач для олимпиады по белорусскому языку';
+
+let contestData;
+switch (set) {
+  case 'main':
+    contestData = contestDataMain;
+    break;
+  case 'quotes':
+    contestData = contestDataQuotes;
+    break;
+  case 'words':
+    contestData = contestDataWords;
+    break;
+  default:
+    contestData = contestDataMain;
+    break;
+}
 
 const createTaskSet = async (authorId) => {
   const taskSetData = {
     name: 'Belmova test',
-    description: 'Тестовый сет задач для олимпиады по белорусскому языку',
+    description: taskSetDescription,
     subjectId,
     authorId,
   };

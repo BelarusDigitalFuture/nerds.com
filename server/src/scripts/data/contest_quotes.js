@@ -1,8 +1,8 @@
 const moment = require('moment');
 
 module.exports = {
-  startDate: moment().add(1, 'week').toDate(),
-  endDate: moment().add(1, 'week').add(2, 'hours').toDate(),
+  startDate: moment().toDate(),
+  endDate: moment().add(1, 'second').toDate(),
   description: 'Тренировочная олимпиада по белорусскому языку (цитаты)',
   tasks: [
     {
