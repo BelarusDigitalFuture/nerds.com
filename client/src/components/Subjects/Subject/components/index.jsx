@@ -31,17 +31,16 @@ const Subject = ({
         ]}
         style={{ padding: 0 }}
       />
-      <Divider />
-      <h2>Соревнования</h2>
+      <Divider>Соревнования</Divider>
       <Competitions data={contestList} />
       {trainingList.length ?
         <>
-          <h2>Тренировки</h2>
+          <Divider>Тренировки</Divider>
           <Trainings data={trainingList} />
         </>
         : null
       }
-      <h2>Материалы для подготовки</h2>
+      <Divider>Материалы для подготовки</Divider>
       <List
         itemLayout="vertical"
         size="large"
