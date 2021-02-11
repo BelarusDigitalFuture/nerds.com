@@ -51,8 +51,8 @@ const Competitions = ({ data, history }) => {
           <List.Item.Meta
             title={<a onClick={() => onOpenContest(item)}>{item.description}</a>}
             description={
-              `Дата старта: ${moment(item.startDate).format('YYYY-MM-DD hh:mm:ss')}\n
-              Дата окончания: ${moment(item.endDate).format('YYYY-MM-DD hh:mm:ss')}`
+              `Дата старта: ${moment(item.startDate).utcOffset('+0300').format('YYYY-MM-DD HH:mm:ss')}\n
+              Дата окончания: ${moment(item.endDate).utcOffset('+0300').format('YYYY-MM-DD HH:mm:ss')}`
             }
           />
           <div>

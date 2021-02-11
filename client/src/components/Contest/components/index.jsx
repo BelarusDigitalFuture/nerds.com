@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import {useParams, Link, useLocation} from "react-router-dom";
+import moment from 'moment';
+import _ from 'lodash';
+import {useParams, Link, useLocation, withRouter} from "react-router-dom";
 import * as contestApi from '../../../redux/api/contest.api';
 import * as taskApi from '../../../redux/api/task.api';
 import ContestTask from "./ContentTask";
@@ -28,6 +30,10 @@ const Contest = (props) => {
 
     useEffect(async () => {
         const contest = await contestApi.getContest(contestId);
+        if (!_.get(contest, 'startDate') || moment().isBefore(moment(contest.startDate))) {
+          props.history.push('/home');
+          return;
+        }
         const tasks = await taskApi.getByTaskSet(contest && contest.taskSetId);
 
         setContest(contest);
@@ -36,7 +42,7 @@ const Contest = (props) => {
 
     const handleNext = () => {
       setActiveTab(`${Number(activeTab) + 1}`)
-    }
+    };
 
     if (!contest || !tasks) {
         return '';
@@ -78,4 +84,4 @@ const Contest = (props) => {
 
 Contest.propTypes = {};
 
-export default Contest;
+export default withRouter(Contest);

@@ -38,6 +38,11 @@ module.exports.getOne = async (ctx) => {
     _id: ctx.params.id,
   });
 
+  if (!contest) {
+    ctx.body = {};
+    return;
+  }
+
   ctx.body = {
     ...contestHelper.format(contest),
   };

@@ -25,9 +25,9 @@ const Subject = ({
         onBack={() => window.history.back()}
         title={title}
         extra={[
-          <Button key="1" type="primary">
-            Добавить
-          </Button>,
+          // <Button key="1" type="primary">
+          //   Добавить
+          // </Button>,
         ]}
         style={{ padding: 0 }}
       />
