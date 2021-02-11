@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Button, PageHeader } from 'antd';
-import { ProfileTwoTone, MessageTwoTone } from '@ant-design/icons';
+import { UserOutlined } from '@ant-design/icons';
 
 import logo from 'assets/geekcon_logo_circle.svg'
 
@@ -36,7 +36,7 @@ const Header = (props) => {
       }
       subTitle={props.username}
       extra={[
-        <Button key="3" type="secondary" shape="circle" icon={<ProfileTwoTone />} size="large" onClick={onClickUserProfile}/>,
+        <Button key="3" type="secondary" shape="circle" icon={<UserOutlined />} size="large" onClick={onClickUserProfile}/>,
         <Button key="1" type="primary" onClick={logoutUser}>
           Выйти
         </Button>,
