@@ -1,5 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {useParams, Link, useLocation} from "react-router-dom";
+
+import { useMediaQuery } from 'react-responsive'
+
 import * as contestApi from '../../../redux/api/contest.api';
 import * as taskApi from '../../../redux/api/task.api';
 import ContestTask from "./ContentTask";
@@ -22,6 +25,8 @@ const Contest = (props) => {
     const [contest, setContest] = useState();
     const [tasks, setTasks] = useState([]);
     const [activeTab, setActiveTab] = useState('0');
+
+    const isMobile = useMediaQuery({ query: '(max-width: 480px)' })
 
     const query = new URLSearchParams(useLocation().search);
     const isActiveContest = query.get('type') === 'contest';
@@ -57,12 +62,11 @@ const Contest = (props) => {
         />
         <Divider />
         <div>
-          {console.log('activeTab', activeTab)}
           <Tabs
             defaultActiveKey={activeTab}
             activeKey={activeTab}
-            tabPosition="left"
-            style={{ height: 500 }}
+            tabPosition={isMobile ? 'top' : 'left'}
+            style={{ height: isMobile ? 'auto' : 500 }}
             onChange={setActiveTab}
           >
             {(tasks || []).map((item, index) => (

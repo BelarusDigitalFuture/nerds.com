@@ -3,35 +3,30 @@ import PropTypes from 'prop-types'
 
 import moment from 'moment'
 
+import { Statistic } from 'antd'
+
+import { ClockCircleOutlined } from '@ant-design/icons'
+
+const { Countdown } = Statistic
+
 const ContestCounter = (props) => {
-  const { endDate } = props
-
-  const [restTime, setRestTime] = useState(0);
-
-  const calcTime = () => {
-    const restMs = moment.duration(moment(endDate).diff(moment.now())).asMilliseconds()
-    const formatRestTime = moment(restMs).format('D [дней] HH [часа] mm [минут] ss [секунд]')
-
-    setRestTime(formatRestTime)
-  }
-
-  useEffect(() => {
-    calcTime()
-
-    const intervalName = setInterval(calcTime, 1000)
-
-    return () => clearInterval(intervalName)
-  }, [])
+  const { endDate, handleFinish } = props
 
   return (
     <span>
-      До окончания {restTime}
+      <Countdown
+        prefix={<ClockCircleOutlined />}
+        value={moment(endDate)}
+        onFinish={handleFinish}
+        valueStyle={{ fontSize: '20px' }}
+      />
     </span>
   )
 }
 
 ContestCounter.propTypes = {
   endDate: PropTypes.string.isRequired,
+  handleFinish: PropTypes.func.isRequired,
 }
 
 export default ContestCounter

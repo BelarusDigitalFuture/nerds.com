@@ -105,10 +105,10 @@ const Scoreboard = ({
       <MainLayout>
         <Tabs defaultActiveKey="1" size="large" onChange={() => {}}>
           <TabPane tab="Основное соревнование" key="1">
-            <Table dataSource={scoreboardByContest} columns={mainColumns} pagination={false} />
+            <Table dataSource={scoreboardByContest} columns={mainColumns} pagination={false} scroll={{ x: 'max-content' }} />
           </TabPane>
           <TabPane tab="Тренировка" key="2">
-            <Table dataSource={scoreboardByTraining} columns={mainColumns} pagination={false} />
+            <Table dataSource={scoreboardByTraining} columns={mainColumns} pagination={false} scroll={{ x: 'max-content' }} />
           </TabPane>
         </Tabs>
         <br />
