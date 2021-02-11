@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {useParams, Link} from "react-router-dom";
+import {useParams, Link, useLocation} from "react-router-dom";
 import * as contestApi from '../../../redux/api/contest.api';
 import * as taskApi from '../../../redux/api/task.api';
 import ContestTask from "./ContentTask";
@@ -22,6 +22,9 @@ const Contest = (props) => {
     const [contest, setContest] = useState();
     const [tasks, setTasks] = useState([]);
     const [activeTab, setActiveTab] = useState('0');
+
+    const query = new URLSearchParams(useLocation().search);
+    const isActiveContest = query.get('type') === 'contest';
 
     useEffect(async () => {
         const contest = await contestApi.getContest(contestId);
@@ -49,7 +52,7 @@ const Contest = (props) => {
           title="Назад"
           style={{ padding: 0 }}
           extra={[
-            <ContestCounter key="1" endDate={contest.endDate} />
+            isActiveContest ? <ContestCounter key="1" endDate={contest.endDate} /> : <></>
           ]}
         />
         <Divider />

@@ -16,18 +16,32 @@ module.exports.createOrUpdate = async (ctx) => {
   if (!data.isValid) {
     return;
   }
-  const { taskId, contestId, value, points } = data;
+  const {
+    taskId, contestId, value,
+    points, isPointsRated,
+  } = data;
 
   let answer = await answerService.findOne({
     taskId,
     contestId,
+    isPointsRated,
     userId: ctx.state.user._id,
   });
 
   if(answer){
-    await answerService.updateEntity(answer._id, { value, points });
+    await answerService.updateEntity(answer._id, {
+      value,
+      points
+    });
   } else {
-    answer = await answerService.create({ taskId, contestId, userId: ctx.state.user._id, value, points });
+    answer = await answerService.create({
+      taskId,
+      contestId,
+      userId: ctx.state.user._id,
+      value,
+      points,
+      isPointsRated,
+    });
   }
 
   ctx.body = {

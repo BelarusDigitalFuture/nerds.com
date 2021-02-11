@@ -18,6 +18,7 @@ const answerSchema = {
     manuallyVerified: { type: ['number', 'null'] },
     verifiedBy: { type: ['number', 'null'] },
     points: { type: ['number', 'null'] },
+    isPointsRated: { type: ['boolean'] },
   },
   required: ['_id', 'userId', 'taskId', 'value'],
 };

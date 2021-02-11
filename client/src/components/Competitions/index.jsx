@@ -19,17 +19,15 @@ const IconText = ({ icon, text }) => (
 const Competitions = ({ data, history }) => {
   const onOpenContest = (contest) => {
     const curDate = moment();
-    if (curDate.isBetween(moment(contest.startDate), moment(contest.endDate))) {
-      history.push(`/contest/${contest._id}`);
+    if (curDate.isAfter(moment(contest.startDate))) {
+      history.push(`/contest/${contest._id}?type=contest`);
     } else {
       notification.info({
-        message: curDate.isAfter(moment(contest.endDate)) ? 'Соревнование окончено' : 'Соревнование ещё не началось',
+        message: 'Соревнование ещё не началось',
         placement: 'topRight',
       });
     }
   };
-
-  const displayResults = contest => moment().isAfter(moment(contest.endDate));
 
   return (
     <List
@@ -47,7 +45,7 @@ const Competitions = ({ data, history }) => {
         <List.Item
           key={index}
           actions={[
-            <>{item.status}</>,
+             <>{item.status}</>,
           ]}
         >
           <List.Item.Meta
@@ -59,11 +57,6 @@ const Competitions = ({ data, history }) => {
           />
           <div>
             <span>{item.content}</span>
-            {displayResults(item) && (
-              <Link to={`/contest/${item._id}/scoreboard`}>
-                <Button>Результаты</Button>
-              </Link>
-            )}
           </div>
         </List.Item>
       )}

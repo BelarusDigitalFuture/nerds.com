@@ -14,7 +14,7 @@ const createTaskSet = async (authorId) => {
     description: 'Тестовый сет задач для олимпиады по белорусскому языку',
     subjectId,
     authorId,
-  }
+  };
   const taskSet = await taskSetService.create(taskSetData);
 
   console.info(`Created new task set ${JSON.stringify(taskSet)}`);

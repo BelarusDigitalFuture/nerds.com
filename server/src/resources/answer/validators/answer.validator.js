@@ -55,13 +55,9 @@ module.exports.validate = (ctx) => baseValidator(ctx, async () => {
   }
 
   const curTime = moment();
+  const isPointsRated = contest.ratingEnabled && curTime.isBetween(moment(contest.startDate), moment(contest.endDate));
   if (curTime.isBefore(moment(contest.startDate))) {
     ctx.errors.push({ contestId: 'Соревнование еще не началось'});
-    return false;
-  }
-
-  if (curTime.isAfter(moment(contest.endDate))) {
-    ctx.errors.push({ contestId: 'Соревнование завершилось'});
     return false;
   }
 
@@ -114,5 +110,11 @@ module.exports.validate = (ctx) => baseValidator(ctx, async () => {
 
   await populate(ctx);
 
-  return { taskId, contestId, value, points };
+  return {
+    taskId,
+    contestId,
+    value,
+    points,
+    isPointsRated,
+  };
 });

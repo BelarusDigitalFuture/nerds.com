@@ -6,7 +6,8 @@ import Scoreboard from './components';
 import { getScoreboardByContest } from '../../redux/actions/scoreboard.actions';
 
 const mapStateToProps = state => ({
-  scoreboard: state.scoreboard.scoreboardByContest,
+  scoreboardByContest: state.scoreboard.scoreboardByContest,
+  scoreboardByTraining: state.scoreboard.scoreboardByTraining,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({

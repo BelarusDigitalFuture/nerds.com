@@ -1,6 +1,6 @@
 const subjectService = require('../resources/subject/subject.service');
 
-const name = process.argv[2] || 'Беларуская мова';
+const name = process.argv[2] || 'Белорусский язык';
 const shortName = process.argv[3] || 'belmova';
 
 const run = async () => {

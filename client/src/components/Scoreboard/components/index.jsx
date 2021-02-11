@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 
-import { Button, PageHeader, Table, Modal } from 'antd';
+import {Button, PageHeader, Table, Modal, Tabs} from 'antd';
 import { useParams, Link } from "react-router-dom";
 import { BellOutlined, MessageTwoTone } from '@ant-design/icons';
 
@@ -11,8 +11,14 @@ import MainLayout from 'components/common/MainLayout';
 const ReachableContext = React.createContext();
 const UnreachableContext = React.createContext();
 
-const Scoreboard = ({ getScoreboardByContest, scoreboard }) => {
-  const { contestId } = useParams();
+const { TabPane } = Tabs;
+
+const Scoreboard = ({
+  getScoreboardByContest,
+  scoreboardByContest,
+  scoreboardByTraining,
+}) => {
+  const { contestId, type } = useParams();
   const [modal, contextHolder] = Modal.useModal();
 
   useEffect(() => {
@@ -21,7 +27,7 @@ const Scoreboard = ({ getScoreboardByContest, scoreboard }) => {
 
   const detailsModal = (data) => {
     const formatData = Object.keys(data.tasks)
-      .map((item, index) => ({ name: `Задача ${index + 1}`, value: data.tasks[item] }))
+      .map((item, index) => ({ name: `Задача ${index + 1}`, value: data.tasks[item] }));
     const detailColumns = [
       {
         title: 'Задание',
@@ -97,7 +103,14 @@ const Scoreboard = ({ getScoreboardByContest, scoreboard }) => {
   return (
     <ReachableContext.Provider value="Light">
       <MainLayout>
-        <Table dataSource={scoreboard} columns={mainColumns} pagination={false} />
+        <Tabs defaultActiveKey="1" size="large" onChange={() => {}}>
+          <TabPane tab="Основное соревнование" key="1">
+            <Table dataSource={scoreboardByContest} columns={mainColumns} pagination={false} />
+          </TabPane>
+          <TabPane tab="Тренировка" key="2">
+            <Table dataSource={scoreboardByTraining} columns={mainColumns} pagination={false} />
+          </TabPane>
+        </Tabs>
         <br />
       </MainLayout>
       {contextHolder}
@@ -107,7 +120,8 @@ const Scoreboard = ({ getScoreboardByContest, scoreboard }) => {
 };
 
 Scoreboard.propTypes = {
-  scoreboard: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  scoreboardByContest: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  scoreboardByTraining: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   getScoreboardByContest: PropTypes.func.isRequired,
 };
 

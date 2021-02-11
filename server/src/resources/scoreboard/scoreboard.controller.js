@@ -7,13 +7,7 @@ const taskSetService = require('./../task-set/task-set.service');
 
 const userHelper = require('../user/user.helper');
 
-module.exports.getForContest = async (ctx) => {
-  const { contestId } = ctx.params;
-
-  const answers = await answerService.find({contestId});
-  const contest = await contestService.findOne({_id: contestId});
-  const tasks = await taskService.find({taskSetId: contest.taskSetId});
-
+const buildScoreBoard = async (answers, tasks) => {
   const scoreboard = {};
 
   answers.results.forEach(answer => {
@@ -39,7 +33,21 @@ module.exports.getForContest = async (ctx) => {
     })
   });
 
-  ctx.body = scoreBoardTable.sort((a, b) => b.total - a.total);
+  return scoreBoardTable.sort((a, b) => b.total - a.total);
+};
+
+module.exports.getForContest = async (ctx) => {
+  const { contestId } = ctx.params;
+
+  const ratedAnswers = await answerService.find({contestId, isPointsRated: true });
+  const unratedAnswers = await answerService.find({contestId, isPointsRated: { $ne: true } });
+  const contest = await contestService.findOne({_id: contestId});
+  const tasks = await taskService.find({taskSetId: contest.taskSetId});
+
+  ctx.body = {
+    contest: await buildScoreBoard(ratedAnswers, tasks),
+    training: await buildScoreBoard(unratedAnswers, tasks),
+  }
 };
 
 module.exports.getForSubject = async (ctx) => {

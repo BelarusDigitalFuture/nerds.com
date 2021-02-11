@@ -11,7 +11,7 @@ const Subjects = (props) => {
 
   return (
     <MainLayout>
-      <Subject title={'Беларуская мова'} />
+      <Subject title={'Белорусский язык'} />
     </MainLayout>
   );
 };

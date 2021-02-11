@@ -265,7 +265,7 @@ module.exports = {
       maxLength: 30,
       maxWords: 2,
       text: 'Адкажыце, каму належыць наступны псеўданім: Якуб Колас. Увядзіце імя і прозвішча ў назоўным склоне.',
-      evaluationInformation: 'Кантанцін Міцкевіч',
+      evaluationInformation: 'Канcтанцін Міцкевіч',
       correctAnswerPoints: 2.5,
     },
     {

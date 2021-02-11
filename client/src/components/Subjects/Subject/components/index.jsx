@@ -4,10 +4,7 @@ import PropTypes from 'prop-types'
 import { PageHeader, Button, Divider } from 'antd'
 
 import Competitions from 'components/Competitions'
-import TrainingList from 'components/Subjects/TrainingList'
-
-import { BEL_LANG_TASKS } from 'consts/tasks'
-import Contests from "../../../Contests/components";
+import Trainings from 'components/Trainings'
 
 const Subject = ({
   getContestList,
@@ -34,11 +31,11 @@ const Subject = ({
       />
       <Divider />
       <h2>Соревнования</h2>
-      <Competitions data={contestList} type="contest" />
+      <Competitions data={contestList} />
       {trainingList.length ?
         <>
           <h2>Тренировки</h2>
-          <Competitions data={trainingList} type="training" />
+          <Trainings data={trainingList} />
         </>
         : null
       }
