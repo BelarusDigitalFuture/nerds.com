@@ -28,22 +28,23 @@ const Trainings = ({ data, history }) => {
       renderItem={(item, index) => (
         <List.Item
           key={index}
-          actions={[
-            <>Тренировка для дорешивания</>
-          ]}
         >
-          <List.Item.Meta
-            title={<a onClick={() => onOpenTraining(item)}>{item.description}</a>}
-          />
-          <div>
-            <span>{item.content}</span>
-            {(
-              <>
-                <Link to={`/contest/${item._id}/scoreboard`}>
-                  <Button>Результаты</Button>
-                </Link>
-              </>
-            )}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <List.Item.Meta
+              title={<a onClick={() => onOpenTraining(item)}>{item.description}</a>}
+            />
+            <div>
+              <span>{item.content}</span>
+              {(
+                <>
+                  <Link to={`/contest/${item._id}/scoreboard`}>
+                    <Button type="primary" shape="round" size="large">
+                      Результаты
+                    </Button>
+                  </Link>
+                </>
+              )}
+            </div>
           </div>
         </List.Item>
       )}
