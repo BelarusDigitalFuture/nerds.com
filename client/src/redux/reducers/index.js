@@ -9,7 +9,7 @@ import scoreboard from './scoreboardReducer';
 export default combineReducers({
   auth,
   subject,
-  contest,
   user,
   scoreboard,
+  contest,
 });

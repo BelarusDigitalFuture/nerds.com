@@ -12,6 +12,7 @@ import Contests from "../../../Contests/components";
 const Subject = ({
   getContestList,
   contestList,
+  trainingList,
   title
 }) => {
   useEffect(() => {
@@ -33,9 +34,14 @@ const Subject = ({
       />
       <Divider />
       <h2>Соревнования</h2>
-      <Competitions data={contestList} />
-      {/*<h2>Тренировки</h2>*/}
-      {/*<TrainingList listData={BEL_LANG_TASKS} />*/}
+      <Competitions data={contestList} type="contest" />
+      {trainingList.length ?
+        <>
+          <h2>Тренировки</h2>
+          <Competitions data={trainingList} type="training" />
+        </>
+        : null
+      }
     </div>
   )
 };
@@ -44,6 +50,7 @@ Subject.propTypes = {
   getContestList: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   contestList: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  trainingList: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
 
 export default Subject;

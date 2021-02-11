@@ -11,3 +11,9 @@ export function getCurrentUser() {
     .get('user')
     .then((user) => user);
 }
+
+export function updateUser(userData) {
+  return baseApi
+    .put('user', null, userData)
+    .then((user) => user);
+}

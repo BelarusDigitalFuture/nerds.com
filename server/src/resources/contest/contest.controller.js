@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const moment = require('moment');
 const contestService = require('./contest.service');
 const contestHelper = require('./contest.helper');
 const contestValidator = require('./validators/contest.validator');
@@ -45,14 +46,16 @@ module.exports.getOne = async (ctx) => {
 module.exports.get = async (ctx) => {
   const { subjectId } = ctx.request.query;
 
-  const contests = await contestService.find({
+  const { results: allContests } = await contestService.find({
     ratingEnabled: true,
-    endDate: { $gt: new Date()},
     ...(subjectId && { subjectId }),
   });
 
+  const [contests, trainings] =  _.partition(allContests, (c) => moment().isBefore(moment(c.endDate)));
+
   ctx.body = {
-    results: contestHelper.formatArray(contests.results)
+    contests: contestHelper.formatArray(contests),
+    trainings: contestHelper.formatArray(trainings),
   };
 };
 

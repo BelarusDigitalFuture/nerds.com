@@ -39,6 +39,7 @@ const Competitions = ({ data, history }) => {
         onChange: page => {
           console.log(page);
         },
+        hideOnSinglePage: true,
         pageSize: 3,
       }}
       dataSource={data}

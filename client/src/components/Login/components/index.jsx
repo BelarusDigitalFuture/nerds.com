@@ -31,7 +31,6 @@ const Login = (props) => {
       password: '',
     },
     onSubmit: async (values) => {
-      console.log(values);
       try {
         await props.loginUser(values);
         history.push('/home');

@@ -11,6 +11,7 @@ import { Layout } from 'antd';
 
 import Login from 'components/Login';
 import Home from 'components/Home';
+import UserProfile from 'components/UserProfile';
 import Contest from 'components/Contest';
 import Header from 'components/Header';
 import Subjects from 'components/Subjects';
@@ -42,6 +43,7 @@ function App({ getCurrentUser, user }) {
             <Switch>
               <Redirect exact from="/" to="/home" />
               <PrivateRoute path="/home" component={Home} />
+              <PrivateRoute path="/profile" component={UserProfile} />
               <PrivateRoute path="/subject/:name" component={Subjects} />
               <PrivateRoute exact path="/contest/:contestId/task/:taskId" component={Contest} />
               <PrivateRoute exact path="/contest/:contestId/scoreboard" component={Scoreboard} />

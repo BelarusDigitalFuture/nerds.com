@@ -1,5 +1,6 @@
 const initialState = {
-  list: [],
+  contestList: [],
+  trainingList: [],
 };
 
 export default function reducer(state = initialState, action) {
@@ -7,7 +8,8 @@ export default function reducer(state = initialState, action) {
     case 'SET_CONTEST_LIST': {
       return {
         ...state,
-        list: action.payload,
+        contestList: action.payload.contests,
+        trainingList: action.payload.trainings,
       };
     }
     default: return state;

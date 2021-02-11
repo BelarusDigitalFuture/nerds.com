@@ -14,5 +14,6 @@ export function getContest(id) {
 
 export function getContestList(subjectId, page) {
   return baseApi
-    .get(`contest`, { subjectId, page })
+    .get('contest')
+    .then(res => res);
 }

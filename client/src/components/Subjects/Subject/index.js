@@ -1,15 +1,16 @@
 import { connect } from 'react-redux'
-
-import { getContestList } from 'redux/actions/contest.actions'
+import { bindActionCreators } from 'redux';
+import { getContestList } from '../../../redux/actions/contest.actions'
 
 import Subject from './components'
 
 const mapStateToProps = state => ({
-  contestList: state.contest.list,
-})
+  contestList: state.contest.contestList,
+  trainingList: state.contest.trainingList,
+});
 
-const mapDispatchToProps = dispatch => ({
-  getContestList: () => dispatch(getContestList()),
-})
+const mapDispatchToProps = dispatch => bindActionCreators({
+  getContestList,
+}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Subject)

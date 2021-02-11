@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Button, PageHeader } from 'antd';
-import { BellOutlined, MessageTwoTone } from '@ant-design/icons';
+import { ProfileTwoTone, MessageTwoTone } from '@ant-design/icons';
 
 const Header = (props) => {
   const { history } = props;
@@ -16,6 +16,10 @@ const Header = (props) => {
     history.push('/');
   };
 
+  const onClickUserProfile = () => {
+    history.push('/profile');
+  };
+
   return (
     <PageHeader
       style={{ position: 'fixed', zIndex: 1, width: '100%' }}
@@ -23,8 +27,7 @@ const Header = (props) => {
       title={<a onClick={onClickIcon}>GEEKCON</a>}
       subTitle={props.username}
       extra={[
-        <Button key="3" type="primary" shape="circle" icon={<BellOutlined />} size="large" />,
-        <Button key="2" type="secondary" shape="circle" icon={<MessageTwoTone />} size="large" />,
+        <Button key="3" type="secondary" shape="circle" icon={<ProfileTwoTone />} size="large" onClick={onClickUserProfile}/>,
         <Button key="1" type="primary" onClick={logoutUser}>
           Выйти
         </Button>,
