@@ -1,11 +1,16 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 
-import {PageHeader, Button, Divider, List} from 'antd'
+import {
+  PageHeader, Button, Divider, List,
+  Tabs,
+} from 'antd'
 
 import Competitions from 'components/Competitions'
 import Trainings from 'components/Trainings'
 import {Link} from "react-router-dom";
+
+const { TabPane } = Tabs;
 
 const Subject = ({
   getContestList,
@@ -31,40 +36,40 @@ const Subject = ({
         ]}
         style={{ padding: 0 }}
       />
-      <Divider>Соревнования</Divider>
-      <Competitions data={contestList} />
-      {trainingList.length ?
-        <>
-          <Divider>Тренировки</Divider>
+      <Tabs defaultActiveKey="1" size="large">
+        <TabPane tab="Соревнования" key="1">
+          <Competitions data={contestList} />
+        </TabPane>
+        <TabPane tab="Тренировки" key="2">
           <Trainings data={trainingList} />
-        </>
-        : null
-      }
-      <Divider>Материалы для подготовки</Divider>
-      <List
-        itemLayout="vertical"
-        size="large"
-        dataSource={[
-          {
-            key: '1',
-            title: 'Злучнік як часціна мовы'
-          },
-          {
-            key: '2',
-            title: 'Знакі прыпынку: сказы з адасобленымі дапаўненнямі'
-          },
-        ]}
-        renderItem={(item, index) => (
-          <List.Item
-            key={index}
-          >
-            <List.Item.Meta
-              avatar={index + 1}
-              title={<a onClick={() => history.push(`/materials/${item.key}`)}>{item.title}</a>}
-            />
-          </List.Item>
-        )}
-      />
+        </TabPane>
+        <TabPane tab="Материалы для подготовки" key="3">
+          <List
+            itemLayout="vertical"
+            size="large"
+            dataSource={[
+              {
+                key: '1',
+                title: 'Злучнік як часціна мовы'
+              },
+              {
+                key: '2',
+                title: 'Знакі прыпынку: сказы з адасобленымі дапаўненнямі'
+              },
+            ]}
+            renderItem={(item, index) => (
+              <List.Item
+                key={index}
+              >
+                <List.Item.Meta
+                  avatar={index + 1}
+                  title={<a onClick={() => history.push(`/materials/${item.key}`)}>{item.title}</a>}
+                />
+              </List.Item>
+            )}
+          />
+        </TabPane>
+      </Tabs>
     </div>
   )
 };
