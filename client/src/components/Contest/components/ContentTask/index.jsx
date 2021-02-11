@@ -60,7 +60,7 @@ const ContestTask = (props) => {
     useEffect(async () => {
         const taskOptions = await taskOptionsApi.getByTask(task._id);
         const lastAnswerFromApi = await answerApi.getAnswer({ taskId: task._id, contestId });
-        if (['multipleAnswers'].includes(task.type)) {
+        if (['multipleAnswers', 'oneAnswer'].includes(task.type)) {
           const lastAnswerValue = taskOptions
             .filter(o => _get(lastAnswerFromApi, 'value', []).includes(o._id))
             .map(o => o.label)

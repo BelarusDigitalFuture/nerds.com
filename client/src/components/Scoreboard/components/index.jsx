@@ -54,6 +54,11 @@ const Scoreboard = ({ getScoreboardByContest, scoreboard }) => {
 
   const mainColumns = [
     {
+      title: 'Место',
+      key: 'index',
+      render: (value, item, index) => index + 1,
+    },
+    {
       title: 'Участник',
       dataIndex: 'user',
       key: 'username',
@@ -75,7 +80,7 @@ const Scoreboard = ({ getScoreboardByContest, scoreboard }) => {
       title: 'Подробно',
       render: data => <Button onClick={() => detailsModal(data)}>Подробнее</Button>,
     },
-  ]
+  ];
 
   return (
     <ReachableContext.Provider value="Light">
