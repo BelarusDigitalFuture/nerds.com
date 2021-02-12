@@ -7,6 +7,7 @@ const taskOptionService = require('../resources/task-option/task-option.service'
 const contestDataMain = require('./data/contest');
 const contestDataWords = require('./data/contest_words');
 const contestDataQuotes = require('./data/contest_quotes');
+const contestDataBelarus = require('./data/contest_belarus');
 
 const subjectId = process.argv[2];
 const set = process.argv[3];
@@ -22,6 +23,9 @@ switch (set) {
     break;
   case 'words':
     contestData = contestDataWords;
+    break;
+  case 'belarus':
+    contestData = contestDataBelarus;
     break;
   default:
     contestData = contestDataMain;

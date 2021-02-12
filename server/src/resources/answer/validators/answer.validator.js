@@ -66,6 +66,10 @@ module.exports.validate = (ctx) => baseValidator(ctx, async () => {
     case taskConstants.taskType.fillIn:
       points = (value.toLowerCase() === _.get(task, 'evaluationInformation', '').toLowerCase()) * task.correctAnswerPoints;
       break;
+    case taskConstants.taskType.essay:
+      const correct = new RegExp(_.get(task, 'evaluationInformation', ''), 'i').test(value);
+      points = correct * task.correctAnswerPoints;
+      break;
     case taskConstants.taskType.oneAnswer:
       const appropriateTaskOption = taskOptions.find(x => x._id === value);
       if (!appropriateTaskOption) {

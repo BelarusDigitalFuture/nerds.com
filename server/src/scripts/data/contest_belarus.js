@@ -1,9 +1,9 @@
 const moment = require('moment');
  
 module.exports = {
- startDate: moment().add(1, 'week').toDate(),
- endDate: moment().add(1, 'week').add(2, 'hours').toDate(),
- description: 'Тестовая олимпиада белорусов',
+ startDate: moment('2021-02-12T16:00:00Z').toDate(),
+ endDate: moment('2021-02-12T19:00:00Z').toDate(),
+ description: 'Belarus Digital Future: финал хакатона',
  tasks: [
    {
      type: 'oneAnswer',
@@ -40,9 +40,9 @@ module.exports = {
      type: 'essay',
      maxLength: 30,
      maxWords: 30,
-     text: 'Жыве Беларусь',
+     text: 'Жыве Беларусь!',
      evaluationInformation: 'жыве',
      correctAnswerPoints: 20,
    },
  ],
-}
+};

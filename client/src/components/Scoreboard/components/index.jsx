@@ -62,40 +62,47 @@ const Scoreboard = ({
     {
       title: 'Место',
       key: 'index',
+      width: '5%',
       render: (value, item, index) => index + 1,
     },
     {
       title: 'Участник',
       dataIndex: 'user',
       key: 'username',
+      width: '20%',
       render: user => user.name,
     },
     {
       title: 'Город',
       dataIndex: 'user',
       key: 'city',
+      width: '10%',
       render: user => user.city,
     },
     {
       title: 'Учреждение образования',
       dataIndex: 'user',
       key: 'school',
+      width: '20%',
       render: user => user.school,
     },
     {
       title: 'Класс',
       dataIndex: 'user',
       key: 'form',
+      width: '10%',
       render: user => user.form,
     },
     {
       title: 'Итог',
       dataIndex: 'total',
       key: 'total',
+      width: '10%',
       render: v => v.toFixed(2),
     },
     {
       title: 'Подробно',
+      width: '25%',
       render: data => <Button onClick={() => detailsModal(data)}>Подробнее</Button>,
     },
   ];
