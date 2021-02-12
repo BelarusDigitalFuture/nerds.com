@@ -37,12 +37,12 @@ module.exports = {
      correctAnswerPoints: 10,
    },
    {
-     type: 'fillIn',
+     type: 'essay',
      maxLength: 30,
-     maxWords: 3,
+     maxWords: 30,
      text: 'Жыве Беларусь',
      evaluationInformation: 'жыве',
-     correctAnswerPoints: 10,
+     correctAnswerPoints: 20,
    },
  ],
 }
