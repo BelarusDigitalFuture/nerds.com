@@ -7,6 +7,7 @@ import {
   Tabs, Row, Col,
   Input, Button, Checkbox,
   Layout, DatePicker,
+  notification,
 } from 'antd';
 import { useFormik } from 'formik';
 
@@ -57,7 +58,16 @@ const Login = (props) => {
         await props.signUpUser(values);
         history.push('/home');
       } catch (e) {
-        console.log(e);
+        const formatErrors = JSON.parse(e.message).errors;
+        
+        formatErrors.map((errors, index) => {
+          Object.keys(errors).map(key => {
+            notification.error({
+              message: formatErrors[index][key],
+              placement: 'topRight',
+            })
+          })
+        })
       }
     },
   });
@@ -72,6 +82,7 @@ const Login = (props) => {
               <form onSubmit={loginForm.handleSubmit}>
                 <div className="login__element">
                   <Input
+                    required
                     placeholder="E-mail"
                     type="email"
                     size="large"
@@ -82,6 +93,7 @@ const Login = (props) => {
                 </div>
                 <div className="login__element">
                   <Input
+                    required
                     prefix={<LockOutlined />}
                     placeholder="Пароль"
                     type="password"
@@ -100,6 +112,7 @@ const Login = (props) => {
               <form onSubmit={registerForm.handleSubmit}>
                 <div className="login__element">
                   <Input
+                    required
                     placeholder="E-mail"
                     type="email"
                     size="large"
@@ -110,6 +123,7 @@ const Login = (props) => {
                 </div>
                 <div className="login__element">
                   <Input
+                    required
                     prefix={<LockOutlined />}
                     placeholder="Пароль"
                     type="password"
@@ -121,6 +135,8 @@ const Login = (props) => {
                 </div>
                 <div className="login__element">
                   <DatePicker
+                    required
+                    allowClear={false}
                     placeholder="Дата рождения"
                     size="large"
                     format="YYYY-MM-DD"
@@ -131,6 +147,7 @@ const Login = (props) => {
                 </div>
                 <div className="login__element">
                   <Input
+                    required
                     placeholder="ФИО"
                     size="large"
                     name="name"
@@ -140,6 +157,7 @@ const Login = (props) => {
                 </div>
                 <div className="login__element">
                   <Input
+                    required
                     placeholder="Город"
                     size="large"
                     name="city"
@@ -149,6 +167,7 @@ const Login = (props) => {
                 </div>
                 <div className="login__element">
                   <Input
+                    required
                     placeholder="Учреждение образования"
                     size="large"
                     name="school"
@@ -158,6 +177,7 @@ const Login = (props) => {
                 </div>
                 <div className="login__element">
                   <Input
+                    required
                     placeholder="Класс"
                     size="large"
                     type="number"
