@@ -47,7 +47,7 @@ module.exports = ctx => baseValidator(ctx, async () => {
   }
 
   if (user) {
-    ctx.errors.push({ email: 'User already exists, please try to login.' });
+    ctx.errors.push({ email: 'Пользователь с таким имейлом уже существует. Попробуйте авторизоваться.' });
     return false;
   }
 

@@ -54,7 +54,7 @@ module.exports = ctx => baseValidator(ctx, async () => {
     });
 
     if (sameEmailUser) {
-      ctx.errors.push({ email: 'User with the same email already exists' });
+      ctx.errors.push({ email: 'Пользователь с таким имейлом уже существует' });
       return false;
     }
   }
