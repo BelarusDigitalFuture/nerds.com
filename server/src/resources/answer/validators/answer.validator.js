@@ -93,7 +93,6 @@ module.exports.validate = (ctx) => baseValidator(ctx, async () => {
           if (invalidValues.length) {
             points = 0;
           } else {
-            console.log('Coorrect', correctTaskOptionIds.length, 'valid', validValues.length, 'points', task.correctAnswerPoints);
             points = correctTaskOptionIds.length === 0  ? 0 : validValues.length / correctTaskOptionIds.length * task.correctAnswerPoints;
           }
         }

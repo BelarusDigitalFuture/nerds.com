@@ -21,7 +21,6 @@ const Trainings = ({ data, history }) => {
       size="large"
       pagination={{
         onChange: page => {
-          console.log(page);
         },
         hideOnSinglePage: true,
         pageSize: 3,

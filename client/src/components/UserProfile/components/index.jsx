@@ -30,7 +30,7 @@ const UserProfile = (props) => {
         });
       } catch (e) {
         const formatErrors = JSON.parse(e.message).errors;
-        
+
         formatErrors.map((errors, index) => {
           Object.keys(errors).map(key => {
             notification.error({
@@ -42,8 +42,6 @@ const UserProfile = (props) => {
       }
     },
   });
-
-  console.log('profileForm.values', profileForm.values)
 
   return (
     <Row justify="center">
