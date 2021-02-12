@@ -29,7 +29,16 @@ const UserProfile = (props) => {
           placement: 'topRight',
         });
       } catch (e) {
-        console.log(e);
+        const formatErrors = JSON.parse(e.message).errors;
+        
+        formatErrors.map((errors, index) => {
+          Object.keys(errors).map(key => {
+            notification.error({
+              message: formatErrors[index][key],
+              placement: 'topRight',
+            })
+          })
+        })
       }
     },
   });

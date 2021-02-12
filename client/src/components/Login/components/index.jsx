@@ -38,7 +38,16 @@ const Login = (props) => {
         await props.loginUser(values);
         history.push('/home');
       } catch (e) {
-        console.log(e);
+        const formatErrors = JSON.parse(e.message).errors;
+        
+        formatErrors.map((errors, index) => {
+          Object.keys(errors).map(key => {
+            notification.error({
+              message: formatErrors[index][key],
+              placement: 'topRight',
+            })
+          })
+        })
       }
     },
   });
