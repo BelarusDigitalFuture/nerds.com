@@ -34,7 +34,7 @@ const Trainings = ({ data, history }) => {
             <List.Item.Meta
               title={<a onClick={() => onOpenTraining(item)}>{item.description}</a>}
             />
-            <div>
+            <div className="trainings__item-content">
               <span>{item.content}</span>
               {(
                 <>

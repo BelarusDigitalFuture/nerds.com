@@ -10,9 +10,13 @@
   .trainings {
     &__item {
       display: flex;
-      align-items: center;
+      align-items: initial;
       justify-content: space-between;
       flex-direction: column;
+
+      &-content {
+        text-align: center;
+      }
     }
   }
 }
