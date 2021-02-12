@@ -103,6 +103,12 @@ const Scoreboard = ({
   return (
     <ReachableContext.Provider value="Light">
       <MainLayout>
+        <PageHeader
+          ghost={false}
+          onBack={() => window.history.back()}
+          title="Назад"
+          style={{ padding: 0 }}
+        />
         <Tabs defaultActiveKey="1" size="large" onChange={() => {}}>
           <TabPane tab="Основное соревнование" key="1">
             <Table dataSource={scoreboardByContest} columns={mainColumns} pagination={false} scroll={{ x: 'max-content' }} />
