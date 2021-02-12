@@ -17,6 +17,7 @@ import {
 } from 'antd';
 
 import './styles.scss';
+import PropTypes from "prop-types";
 
 
 const ReachableContext = React.createContext();
@@ -78,6 +79,19 @@ const Contest = (props) => {
       }
     };
 
+    const openFinishModal = () => {
+      modal.info({
+        title: 'Соревнование окончено!',
+        content: (
+          <>
+            Сореванование завершено. Результаты доступны во вкладке <strong>Тренировки</strong>. Соревнование доступно для дорешивания вне конкурса. Спасибо за участие!
+          </>
+        ),
+        okText: 'Перейти к результатам',
+        onOk: () => props.history.push(`/contest/${contestId}/scoreboard`),
+      });
+    };
+
     if (!contest || !tasks) {
         return '';
     }
@@ -93,7 +107,11 @@ const Contest = (props) => {
             title="Назад"
             style={{ padding: 0 }}
             extra={[
-              isActiveContest ? <ContestCounter key="1" endDate={contest.endDate} /> : <></>
+              isActiveContest ? <ContestCounter
+                key="1"
+                endDate={contest.endDate}
+                handleFinish={openFinishModal}
+              /> : <></>
             ]}
           />
           <Divider />
@@ -119,6 +137,8 @@ const Contest = (props) => {
     )
 };
 
-Contest.propTypes = {};
+Contest.propTypes = {
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
+};
 
 export default withRouter(Contest);
