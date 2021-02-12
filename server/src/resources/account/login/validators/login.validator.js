@@ -20,7 +20,7 @@ module.exports = ctx => baseValidator(ctx, async () => {
   const user = await userService.findOne({ email });
 
   if (!user || !user.passwordHash || !CheckPassword(ctx.request.body.password, user.passwordHash)) {
-    ctx.errors.push({ user: 'Wrong credentials' });
+    ctx.errors.push({ user: 'Неправильный логин или пароль' });
     return false;
   }
 
