@@ -34,6 +34,8 @@ const UserProfile = (props) => {
     },
   });
 
+  console.log('profileForm.values', profileForm.values)
+
   return (
     <Row justify="center">
       <Col xxl={4} xl={6} lg={8} sm={10} xs={18}>
@@ -42,6 +44,7 @@ const UserProfile = (props) => {
           <form onSubmit={profileForm.handleSubmit}>
             <div className="login__element">
               <Input
+                required
                 placeholder="E-mail"
                 type="email"
                 size="large"
@@ -63,6 +66,7 @@ const UserProfile = (props) => {
             </div>
             <div className="login__element">
               <DatePicker
+                allowClear={false}
                 placeholder="Дата рождения"
                 size="large"
                 format="YYYY-MM-DD"
